@@ -1,0 +1,94 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  peer0.AbcInsurer.example.com:
+
+networks:
+  byfn:
+
+services:
+
+  ca1:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-AbcInsurer
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.AbcInsurer.example.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/5fb73c1e7408dec77c693fb1318320d1094101901c7907583829c86ccce2b1ca_sk
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.AbcInsurer.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/5fb73c1e7408dec77c693fb1318320d1094101901c7907583829c86ccce2b1ca_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/AbcInsurer.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerAbcInsurer
+    networks:
+      - byfn
+
+  peer0.AbcInsurer.example.com:
+    container_name: peer0.AbcInsurer.example.com
+    image: hyperledger/fabric-peer
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      # the following setting starts chaincode containers on the same
+      # bridge network as the peers
+      # https://docs.docker.com/compose/networking/
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=byfn
+      - CORE_LOGGING_LEVEL=INFO
+      #- CORE_LOGGING_LEVEL=DEBUG4
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer0.AbcInsurer.example.com
+      - CORE_PEER_ADDRESS=peer0.AbcInsurer.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.AbcInsurer.example.com:7051
+      - CORE_PEER_LOCALMSPID=AbcInsurerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./crypto-config/peerOrganizations/AbcInsurer.example.com/peers/peer0.AbcInsurer.example.com/msp:/etc/hyperledger/fabric/msp
+        - ./crypto-config/peerOrganizations/AbcInsurer.example.com/peers/peer0.AbcInsurer.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.AbcInsurer.example.com:/var/hyperledger/production
+    ports:
+      - 10051:7051
+      - 10053:7053
+    networks:
+      - byfn
+
+  AbcInsurercli:
+    container_name: AbcInsurercli
+    image: hyperledger/fabric-tools
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_LOGGING_LEVEL=INFO
+      #- CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_ID=AbcInsurercli
+      - CORE_PEER_ADDRESS=peer0.AbcInsurer.example.com:7051
+      - CORE_PEER_LOCALMSPID=AbcInsurerMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/AbcInsurer.example.com/peers/peer0.AbcInsurer.example.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/AbcInsurer.example.com/peers/peer0.AbcInsurer.example.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/AbcInsurer.example.com/peers/peer0.AbcInsurer.example.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/AbcInsurer.example.com/users/Admin@AbcInsurer.example.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        #- ./../chaincode/:/opt/gopath/src/github.com/chaincode
+        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+        #- ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+    depends_on:
+      - peer0.AbcInsurer.example.com
+    networks:
+      - byfn
