@@ -145,6 +145,7 @@ instantiatedWithRetry () {
     echo
 }
 chainQuery () {
+    sleep 10
     set -x
     peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}' >&log.txt
     res=$?
@@ -179,32 +180,42 @@ chainQuery () {
 echo
 echo "========== Channel ${CHANNEL_NAME} creation started =========="
 echo
+#sleep 5
+sleep 10
 createChannelWithRetry
+#sleep 10
 #
 # Join Channel
 echo "========== Peers  Joining channel started =========="
 for peer in 0 1; do
+    #sleep 30
     joinChannelWithRetry $peer 
     echo "===================== peer${peer}.${DOMAIN}.exapmle.com joined on the channel \"$CHANNEL_NAME\" ===================== "
     sleep $DELAY
     echo
 done
+##sleep 10
 #
 # Update Anchor peer 
 echo "========== Updating Anchor peer ========="
+#sleep 10
 updateAnchorWithRetry 0
 #
 # Chaincode installation
 echo "========== Chaincode installation started ========== "
 for peer in 0 1; do
+    #sleep 10
     installChaincodeWithRetry $peer 
     sleep $DELAY
     echo
 done
+#sleep 10
 #
 # Instantiation 
 echo "========== Instantiation on ${CHANNEL_NAME} STARTED ========="
+sleep 5
 instantiatedWithRetry 0
+sleep 20
 #
 # Query 
 echo "========== Attempting to Query peer0.${DOMAIN}.exapmle.com ...$(($(date +%s)-starttime)) secs =========="

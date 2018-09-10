@@ -1,0 +1,66 @@
+/**
+ * Model file
+ */
+
+namespace org.eyes.znueni
+
+participant User identified by email {
+  o String email
+  o String firstName
+  o String lastName
+  o Double balance default=0.00
+  o Boolean isAdmin default=false
+  o Boolean isActive default=true
+  o String profileImage optional
+  o Gender gender default="M"
+  o DateTime lastOrder optional
+}
+
+asset Product identified by id {
+  o String id
+  o String name
+  o Double price
+  --> ShoppingLocation shoppingLocation
+}
+
+asset ShoppingLocation identified by id {
+  o String id
+  o String name
+  o String street optional
+  o String zip optional
+}
+
+asset ShoppingList identified by id {
+  o String id
+  o Order[] orders optional
+  o ShoppingListState state default="NEW"
+}
+
+transaction Order {
+  --> Product product
+  --> User user
+  o Integer amount default=1
+}
+
+transaction FinishShopping {
+  --> ShoppingList shoppingList
+}
+
+transaction ResetShoppingList {
+  --> ShoppingList shoppingList
+}
+
+enum ShoppingListState {
+  o NEW
+  o OPEN
+  o CLOSED
+}
+
+enum Gender {
+  o F
+  o M
+}
+
+event addShoppingListNotification {
+    --> ShoppingList shoppingList
+}

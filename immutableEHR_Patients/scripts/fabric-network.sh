@@ -25,7 +25,6 @@
 # configuration operations (configtxgen).  Once the tools have been successfully run,
 # we are able to launch our network.  More detail on the tools and the structure of
 # the network will be provided later in this document.  For now, let's get going...
-
 # set all variables in .env file as environmental variables
 set -o allexport
 source .env

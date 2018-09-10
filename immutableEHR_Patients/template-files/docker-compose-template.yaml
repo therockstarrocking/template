@@ -66,11 +66,39 @@ services:
     volumes:
       - ./crypto-config/peerOrganizations/DOMAIN.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       #- ./ledger/ca-DOMAIN:/etc/hyperledger/fabric-ca-server
-    hostname: ca_peerDOMAIN
+    hostname: ca-DOMAIN
     networks:
       EXTERNAL_NETWORK:
         aliases:
-          - ca_peerDOMAIN
+          - ca-DOMAIN
+  
+  couchdb0:
+    image: hyperledger/fabric-couchdb:x86_64-0.4.6
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 5984:5984
+    hostname: couchdb0
+    networks:
+      EXTERNAL_NETWORK:
+        aliases:
+          - couchdb0
+  
+  couchdb1:
+    image: hyperledger/fabric-couchdb:x86_64-0.4.6
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 6984:5984
+    hostname: couchdb1
+    networks:
+      EXTERNAL_NETWORK:
+        aliases:
+          - couchdb1
 
   peer0_DOMAIN:
     hostname: peer0.DOMAIN.example.com
@@ -100,9 +128,11 @@ services:
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
       - CORE_PEER_ID=peer0.DOMAIN.example.com
       - CORE_PEER_ADDRESS=peer0.DOMAIN.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.DOMAIN.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.DOMAIN.example.com:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.DOMAIN.example.com:7051
       - CORE_PEER_LOCALMSPID=DOMAINMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/DOMAIN.example.com/peers/peer0.DOMAIN.example.com/msp:/etc/hyperledger/fabric/msp
@@ -114,6 +144,8 @@ services:
       - "7053:7053"
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
+    depends_on:
+      - couchdb0
     networks:
       EXTERNAL_NETWORK:
         aliases:
@@ -150,6 +182,8 @@ services:
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.DOMAIN.example.com:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.DOMAIN.example.com:7051
       - CORE_PEER_LOCALMSPID=DOMAINMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/DOMAIN.example.com/peers/peer1.DOMAIN.example.com/msp:/etc/hyperledger/fabric/msp
@@ -161,6 +195,8 @@ services:
       - "8053:7053"
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
+    depends_on:
+      - couchdb1
     networks:
       EXTERNAL_NETWORK:
         aliases:

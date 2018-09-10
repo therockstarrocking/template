@@ -40,7 +40,7 @@ I_PATH=$PWD
 # Print the usage message
 function printHelp () {
   echo "Usage: "
-  echo "  ./fabric-network.sh -m build|entirebuild|down|generate [-c <channel name>] [-t <timeout>] [-d <delay>] [-f <docker-compose-file>] [-s <dbtype>]"
+  echo "  ./fabric-network.sh -m build|entirebuild|down|generate|addorg|upgradechaincode [-c <channel name>] [-t <timeout>] [-d <delay>] [-f <docker-compose-file>] [-s <dbtype>]"
   echo "  ./fabric-network.sh -h|--help (print this message)"
   echo "    -m <mode> - one of 'build', 'start', 'stop', 'down', 'recreate' or 'generate'"
   echo "      - 'build' - build the network with already existing certificates"
@@ -50,6 +50,8 @@ function printHelp () {
   echo "      - 'recreate' - recreate containers"
   echo "      - 'start' - start the containers"
   echo "      - 'stop' - stop the containers"
+  echo "      - 'addorg' - adding new organisation into the network"
+  echo "      - 'upgradechaincode' - upgrading chaincode to the new version"
   echo "    -c <channel name> - channel name to use (defaults to \"$CHANNEL_NAME\")"
   echo "    -t <timeout> - CLI timeout duration in microseconds (defaults to 10000)"
   echo "    -d <delay> - delay duration in seconds (defaults to 3)"
@@ -131,12 +133,15 @@ function swarmRemove() {
 # Create the Docker swarm to deploy stack file 
 function swarmCreate() {
     SWARM_MODE=$(docker info | grep Swarm | awk '{print $2}')
+    echo "SWARM_MODE = ${SWARM_MODE}"
     if [ "${SWARM_MODE}" != "active" ]; then
+        echo " ---------- Creating Docker Swarm  ----------"
         docker swarm init 2>&1
-        if [ $? -ne 0 ];then
+        if [ $? -ne 0 ]; then
             echo $?
             exit 1
         fi
+        echo " ---------- Creating Token to join  other ORGs as Manager ----------"
         docker swarm join-token manager | awk 'NR==3 {print}' > token.txt
         echo "TOKEN TO join swarm as manager "
         cat token.txt
@@ -145,6 +150,7 @@ function swarmCreate() {
     sleep 1
     DOC_NET=$(docker network ls|grep ${EXTERNAL_NETWORK}|awk '{print $2}')
     if [ "${DOC_NET}" != "${EXTERNAL_NETWORK}" ]; then
+      echo " ---------- Creating External Network ----------"
       docker network create --attachable ${EXTERNAL_NETWORK} --driver overlay  2>&1
       if [ $? -ne 0 ]; then
           echo $?
@@ -219,10 +225,16 @@ function replacePrivateKey () {
   else
     OPTS="-i"
   fi
-
+  if [ "$DB" == "level" ]; then
+    echo "Level DB"
+    DOCKERTEMPLATE=docker-compose.yaml
+  else
+    echo "CouchDB"
+    DOCKERTEMPLATE=docker-compose-template.yaml
+  fi
   COMPOSE_CA_FILE=docker-compose.yaml
   # Copy the template to the file that will be modified to add the private key
-  cp ../template-files/docker-compose-template.yaml  "$COMPOSE_CA_FILE"
+  cp ../template-files/$DOCKERTEMPLATE  "$COMPOSE_CA_FILE"
 
   # The next steps will replace the template's contents with the
   # actual values of the private key file names for the two CAs.
@@ -303,12 +315,7 @@ function generateChannelArtifacts() {
 #Generate network from scratch
 function entireNetworkBuild() {
   echo $PWD
-  swarmRemove
-  cd ../
-  if [ -d "channel-artifacts" ]; then
-    rm -Rf channel-artifacts
-  fi
-  cd scripts/
+  networkDown
   networkBuild
 }
 
@@ -363,7 +370,7 @@ function networkBuild () {
     docker logs -f ${CLI_CONTAINER}
     exit 1
   fi
-  sleep 20
+  sleep 35
   CLI_CONTAINER=$(docker ps |grep tools|awk '{print $1}')
   docker exec ${CLI_CONTAINER} ./scripts/networkscripts/channelcreation.sh $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $DOMAIN 1.0
   if [ $? -ne 0 ]; then
@@ -386,8 +393,92 @@ function networkDown () {
     # remove ledger data
     #rm -rf $I_PATH/../ledger
 }
+function verify () {
+  if [ $1 -ne 0 ]; then
+    echo $2
+    exit 1
+  fi
+}
+function readStack () {
+  read -p "Docker Stack Name : " DOCKER_STACK_NAME
+  if [ "$DOCKER_STACK_NAME" == "" ]; then
+    readStack
+  fi
+}
+function readNewOrgName () {
+  read -p "New Organisatoin Name : " NEW_ORG_NAME
+  if [ "$NEW_ORG_NAME" == "" ]; then
+    readNewOrgName
+  fi
+}
+function readChaincodeName () {
+  read -p " Chaincode Name : " CHAINCODE_NAME
+  if [ "$CHAINCODE_NAME" == "" ]; then
+    readChaincodeName
+  fi
+}
+function readChaincodeName () {
+  read -p " Chaincode Version : " CHAINCODE_VERSION
+  if [ "$CHAINCODE_VERSION" == "" ]; then
+    readChaincodeName
+  fi
+}
+function addorg () {
+    cd $I_PATH
+    echo $DOCKER_STACK_NAME
+    if [ "$DOCKER_STACK_NAME" == "" ]; then
+      echo "Docker stack name is required"
+      readStack
+    fi
+    if [ "$NEW_ORG_NAME" = "" ]; then
+      echo "New organisation name is required"
+      readNewOrgName
+    fi
+    cd ../channel-artifacts/
+    if [ ! -f $NEW_ORG_NAME.json ]; then 
+      echo "No configuration file found for ${NEW_ORG_NAME}... try again by placing the file"
+      exit 1
+    fi
+    cd $I_PATH
+    CLI_CONTAINER=$(docker ps |grep ${DOCKER_STACK_NAME}_cli|awk '{print $1}')
+    if [ "$CLI_CONTAINER" == "" ]; then
+      echo "Failed to get the container .. try giving correct stack name"
+      exit 1
+    fi
+    echo $CLI_CONTAINER
+    docker exec ${CLI_CONTAINER} ./scripts/networkscripts/addneworg.sh $NEW_ORG_NAME $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT
+}
 
-
+function upgradechaincode () {
+    cd $I_PATH
+    echo $DOCKER_STACK_NAME
+    echo $NEW_ORG_NAME
+    echo $CHAINCODE_NAME
+    echo $CHAINCODE_VERSION
+    if [ "$DOCKER_STACK_NAME" == "" ]; then
+      echo "Docker stack name is required"
+      readStack
+    fi
+    if [ "$NEW_ORG_NAME" == "" ]; then
+      echo "New organisation name is required"
+      readNewOrgName
+    fi
+    if [ "$CHAINCODE_NAME" == "" ]; then
+      echo "New organisation name is required"
+      readChaincodeName
+    fi
+    if [ "$CHAINCODE_VERSION" == "" ]; then
+      echo "New organisation name is required"
+      readChaincodeVersion
+    fi
+    CLI_CONTAINER=$(docker ps |grep ${DOCKER_STACK_NAME}_cli|awk '{print $1}')
+    if [ "$CLI_CONTAINER" == "" ]; then
+      echo "Failed to get the container .. try giving correct stack name"
+      exit 1
+    fi
+    echo $CLI_CONTAINER
+    docker exec ${CLI_CONTAINER} ./scripts/networkscripts/upgradechaincode.sh $NEW_ORG_NAME $CHANNEL_NAME $CHAINCODE_NAME $CHAINCODE_VERSION
+}
 
 
 
@@ -414,12 +505,13 @@ CLI_DELAY=3
 # use this file as the default docker-compose yaml definition
 STACK_COMPOSE_FILE=docker-compose.yaml
 # Docker default stack name to deploy in swarm mode
-DOCKER_STACK_NAME=ehr
+DOCKER_STACK_NAME=
 # Docker default external network name
-EXTERNAL_NETWORK=byfh
+EXTERNAL_NETWORK=
 # Parse commandline args
 DOMAIN=Patients
-while getopts "h?m:c:t:d:f:e:s:" opt; do
+DB=couchdb
+while getopts "h?m:c:t:d:e:s:b:n:v:o:" opt; do
   case "$opt" in
     h|\?)
       printHelp
@@ -433,18 +525,24 @@ while getopts "h?m:c:t:d:f:e:s:" opt; do
     ;;
     d)  CLI_DELAY=$OPTARG
     ;;
-    f)  COMPOSE_FILE=$OPTARG
-    ;;
     e)  EXTERNAL_NETWORK=$OPTARG
     ;;
     s)  DOCKER_STACK_NAME=$OPTARG
+    ;;
+    b)  DB=$OPTARG
+    ;;
+    n)  CHAINCODE_NAME=$OPTARG
+    ;;
+    v)  CHAINCODE_VERSION=$OPTARG
+    ;;
+    o)  NEW_ORG_NAME=$OPTARG
     ;;
   esac
 done
 
 # Determine whether starting, stopping or generating for announce
 if [ "$MODE" == "build" ]; then
-  EXPMODE="Partial Building"
+  EXPMODE="Building"
   elif [ "$MODE" == "entirebuild" ]; then
   EXPMODE="Building Entire Network from Scarch"
   elif [ "$MODE" == "down" ]; then
@@ -457,6 +555,10 @@ if [ "$MODE" == "build" ]; then
   EXPMODE="Starting Containers"
   elif [ "$MODE" == "stop" ]; then
   EXPMODE="Stopping Containers"
+  elif [ "$MODE" == "addorg" ]; then
+  EXPMODE="Adding new organisaion to the network"
+  elif [ "$MODE" == "upgradechaincode" ]; then
+  EXPMODE="upgrading chaincode"
 else
   printHelp
   exit 1
@@ -479,6 +581,10 @@ if [ "${MODE}" == "build" ]; then
   generateCerts
   replacePrivateKey
   generateChannelArtifacts
+  elif [ "${MODE}" == "addorg" ]; then ## adding new organisation
+  addorg
+  elif [ "${MODE}" == "upgradechaincode" ]; then ## upgrading chaincode
+  upgradechaincode
   elif [ "${MODE}" == "recreate" ]; then ## recreate containers
   recreateContainers
   elif [ "${MODE}" == "start" ]; then ## start containers

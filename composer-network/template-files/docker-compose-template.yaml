@@ -1,0 +1,27 @@
+version: '3'
+volume:
+  composer.cli
+services:
+  hostname: composer_cli
+    image: DOMAIN/composer-cli
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: always
+    ports:
+      - "9090:9090"
+    working_dir: /root/hyperledger/composer
+    command: 
+    volumes:
+      - ./:/root/hyperledger/composer
+      - ./.composer:/root/.composer
+    hostname: composer_cli
+    networks:
+      byh:
+        aliases:
+          - composer-cli
+networks:
+  byh:
+    external:
+      name: byh
+

@@ -1,0 +1,133 @@
+version: '3'
+volumes:
+  peer0.DOMAIN.example.com:
+
+services:
+
+  ca1:
+    image: hyperledger/fabric-ca:x86_64-1.1.0
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-DOMAIN
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.DOMAIN.example.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA_PRIVATE_KEY
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.DOMAIN.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/DOMAIN.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      #- ./ledger/ca-DOMAIN:/etc/hyperledger/fabric-ca-server
+    hostname: ca-DOMAIN
+    networks:
+      EXTERNAL_NETWORK:
+        aliases:
+          - ca-DOMAIN
+  
+  couchdb2:
+    image: hyperledger/fabric-couchdb:x86_64-0.4.6
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 7984:5984
+    hostname: couchdb2
+    networks:
+      EXTERNAL_NETWORK:
+        aliases:
+          - couchdb2
+
+  peer0_DOMAIN:
+    hostname: peer0.DOMAIN.example.com
+    image: hyperledger/fabric-peer:x86_64-1.1.0
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      # the following setting starts chaincode containers on the same
+      # bridge network as the peers
+      # https://docs.docker.com/compose/networking/
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=EXTERNAL_NETWORK
+      #- CORE_LOGGING_LEVEL=INFO
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer0.DOMAIN.example.com
+      - CORE_PEER_ADDRESS=peer0.DOMAIN.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.DOMAIN.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.DOMAIN.example.com:7051
+      - CORE_PEER_LOCALMSPID=DOMAINMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/DOMAIN.example.com/peers/peer0.DOMAIN.example.com/msp:/etc/hyperledger/fabric/msp
+      - ./crypto-config/peerOrganizations/DOMAIN.example.com/peers/peer0.DOMAIN.example.com/tls:/etc/hyperledger/fabric/tls
+      - peer0.DOMAIN.example.com:/var/hyperledger/production
+      #- ./ledger/peer0.${DOMAIN}.exapmle.com:/var/hyperledger/production
+    ports:
+      - "9051:7051"
+      - "9053:7053"
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    depends_on:
+      - couchdb2
+    networks:
+      EXTERNAL_NETWORK:
+        aliases:
+          - peer0.DOMAIN.example.com
+
+  DOMAIN_cli:
+    hostname: DOMAIN_cli
+    image: hyperledger/fabric-tools:x86_64-1.1.0
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      #- CORE_LOGGING_LEVEL=DEBUG
+      - CORE_LOGGING_LEVEL=INFO
+      - CORE_PEER_ID=DOMAIN_cli
+      - CORE_PEER_ADDRESS=peer0.DOMAIN.example.com:7051
+      - CORE_PEER_LOCALMSPID=DOMAINMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/DOMAIN.example.com/peers/peer0.DOMAIN.example.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/DOMAIN.example.com/peers/peer0.DOMAIN.example.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/DOMAIN.example.com/peers/peer0.DOMAIN.example.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/DOMAIN.example.com/users/Admin@DOMAIN.example.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../chaincode/:/opt/gopath/src/github.com/chaincode
+        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+        - ./:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+        - ../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+    networks:
+      EXTERNAL_NETWORK:
+        aliases:
+          - cli 
+networks:
+  EXTERNAL_NETWORK:
+    external:
+      name: EXTERNAL_NETWORK

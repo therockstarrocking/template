@@ -40,7 +40,7 @@ services:
     ports:
       - 7050:7050
     networks:
-      ehr:
+      sdf:
         aliases:
           - orderer.example.com
  
@@ -59,18 +59,46 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-Patients
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/8bef1cbec427f056e0a24f98440e55280662d09e4b303b86512b32f52edcc601_sk
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/61c50c693085bb37e2f09f2d80cf0ce930e41d70a14ab16e15346fc4aca066ee_sk
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/8bef1cbec427f056e0a24f98440e55280662d09e4b303b86512b32f52edcc601_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/61c50c693085bb37e2f09f2d80cf0ce930e41d70a14ab16e15346fc4aca066ee_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/Patients.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       #- ./ledger/ca-Patients:/etc/hyperledger/fabric-ca-server
-    hostname: ca_peerPatients
+    hostname: ca-Patients
     networks:
-      ehr:
+      sdf:
         aliases:
-          - ca_peerPatients
+          - ca-Patients
+  
+  couchdb0:
+    image: hyperledger/fabric-couchdb:x86_64-0.4.6
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 5984:5984
+    hostname: couchdb0
+    networks:
+      sdf:
+        aliases:
+          - couchdb0
+  
+  couchdb1:
+    image: hyperledger/fabric-couchdb:x86_64-0.4.6
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 6984:5984
+    hostname: couchdb1
+    networks:
+      sdf:
+        aliases:
+          - couchdb1
 
   peer0_Patients:
     hostname: peer0.Patients.example.com
@@ -88,7 +116,7 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=ehr
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=sdf
       #- CORE_LOGGING_LEVEL=INFO
       - CORE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
@@ -100,9 +128,11 @@ services:
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
       - CORE_PEER_ID=peer0.Patients.example.com
       - CORE_PEER_ADDRESS=peer0.Patients.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.Patients.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Patients.example.com:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Patients.example.com:7051
       - CORE_PEER_LOCALMSPID=PatientsMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/Patients.example.com/peers/peer0.Patients.example.com/msp:/etc/hyperledger/fabric/msp
@@ -114,8 +144,10 @@ services:
       - "7053:7053"
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
+    depends_on:
+      - couchdb0
     networks:
-      ehr:
+      sdf:
         aliases:
           - peer0.Patients.example.com
 
@@ -135,7 +167,7 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=ehr
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=sdf
       - CORE_LOGGING_LEVEL=DEBUG
       #- CORE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
@@ -150,6 +182,8 @@ services:
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Patients.example.com:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.Patients.example.com:7051
       - CORE_PEER_LOCALMSPID=PatientsMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/Patients.example.com/peers/peer1.Patients.example.com/msp:/etc/hyperledger/fabric/msp
@@ -161,8 +195,10 @@ services:
       - "8053:7053"
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
+    depends_on:
+      - couchdb1
     networks:
-      ehr:
+      sdf:
         aliases:
           - peer1.Patients.example.com
 
@@ -201,10 +237,10 @@ services:
         - ./:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
         - ../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
     networks:
-      ehr:
+      sdf:
         aliases:
           - cli 
 networks:
-  ehr:
+  sdf:
     external:
-      name: ehr
+      name: sdf
