@@ -1,0 +1,7 @@
+ 1895  ./neworg.sh -m generate -e ghy -s yui -b couchdb
+ 1897  ./neworg.sh -m join -e ghy -s yui -b couchdb -n mycc -v 3.0
+ 1899  ./neworg.sh -m build -e ghy -s yui -b couchdb -n mycc -v 3.0
+ 1901  ./neworg.sh -m build -e ghy -s yui -b couchdb -n mycc -v 3.0
+ 1902  ./neworg.sh -m join -e ghy -s yui -b couchdb -n mycc -v 3.0
+ 1910  history | grep yui
+ 1911  history | grep yui > commands.txt

@@ -5,14 +5,8 @@ services:
     image: fabric/composer-cli
     deploy:
       replicas: 2
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: 50M
       restart_policy:
         condition: on-failure
-    environment:
-      - TZ=Europe/Zurich
     ports:
       - "9090:9090"
     working_dir: /root/hyperledger/composer

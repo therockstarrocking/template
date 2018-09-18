@@ -1,0 +1,5 @@
+ 1892  ./fabric-network-temp.sh -m build -e ghy -s yui -b couchdb
+ 1893  ./fabric-network-temp.sh -m addorg -e ghy -s yui -b couchdb -o XyzHospitals
+ 1895  ./fabric-network-temp.sh -m upgradechaincode -e ghy -s yui -b couchdb -o XyzHospitals -n mycc -v 2.0
+ 1898  history | grep yui
+ 1899  history | grep yui > commands.txt

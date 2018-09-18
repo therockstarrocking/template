@@ -9,12 +9,13 @@
 #
 
 # Grab the current directory
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-FABRIC_CRYPTO_CONFIG=../fabric/crypto-config
+#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR=$PWD
+FABRIC_CRYPTO_CONFIG=../immutableEHR_${DOMAIN}/channel-artifacts/crypto-config
 
 # set all variables in .env file as environmental variables
 set -o allexport
-source ${DIR}/fabric-network/.env
+source .env
 set +o allexport
 
 # Print the usage message
@@ -36,22 +37,33 @@ function printHelp () {
 }
 
 # Connection credentials
+function verify () {
+  if [ $1 -ne 0 ]; then
+    echo $2
+    exit 1
+    else
+    echo "=========> $3 <============="
+  fi
+}
 function connectionCredentials () {
-    rm -f ${DIR}/.connection.json
+    FABRIC_CRYPTO_CONFIG=../immutableEHR_${DOMAIN}/channel-artifacts/crypto-config
+    XFABRIC_CRYPTO_CONFIG=../immutableEhr_Xyzhospitals/channel-artifacts/crypto-config/peerOrganizations/XyzHospitals.example.com/peers/peer0.XyzHospitals.example.com/tls/ca.crt
+    rm -f ${DIR}/./connection.json
 
-    CA_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/peerOrganizations/org1.${DOMAIN}/ca/ca.org1.${DOMAIN}-cert.pem)"
-    ORDERER_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/ordererOrganizations/${DOMAIN}/orderers/orderer.${DOMAIN}/msp/tlscacerts/tlsca.${DOMAIN}-cert.pem)"
-    PEER0_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/peerOrganizations/org1.${DOMAIN}/peers/peer0.org1.${DOMAIN}/msp/tlscacerts/tlsca.org1.${DOMAIN}-cert.pem)"
-    PEER1_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/peerOrganizations/org1.${DOMAIN}/peers/peer1.org1.${DOMAIN}/msp/tlscacerts/tlsca.org1.${DOMAIN}-cert.pem)"
+    CA2_CERT="$(awk '{printf "%s\\n", $0}' ${XFABRIC_CRYPTO_CONFIG})"
+    #CA_CERT="$(awk '{printf "%s\\n", $0}' ./ca.crt)"
+    CA_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAIN}.example.com/peers/peer0.${DOMAIN}.example.com/tls/ca.crt)"
+    # verify $? "failed ... try again"
+    ORDERER_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt)"
 
-cat << EOF > ${DIR}/.connection.json
+cat << EOF > ${DIR}/./connection.json
 {
-  "name": "fabric-network",
+  "name": "${COMPOSER_FABRIC_NETWORK_NAME}",
   "x-type": "hlfv1",
   "x-commitTimeout": 300,
   "version": "1.0.0",
   "client": {
-    "organization": "Org1",
+    "organization": "${DOMAIN}",
     "connection": {
       "timeout": {
         "peer": {
@@ -66,44 +78,53 @@ cat << EOF > ${DIR}/.connection.json
   "channels": {
     "${CHANNEL_NAME}": {
       "orderers": [
-        "orderer.${DOMAIN}"
+        "orderer.example.com"
       ],
       "peers": {
-        "peer0.org1.${DOMAIN}": {
+        "peer0.${DOMAIN}.example.com": {
           "endorsingPeer": true,
           "chaincodeQuery": true,
-          "ledgerQuery": true,
           "eventSource": true
         },
-        "peer1.org1.${DOMAIN}": {
+        "peer1.${DOMAIN}.example.com": {
           "endorsingPeer": true,
           "chaincodeQuery": true,
-          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.${DOMAI2}.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
           "eventSource": true
         }
       }
     }
   },
   "organizations": {
-    "Org1": {
-      "mspid": "Org1MSP",
+    "${DOMAIN}": {
+      "mspid": "${DOMAIN}MSP",
       "peers": [
-        "peer0.org1.${DOMAIN}",
-        "peer1.org1.${DOMAIN}"
+        "peer0.${DOMAIN}.example.com",
+        "peer1.${DOMAIN}.example.com"
       ],
       "certificateAuthorities": [
-        "ca.org1.${DOMAIN}"
+        "ca_peer${DOMAIN}"
+      ]
+    },
+    "${DOMAI2}": {
+      "mspid": "${DOMAI2}MSP",
+      "peers": [
+        "peer0.${DOMAI2}.example.com"
+      ],
+      "certificateAuthorities": [
+        "ca_peer${DOMAI2}"
       ]
     }
   },
   "orderers": {
-    "orderer.${DOMAIN}": {
-      "url": "grpcs://orderer.${DOMAIN}:7050",
-      "grpcOptions": {
-        "ssl-target-name-override": "orderer.${DOMAIN}",
-        "grpc.keepalive_time_ms": 600000,
-        "grpc.max_send_message_length": 15728640,
-        "grpc.max_receive_message_length": 15728640
+    "orderer.example.com": {
+      "url": "grpcs://localhost:7050",
+      "grpcsOptions": {
+        "ssl-target-name-override": "orderer.example.com"
       },
       "tlsCACerts": {
         "pem": "${ORDERER_CERT}"
@@ -111,140 +132,104 @@ cat << EOF > ${DIR}/.connection.json
     }
   },
   "peers": {
-    "peer0.org1.${DOMAIN}": {
-      "url": "grpcs://peer0.org1.${DOMAIN}:7051",
-      "eventUrl": "grpcs://peer0.org1.${DOMAIN}:7053",
+    "peer0.${DOMAIN}.example.com": {
+      "url": "grpcs://localhost:7051",
+      "eventUrl": "grpcs://localhost:7053",
       "grpcOptions": {
-        "ssl-target-name-override": "peer0.org1.${DOMAIN}"
+        "ssl-target-name-override": "peer0.${DOMAIN}.example.com"
       },
       "tlsCACerts": {
-        "pem": "${PEER0_CERT}"
+        "pem": "${CA_CERT}"
       }
     },
-    "peer1.org1.${DOMAIN}": {
-      "url": "grpcs://peer1.org1.${DOMAIN}:7051",
-      "eventUrl": "grpcs://peer1.org1.${DOMAIN}:7053",
+    "peer1.${DOMAIN}.example.com": {
+      "url": "grpcs://localhost:8051",
+      "eventUrl": "grpcs://localhost:8053",
       "grpcOptions": {
-        "ssl-target-name-override": "peer1.org1.${DOMAIN}"
+        "ssl-target-name-override": "peer1.${DOMAIN}.example.com"
       },
       "tlsCACerts": {
-        "pem": "${PEER1_CERT}"
+        "pem": "${CA_CERT}"
+      }
+    },
+    "peer0.${DOMAI2}.example.com": {
+      "url": "grpcs://localhost:9051",
+      "eventUrl": "grpcs://localhost:9053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.${DOMAI2}.example.com"
+      },
+      "tlsCACerts": {
+        "pem": "${CA2_CERT}"
       }
     }
   },
   "certificateAuthorities": {
-    "ca.org1.${DOMAIN}": {
-      "url": "https://ca.org1.${DOMAIN}:7054",
-      "caName": "ca.org1.${DOMAIN}",
-      "tlsCACerts": {
-        "pem": "${CA_CERT}"
+    "ca_peer${DOMAIN}": {
+      "url": "https://localhost:7054",
+      "caName": "ca-${DOMAIN}",
+      "httpOptions": {
+        "verify": false
+      }
+    },
+    "ca_peer${DOMAI2}": {
+      "url": "https://localhost:8054",
+      "caName": "ca-${DOMAI2}",
+      "httpOptions": {
+        "verify": false
       }
     }
   }
 }
 EOF
-
+    echo " ============> Succesfullly created connection.json file <==================="
 }
 
 # create node container and install composer-cli on it
 function buildComposer () {
-    docker stop ${COMPOSER_CONTAINER_NAME} || true && docker rm -f ${COMPOSER_CONTAINER_NAME} || true && docker rmi -f ${DOMAIN}/composer-cli || true
+    domain=$( echo "$DOMAIN" | awk '{print tolower($0)}')
+    COMPOSER_IMAGE=$(docker images | grep ${domain}/composer-cli | awk '{print $1}')
+    echo $COMPOSER_IMAGE
+    if [ ! $COMPOSER_IMAGE ]; then
+        cd ${DIR}/docker
+        docker build -t ${domain}/composer-cli .
+        cd ${DIR}
 
-    cd ${DIR}/docker
-    docker build -t ${DOMAIN}/composer-cli .
-    cd ${DIR}
-
-    rm -rf ${DIR}/.composer
-
-    docker run \
-        -d \
-        -it \
-        -e TZ=${TIME_ZONE} \
-        -w ${COMPOSER_WORKING_DIR} \
-        -v ${DIR}:${COMPOSER_WORKING_DIR} \
-        -v ${DIR}/.composer:/root/.composer \
-        --name ${COMPOSER_CONTAINER_NAME} \
-        --network ${FABRIC_DOCKER_NETWORK_NAME} \
-        --restart=always \
-        -p 9090:9090 \
-        ${DOMAIN}/composer-cli
-}
-
-# recreate node container and install composer-cli on it
-function recreateComposer () {
-    docker stop ${COMPOSER_CONTAINER_NAME} || true && docker rm -f ${COMPOSER_CONTAINER_NAME} || true
-
-    docker run \
-        -d \
-        -it \
-        -e TZ=${TIME_ZONE} \
-        -w ${COMPOSER_WORKING_DIR} \
-        -v ${DIR}:${COMPOSER_WORKING_DIR} \
-        -v ${DIR}/.composer:/root/.composer \
-        --name ${COMPOSER_CONTAINER_NAME} \
-        --network ${FABRIC_DOCKER_NETWORK_NAME} \
-        --restart=always \
-        -p 9090:9090 \
-        ${DOMAIN}/composer-cli
-}
-
-# build
-function networkBuild () {
-
-    # create node container and install composer-cli on it
-    buildComposer
-
-    if [ -d "$FABRIC_CRYPTO_CONFIG" ]
-        then
-            rm -rf ./fabric-network/crypto-config
-            ln -s ../${FABRIC_CRYPTO_CONFIG}/ fabric-network/
+        rm -rf ${DIR}/.composer
+        echo " =========> Succesfully build Composer image => ${domain}/composer-cli <==========="
         else
-            echo "Fabric crypto-config not found! Please run './fabric-network.sh -m build' in fabric directory"
-            exit
+            echo  " =======> ${domain}/composer-cli , Image already exists <======="
     fi
+ }
 
-    rm -f ./cards/*.card
 
-    connectionCredentials
-
-    rm -f ${CERT_FILE_NAME}
-    CERT_PATH=${DIR}/fabric-network/crypto-config/peerOrganizations/org1.${DOMAIN}/users/Admin@org1.${DOMAIN}/msp/signcerts/${CERT_FILE_NAME}
-    cp ${CERT_PATH} .
-
-    PRIVATE_KEY_PATH=${DIR}/fabric-network/crypto-config/peerOrganizations/org1.${DOMAIN}/users/Admin@org1.${DOMAIN}/msp/keystore
-    PRIVATE_KEY=$(ls ${PRIVATE_KEY_PATH}/*_sk)
-    rm -f *_sk
-    cp ${PRIVATE_KEY} .
-    PRIVATE_KEY=$(ls *_sk)
-
-    # remove card if exists
-    if docker exec ${COMPOSER_CONTAINER_NAME} composer card list -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} > /dev/null; then
-        docker exec ${COMPOSER_CONTAINER_NAME} composer card delete -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME}
-        rm -rf ./cards/${FABRIC_NETWORK_PEERADMIN_CARD_FILE_NAME}
-    fi
-
-    # Create connection profile
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card create -p .connection.json -u ${FABRIC_NETWORK_PEERADMIN} -c "${CERT_FILE_NAME}" -k "${PRIVATE_KEY}" -r PeerAdmin -r ChannelAdmin -f ./cards/${FABRIC_NETWORK_PEERADMIN_CARD_FILE_NAME}
-
-    # import PeerAdmin card to Composer
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card import --file ./cards/${FABRIC_NETWORK_PEERADMIN_CARD_FILE_NAME}
-
-    rm -rf .connection.json ${CERT_FILE_NAME} ${PRIVATE_KEY}
-
-    echo "Hyperledger Composer PeerAdmin card has been imported"
-    # Show imported cards
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card list
-}
-
-# Get network name
-function askNetworkName () {
+ function askNetworkName () {
     read -p "Business network name: " COMPOSER_NETWORK_NAME
-    if [ ! -d "$COMPOSER_NETWORK_NAME" ]; then
+    if [ -z "$COMPOSER_NETWORK_NAME" ]; then
         echo "Business network not found! Enter Business network name which you defined during building the composer network."
         askNetworkName
     fi
 }
-
+function askNetworkVersion () {
+    read -p "Business network version: " NETWORK_ARCHIVE_VERSION
+    if [ -z "$NETWORK_ARCHIVE_VERSION" ]; then
+        echo "Business network VERSION  not found! Enter Business network version which you defined during building the composer network."
+        askNetworkVersion
+    fi
+}
+function askAdminName () {
+    read -p "Business network admin name: " ADMIN_NAME
+    if [ -z "$ADMIN_NAME" ]; then
+        echo "Business network  admin name not found! Enter Business network Admin name ."
+        askAdminName
+    fi
+}
+function askNewOrgAdminName () {
+    read -p "${DOMAI2} network ADMIN name: " ORG2_ADMIN_NAME
+    if [ -z "$ORG2_ADMIN_NAME" ]; then
+        echo "Enter ${DOMAI2} ADMIN name"
+        askNewOrgAdminName
+    fi
+}
 function replaceVersionNr () {
     # sed on MacOSX does not support -i flag with a null extension. We will use
     # 't' for our back-up's extension and depete it at the end of the function
@@ -262,156 +247,398 @@ function replaceVersionNr () {
         rm -rf ${COMPOSER_NETWORK_NAME}/package.jsont
     fi
 }
-
-# deploy
-function networkDeploy () {
-    askNetworkName
-
-    replaceVersionNr 1
-
-    # Generate a business network archive
-    docker exec ${COMPOSER_CONTAINER_NAME} composer archive create -t dir -n ${COMPOSER_NETWORK_NAME} -a network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
-
-    # Install the composer network
-    docker exec ${COMPOSER_CONTAINER_NAME} composer network install --card ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} --archiveFile network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
-
-    # remove card if exists
-    if docker exec ${COMPOSER_CONTAINER_NAME} composer card list -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME} > /dev/null; then
-        docker exec ${COMPOSER_CONTAINER_NAME} composer card delete -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}
-        rm -rf ./cards/${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}.card
+ function createEndorser() {
+     Domain1=$1
+     Domain2=$2
+ }
+ function networkStart() {
+   CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+   #COMPOSER_NETWORK_NAME=immutableehr
+    if [ -z "$COMPOSER_NETWORK_NAME" ]; then
+        askNetworkName
     fi
+    if [ -z "$NETWORK_ARCHIVE_VERSION" ]; then
+        askNetworkVersion
+    fi
+    if [ -z "$ADMIN_NAME" ]; then
+        askAdminName
+    fi
+    askNewOrgAdminName
 
-    # network archive created from the previous command
-    NETWORK_ARCHIVE=./network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
+    NETWORK_ARCHIVE=./network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna
 
     # Deploy the business network, from COMPOSER_NETWORK_NAME directory
-    docker exec ${COMPOSER_CONTAINER_NAME} composer network start --card ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} --networkAdmin ${CA_USER_ENROLLMENT} --networkAdminEnrollSecret ${CA_ENROLLMENT_SECRET} --networkName ${COMPOSER_NETWORK_NAME} --networkVersion 0.0.${NETWORK_ARCHIVE_VERSION} --file ./cards/${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}.card --loglevel ${FABRIC_LOGGING_LEVEL}
+    docker exec ${CONTAINER_NAME} composer network start -c PeerAdmin@immutableehr-${DOMAIN} -n ${COMPOSER_NETWORK_NAME} -V ${NETWORK_ARCHIVE_VERSION} -A ${ADMIN_NAME} -C ./cards/${ADMIN_NAME}/admin-pub.pem #-A ${ORG2_ADMIN_NAME} -C ./cards/${ORG2_ADMIN_NAME}/admin-pub.pem
+    verify $? "failed to start the network" " Network Started"
 
+    docker exec ${CONTAINER_NAME} composer card create -p ./connection.json -u ${ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ${ADMIN_NAME}/admin-pub.pem -k ${ADMIN_NAME}/admin-priv.pem -f ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
     # Import the network administrator identity as a usable business network card
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card import --file ./cards/${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}.card
+    docker exec ${CONTAINER_NAME} composer card import --file ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
 
     echo "Hyperledger Composer admin card has been imported"
     # Show imported cards
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card list
-
-    # Check if the business network has been deployed successfully
-    docker exec ${COMPOSER_CONTAINER_NAME} composer network ping --card ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}
-
-}
-
-# update
-function networkUpgrade () {
+    docker exec ${CONTAINER_NAME} composer card list
+    docker exec ${CONTAINER_NAME} composer network ping -c ${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}
+ 
+    }
+function networkInstall() {
+  #COMPOSER_NETWORK_NAME=immutableehr
+    CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+    #COMPOSER_NETWORK_NAME=immutableehr
     askNetworkName
-    replaceVersionNr ${NUMBER_OF_FILES}
+    askNetworkVersion
+    askAdminName
 
     # Generate a business network archive
-    docker exec ${COMPOSER_CONTAINER_NAME} composer archive create -t dir -n ${COMPOSER_NETWORK_NAME} -a network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
+    docker exec ${CONTAINER_NAME} composer archive create -t dir -n ${COMPOSER_NETWORK_NAME} -a network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna
 
-    # network archive created from the previous command
-    NETWORK_ARCHIVE=./network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
+    echo " Composer file : ${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna " 
+    # Install the composer network
+    docker exec ${CONTAINER_NAME} composer network install --card PeerAdmin@immutableehr-${DOMAIN} --archiveFile network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna 2>&1
+    verify $? " Failed to install chaincode" " Installed chaincode in the network"
+    cd ./cards/
+  if [ ! -d "${ADMIN_NAME}" ]; then
+    cd ../
+    mkdir ${ADMIN_NAME}
+    docker exec ${CONTAINER_NAME} composer identity request -c PeerAdmin@immutableehr-${DOMAIN} -u admin -s adminpw -d ./${ADMIN_NAME}
+    networkStart
+    else
+    cd ../
+  fi
+ }
+ function getContainerName() {
+     CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+     return CONTAINER_NAME
+ }
 
-    # install the new business network
-    docker exec ${COMPOSER_CONTAINER_NAME} composer network install -a ${NETWORK_ARCHIVE} -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME}
+ function createPeerAdmin(){
+    CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+    COMPOSER_NETWORK_NAME=immutableehr
+    FABRIC_CRYPTO_CONFIG=../immutableEHR_${DOMAIN}/channel-artifacts/crypto-config
+    rm -f ${CERT_FILE_NAME}
+    CERT_PATH=${FABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAIN}.example.com/users/Admin@${DOMAIN}.example.com/msp/signcerts/${CERT_FILE_NAME}
+    #verify $? "FAILED...TRY AGAIN "
+    cp ${CERT_PATH} .
 
-    # Upgrade to the new business network that was installed
-    docker exec ${COMPOSER_CONTAINER_NAME} composer network upgrade -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} -n ${COMPOSER_NETWORK_NAME} -V 0.0.${NETWORK_ARCHIVE_VERSION}
-}
+    PRIVATE_KEY_PATH=${FABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAIN}.example.com/users/Admin@${DOMAIN}.example.com/msp/keystore
+    PRIVATE_KEY=$(ls ${PRIVATE_KEY_PATH}/*_sk)
+    rm -f *_sk
+    cp ${PRIVATE_KEY} .
+    PRIVATE_KEY=$(ls *_sk)
 
-function askParticipantName() {
-    read -p "Participant username: " PARTICIPANT_EMAIL
-    if [ -z $PARTICIPANT_EMAIL ]; then
-        echo "Please enter Participant username"
-        askParticipantName
+    FABRIC_NETWORK_PEERADMIN_CARD_NAME=PeeerAdmin@immutableehr
+    if docker exec ${CONTAINER_NAME} composer card list -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} > /dev/null; then
+        docker exec ${CONTAINER_NAME} composer card delete -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME}
+        rm -rf ./cards/${FABRIC_NETWORK_PEERADMIN_CARD_FILE_NAME}
     fi
-}
+    docker exec ${CONTAINER_NAME} composer card create -p ./connection.json -u PeerAdmin -c ./Admin@${DOMAIN}.example.com-cert.pem -k ./*_sk -r PeerAdmin -r ChannelAdmin -f ./cards/PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAIN}.card 2>&1
+    verify $? "FAILED...To CREATE PEER ADMIN " " PEER ADMIN CARD CREATED SUCCESFULLY"
 
-# add new participant
-function addAdminParticipant() {
+    docker exec ${CONTAINER_NAME} composer card import -f ./cards/PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAIN}.card --card PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAIN} 2>&1
+    verify $? "FAILED...TRY AGAIN " " PEER ADMIN CARD IMPORTED"
+    docker exec ${CONTAINER_NAME} composer card list
+    networkInstall $CONTAINER_NAME
 
-   askNetworkName
-
-   askParticipantName
-
-   CURRENT_TIME=$(date)
-
-   read -p "New Participant first name: " PARTICIPANT_FIRST_NAME
-   if [ -z $PARTICIPANT_FIRST_NAME ]; then
-        echo "first name not set. standard first name will be set"
-        PARTICIPANT_FIRST_NAME="first name_${CURRENT_TIME}"
+ }
+ function networkBuild() {
+   rm -rf ./.composer/cads/
+   rm -rf ./.composer/client-data/
+   COMPOSER_NETWORK_NAME=immutableehr
+    domain=$( echo "$DOMAIN" | awk '{print tolower($0)}')
+    if [ ! -f "connection.json" ]; then
+        echo "--------------------------- Creating Connection.json ---------------------------- "
+        connectionCredentials
     fi
-
-    read -p "New Participant last name: " PARTICIPANT_LAST_NAME
-    if [ -z $PARTICIPANT_LAST_NAME ]; then
-        echo "last name not set. standard last name will be set"
-        PARTICIPANT_LAST_NAME="last name_${CURRENT_TIME}"
+    echo " ----------------------------------------- Building Composer Image ------------------------------"
+    buildComposer
+    ARCH=`uname -s | grep Darwin`
+    if [ "$ARCH" == "Darwin" ]; then
+        OPTS="-it"
+    else
+        OPTS="-i"
     fi
-
-    PARTICIPANT_JSON='{
-        "$class": "org.eyes.znueni.User",
-        "email": "'${PARTICIPANT_EMAIL}'",
-        "firstName": "'${PARTICIPANT_FIRST_NAME}'",
-        "lastName": "'${PARTICIPANT_LAST_NAME}'",
-        "balance": "0.00",
-        "isAdmin": "true",
-        "isActive": "true",
-        "profileImage": "no-image",
-        "gender": "M"
-    }'
-
-    # remove card if exists
-    if docker exec ${COMPOSER_CONTAINER_NAME} composer card list -c ${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME} > /dev/null; then
-        docker exec ${COMPOSER_CONTAINER_NAME} composer card delete -c ${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}
-        rm -rf ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
+    echo " --------------------------- Writing Docker-compose file -----------------------"
+    COMPOSE_FILE="docker-compose.yaml"
+    # Copy the template to the file that will be modified to add the domain name and External network
+    cp ./template-files/docker-compose-template.yaml ${COMPOSE_FILE}
+    sed $OPTS "s/DOMAIN/${domain}/g" "${COMPOSE_FILE}"
+    sed $OPTS "s/EXTERNAL_NETWORK/${EXTERNAL_NETWORK}/g" "$COMPOSE_FILE"
+    if [ -f "docker-compose.yaml" ]; then
+        echo " ========> docker compose file created "
     fi
+    echo " ------------------------------ Deploying composer cli -----------------------------------"
+    docker stack deploy ${DOCKER_STACK_NAME} -c $COMPOSE_FILE 2>&1
+    sleep 60
+    CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+    echo $CONTAINER_NAME
+    # if [ -z ${CONTAINER_NAME} ]; then
+        echo "container created at id ===>  ${CONTAINER_NAME}"
+        createPeerAdmin $CONTAINER_NAME
+    #     else 
+    #     echo $CONTAINER_NAME
+    #     echo " container not created"
+    # fi
 
-    docker exec ${COMPOSER_CONTAINER_NAME} composer participant add -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME} -d "${PARTICIPANT_JSON}"
-    docker exec ${COMPOSER_CONTAINER_NAME} composer identity issue -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME} -f ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card -u ${PARTICIPANT_EMAIL} -a "resource:org.eyes.znueni.User#"${PARTICIPANT_EMAIL}""
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card import --file ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card list
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card export -f cards/${PARTICIPANT_EMAIL}_rest@${COMPOSER_NETWORK_NAME}.card -c ${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME} ; rm -f cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
-}
+ }
 
-# crete Card for participant which already exists
-function createParticipantCard() {
-    askNetworkName
-    askParticipantName
-    docker exec ${COMPOSER_CONTAINER_NAME} composer identity issue -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME} -f ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card -u ${PARTICIPANT_EMAIL} -a "resource:org.eyes.znueni.User#"${PARTICIPANT_EMAIL}""
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card import --file ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card list
-    docker exec ${COMPOSER_CONTAINER_NAME} composer card export -f cards/${PARTICIPANT_EMAIL}_rest@${COMPOSER_NETWORK_NAME}.card -c ${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME} ; rm -f cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
-}
+ #functioncreate
+# runStack () {
+#   if [ -n STACK_NAME ]; then
+#     read -p "enter stack name : " STACK_NAME
+#   fi
+#   cp .template-files/docker-compose-template.yaml docker-compose.yaml
+#   sed 
+#   docker stack deploy $STACK_NAME -c docker-compose.yaml
+# }
 
-function upgradeComposer() {
-    # remove old container and image
-    docker stop ${COMPOSER_CONTAINER_NAME} || true && docker rm -f ${COMPOSER_CONTAINER_NAME} || true && docker rmi -f ${DOMAIN}/composer-cli || true
+# # recreate node container and install composer-cli on it
+# function recreateComposer () {
+#     docker stop ${COMPOSER_CONTAINER_NAME} || true && docker rm -f ${COMPOSER_CONTAINER_NAME} || true
 
-    # recreate container
-    recreateComposer
-}
+#     docker run \
+#         -d \
+#         -it \
+#         -e TZ=${TIME_ZONE} \
+#         -w ${COMPOSER_WORKING_DIR} \
+#         -v ${DIR}:${COMPOSER_WORKING_DIR} \
+#         -v ${DIR}/.composer:/root/.composer \
+#         --name ${COMPOSER_CONTAINER_NAME} \
+#         --network ${FABRIC_DOCKER_NETWORK_NAME} \
+#         --restart=always \
+#         -p 9090:9090 \
+#         ${DOMAIN}/composer-cli
+# }
 
-# start the docker composer-cli container
-function start() {
-    docker start ${COMPOSER_CONTAINER_NAME}
-}
+# # build
+# function networkBuild () {
 
-# stop the docker composer-cli container
-function stop() {
-    docker stop ${COMPOSER_CONTAINER_NAME}
-}
+#     # create node container and install composer-cli on it
+#     buildComposer
+
+#     if [ -d "$FABRIC_CRYPTO_CONFIG" ]
+#         then
+#             rm -rf ./fabric-network/crypto-config
+#             ln -s ../${FABRIC_CRYPTO_CONFIG}/ fabric-network/
+#         else
+#             echo "Fabric crypto-config not found! Please run './fabric-network.sh -m build' in fabric directory"
+#             exit
+#     fi
+
+#     rm -f ./cards/*.card
+
+#     connectionCredentials
+
+#     rm -f ${CERT_FILE_NAME}
+#     CERT_PATH=${DIR}/fabric-network/crypto-config/peerOrganizations/${DOMAIN}.example.com/users/Admin@${DOMAIN}.example.com/msp/signcerts/${CERT_FILE_NAME}
+#     cp ${CERT_PATH} .
+
+#     PRIVATE_KEY_PATH=${DIR}/fabric-network/crypto-config/peerOrganizations/${DOMAIN}.example.com/users/Admin@${DOMAIN}.example.com/msp/keystore
+#     PRIVATE_KEY=$(ls ${PRIVATE_KEY_PATH}/*_sk)
+#     rm -f *_sk
+#     cp ${PRIVATE_KEY} .
+#     PRIVATE_KEY=$(ls *_sk)
+
+#     # remove card if exists
+#     if docker exec ${COMPOSER_CONTAINER_NAME} composer card list -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} > /dev/null; then
+#         docker exec ${COMPOSER_CONTAINER_NAME} composer card delete -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME}
+#         rm -rf ./cards/${FABRIC_NETWORK_PEERADMIN_CARD_FILE_NAME}
+#     fi
+
+#     # Create connection profile
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card create -p ./connection.json -u ${FABRIC_NETWORK_PEERADMIN} -c "${CERT_FILE_NAME}" -k "${PRIVATE_KEY}" -r PeerAdmin -r ChannelAdmin -f ./cards/${FABRIC_NETWORK_PEERADMIN_CARD_FILE_NAME}
+
+#     # import PeerAdmin card to Composer
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card import --file ./cards/${FABRIC_NETWORK_PEERADMIN_CARD_FILE_NAME}
+
+#     rm -rf ./connection.json ${CERT_FILE_NAME} ${PRIVATE_KEY}
+
+#     echo "Hyperledger Composer PeerAdmin card has been imported"
+#     # Show imported cards
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card list
+# }
+
+# # Get network name
+# function askNetworkName () {
+#     read -p "Business network name: " COMPOSER_NETWORK_NAME
+#     if [ ! -d "$COMPOSER_NETWORK_NAME" ]; then
+#         echo "Business network not found! Enter Business network name which you defined during building the composer network."
+#         askNetworkName
+#     fi
+# }
+
+# function replaceVersionNr () {
+#     # sed on MacOSX does not support -i flag with a null extension. We will use
+#     # 't' for our back-up's extension and depete it at the end of the function
+#     ARCH=`uname -s | grep Darwin`
+#     if [ "$ARCH" == "Darwin" ]; then
+#         OPTS="-it"
+#     else
+#         OPTS="-i"
+#     fi
+
+#     # change default version
+#     sed $OPTS 's/"version": "0.0.'${1}'"/"version": "0.0.'${NETWORK_ARCHIVE_VERSION}'"/g' ${COMPOSER_NETWORK_NAME}/package.json
+#     # If MacOSX, remove the temporary backup of the docker-compose file
+#     if [ "$ARCH" == "Darwin" ]; then
+#         rm -rf ${COMPOSER_NETWORK_NAME}/package.jsont
+#     fi
+# }
+
+# # deploy
+# function networkDeploy () {
+#     askNetworkName
+
+#     replaceVersionNr 1
+
+#     # Generate a business network archive
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer archive create -t dir -n ${COMPOSER_NETWORK_NAME} -a network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
+
+#     # Install the composer network
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer network install --card ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} --archiveFile network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
+
+#     # remove card if exists
+#     if docker exec ${COMPOSER_CONTAINER_NAME} composer card list -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME} > /dev/null; then
+#         docker exec ${COMPOSER_CONTAINER_NAME} composer card delete -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}
+#         rm -rf ./cards/${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}.card
+#     fi
+
+#     # network archive created from the previous command
+#     NETWORK_ARCHIVE=./network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
+
+#     # Deploy the business network, from COMPOSER_NETWORK_NAME directory
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer network start --card ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} --networkAdmin ${CA_USER_ENROLLMENT} --networkAdminEnrollSecret ${CA_ENROLLMENT_SECRET} --networkName ${COMPOSER_NETWORK_NAME} --networkVersion 0.0.${NETWORK_ARCHIVE_VERSION} --file ./cards/${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}.card --loglevel ${FABRIC_LOGGING_LEVEL}
+
+#     # Import the network administrator identity as a usable business network card
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card import --file ./cards/${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}.card
+
+#     echo "Hyperledger Composer admin card has been imported"
+#     # Show imported cards
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card list
+
+#     # Check if the business network has been deployed successfully
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer network ping --card ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME}
+
+# }
+
+# # update
+# function networkUpgrade () {
+#     askNetworkName
+#     replaceVersionNr ${NUMBER_OF_FILES}
+
+#     # Generate a business network archive
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer archive create -t dir -n ${COMPOSER_NETWORK_NAME} -a network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
+
+#     # network archive created from the previous command
+#     NETWORK_ARCHIVE=./network-archives/${COMPOSER_NETWORK_NAME}@0.0.${NETWORK_ARCHIVE_VERSION}.bna
+
+#     # install the new business network
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer network install -a ${NETWORK_ARCHIVE} -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME}
+
+#     # Upgrade to the new business network that was installed
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer network upgrade -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} -n ${COMPOSER_NETWORK_NAME} -V 0.0.${NETWORK_ARCHIVE_VERSION}
+# }
+
+# function askParticipantName() {
+#     read -p "Participant username: " PARTICIPANT_EMAIL
+#     if [ -z $PARTICIPANT_EMAIL ]; then
+#         echo "Please enter Participant username"
+#         askParticipantName
+#     fi
+# }
+
+# # add new participant
+# function addAdminParticipant() {
+
+#    askNetworkName
+
+#    askParticipantName
+
+#    CURRENT_TIME=$(date)
+
+#    read -p "New Participant first name: " PARTICIPANT_FIRST_NAME
+#    if [ -z $PARTICIPANT_FIRST_NAME ]; then
+#         echo "first name not set. standard first name will be set"
+#         PARTICIPANT_FIRST_NAME="first name_${CURRENT_TIME}"
+#     fi
+
+#     read -p "New Participant last name: " PARTICIPANT_LAST_NAME
+#     if [ -z $PARTICIPANT_LAST_NAME ]; then
+#         echo "last name not set. standard last name will be set"
+#         PARTICIPANT_LAST_NAME="last name_${CURRENT_TIME}"
+#     fi
+
+#     PARTICIPANT_JSON='{
+#         "$class": "org.eyes.znueni.User",
+#         "email": "'${PARTICIPANT_EMAIL}'",
+#         "firstName": "'${PARTICIPANT_FIRST_NAME}'",
+#         "lastName": "'${PARTICIPANT_LAST_NAME}'",
+#         "balance": "0.00",
+#         "isAdmin": "true",
+#         "isActive": "true",
+#         "profileImage": "no-image",
+#         "gender": "M"
+#     }'
+
+#     # remove card if exists
+#     if docker exec ${COMPOSER_CONTAINER_NAME} composer card list -c ${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME} > /dev/null; then
+#         docker exec ${COMPOSER_CONTAINER_NAME} composer card delete -c ${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}
+#         rm -rf ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
+#     fi
+
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer participant add -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME} -d "${PARTICIPANT_JSON}"
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer identity issue -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME} -f ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card -u ${PARTICIPANT_EMAIL} -a "resource:org.eyes.znueni.User#"${PARTICIPANT_EMAIL}""
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card import --file ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card list
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card export -f cards/${PARTICIPANT_EMAIL}_rest@${COMPOSER_NETWORK_NAME}.card -c ${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME} ; rm -f cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
+# }
+
+# # crete Card for participant which already exists
+# function createParticipantCard() {
+#     askNetworkName
+#     askParticipantName
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer identity issue -c ${CA_USER_ENROLLMENT}@${COMPOSER_NETWORK_NAME} -f ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card -u ${PARTICIPANT_EMAIL} -a "resource:org.eyes.znueni.User#"${PARTICIPANT_EMAIL}""
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card import --file ./cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card list
+#     docker exec ${COMPOSER_CONTAINER_NAME} composer card export -f cards/${PARTICIPANT_EMAIL}_rest@${COMPOSER_NETWORK_NAME}.card -c ${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME} ; rm -f cards/${PARTICIPANT_EMAIL}@${COMPOSER_NETWORK_NAME}.card
+# }
+
+# function upgradeComposer() {
+#     # remove old container and image
+#     docker stop ${COMPOSER_CONTAINER_NAME} || true && docker rm -f ${COMPOSER_CONTAINER_NAME} || true && docker rmi -f ${DOMAIN}/composer-cli || true
+
+#     # recreate container
+#     recreateComposer
+# }
+
+# # start the docker composer-cli container
+# function start() {
+#     docker start ${COMPOSER_CONTAINER_NAME}
+# }
+
+# # stop the docker composer-cli container
+# function stop() {
+#     docker stop ${COMPOSER_CONTAINER_NAME}
+# }
 
 NUMBER_OF_FILES=$(ls network-archives/ | wc -l)
 NETWORK_ARCHIVE_VERSION=$(( ${NUMBER_OF_FILES}+1 ))
 COMPOSER_WORKING_DIR=/root/hyperledger/composer
-CERT_FILE_NAME=Admin@org1.${DOMAIN}-cert.pem
+CERT_FILE_NAME=Admin@${DOMAIN}.example.com-cert.pem
+EXTERNAL_NETWORK=byfh
+DOCKER_STACK_NAME=ehr
 
 # Parse commandline args
-while getopts "h?m:" opt; do
+while getopts "h?m:e:s:" opt; do
   case "$opt" in
     h|\?)
       printHelp
       exit 0
     ;;
     m)  MODE=$OPTARG
+    ;;
+    e)  EXTERNAL_NETWORK=$OPTARG
+    ;;
+    s)  DOCKER_STACK_NAME=$OPTARG
     ;;
   esac
 done

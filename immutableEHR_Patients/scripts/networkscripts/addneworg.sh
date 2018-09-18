@@ -37,7 +37,3 @@ if [ $? -ne 0 ];then
   echo "******************** FAILED TO ADD $DOMAIN INTO THE NETWORK *********************"
 else
   echo "******************** $DOMAIN ORGANISATION ADDED TO NETWORK **********************"
-
-
-
-

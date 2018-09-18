@@ -419,7 +419,7 @@ DESTPATH=./hb/immutableEhr_Patients_Automated/composer-setup/
 CHAINCODENAME="mycc"
 VERSION=2.0
 
-while getopts "h?m:c:t:d:f:e:s:b:n:v" opt; do
+while getopts "h?m:c:t:d:f:e:s:b:n:v:" opt; do
   case "$opt" in
     h|\?)
       printHelp
