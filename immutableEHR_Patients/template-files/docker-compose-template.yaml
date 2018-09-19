@@ -10,15 +10,11 @@ services:
     hostname: orderer.example.com
     image: hyperledger/fabric-orderer:x86_64-1.1.0
     deploy:
-      replicas: 3
-      resources:
-        limits:
-          cpus: "0.2"
-          memory: 100M
+      replicas: 1
       restart_policy:
         condition: on-failure
     environment:
-      - ORDERER_GENERAL_LOGLEVEL=INFO
+      - ORDERER_GENERAL_LOGLEVEL=DEBUG
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block

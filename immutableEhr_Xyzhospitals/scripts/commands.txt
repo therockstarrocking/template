@@ -1,7 +1,8 @@
- 1895  ./neworg.sh -m generate -e ghy -s yui -b couchdb
- 1897  ./neworg.sh -m join -e ghy -s yui -b couchdb -n mycc -v 3.0
- 1899  ./neworg.sh -m build -e ghy -s yui -b couchdb -n mycc -v 3.0
- 1901  ./neworg.sh -m build -e ghy -s yui -b couchdb -n mycc -v 3.0
- 1902  ./neworg.sh -m join -e ghy -s yui -b couchdb -n mycc -v 3.0
- 1910  history | grep yui
- 1911  history | grep yui > commands.txt
+./neworg.sh -m generate -e asdf -s cvgf -b couchdb
+./neworg.sh -m build -e asdf -s cvgf -b couchdb -n mycc -v 2.0
+./neworg.sh -m join -e asdf -s cvgf -b couchdb -n mycc -v 2.0
+
+cp ../channel-artifacts/XyzHospitals.json ../../immutableEHR_Patients/channel-artifacts/
+
+cp -r ../../immutableEHR_Patients/channel-artifacts/crypto-config/OrdererOrganisation ../channel-artifacts/crypto-config/
+ 

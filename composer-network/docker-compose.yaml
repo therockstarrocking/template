@@ -22,11 +22,11 @@ services:
     command: "sleep 100000"
     hostname: composer_cli
     networks:
-      ghy:
+      qwe:
         aliases:
           - composer-cli
 networks:
-  ghy:
+  qwe:
     external:
-      name: ghy
+      name: qwe
 

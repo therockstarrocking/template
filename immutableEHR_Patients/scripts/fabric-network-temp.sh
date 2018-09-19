@@ -101,6 +101,11 @@ function removeUnwantedImages() {
   else
     docker rmi -f $DOCKER_IMAGE_IDS
   fi
+  docker volume rm $(docker volume ls|awk '{print $2}')
+  if [ $? -ne 0 ]; then
+      echo $?
+      #exit 1
+  fi
 }
 
 # Remove the Docker swarm configuration
@@ -122,11 +127,6 @@ function swarmRemove() {
           echo $?
           #exit 1
       fi
-    fi
-    docker volume rm $(docker volume ls|awk '{print $2}')
-    if [ $? -ne 0 ]; then
-        echo $?
-        #exit 1
     fi
 }
 

@@ -46,6 +46,7 @@ function verify () {
   fi
 }
 function connectionCredentials () {
+    CORG=$1
     FABRIC_CRYPTO_CONFIG=../immutableEHR_${DOMAIN}/channel-artifacts/crypto-config
     XFABRIC_CRYPTO_CONFIG=../immutableEhr_Xyzhospitals/channel-artifacts/crypto-config/peerOrganizations/XyzHospitals.example.com/peers/peer0.XyzHospitals.example.com/tls/ca.crt
     rm -f ${DIR}/./connection.json
@@ -56,14 +57,14 @@ function connectionCredentials () {
     # verify $? "failed ... try again"
     ORDERER_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt)"
 
-cat << EOF > ${DIR}/./connection.json
+cat << EOF > ${DIR}/./connection-${CORG}.json
 {
   "name": "${COMPOSER_FABRIC_NETWORK_NAME}",
   "x-type": "hlfv1",
   "x-commitTimeout": 300,
   "version": "1.0.0",
   "client": {
-    "organization": "${DOMAIN}",
+    "organization": "${CORG}",
     "connection": {
       "timeout": {
         "peer": {
@@ -122,8 +123,8 @@ cat << EOF > ${DIR}/./connection.json
   },
   "orderers": {
     "orderer.example.com": {
-      "url": "grpcs://localhost:7050",
-      "grpcsOptions": {
+      "url": "grpcs://192.168.1.158:7050",
+      "grpcOptions": {
         "ssl-target-name-override": "orderer.example.com"
       },
       "tlsCACerts": {
@@ -133,8 +134,8 @@ cat << EOF > ${DIR}/./connection.json
   },
   "peers": {
     "peer0.${DOMAIN}.example.com": {
-      "url": "grpcs://localhost:7051",
-      "eventUrl": "grpcs://localhost:7053",
+      "url": "grpcs://192.168.1.158:7051",
+      "eventUrl": "grpcs://192.168.1.158:7053",
       "grpcOptions": {
         "ssl-target-name-override": "peer0.${DOMAIN}.example.com"
       },
@@ -143,8 +144,8 @@ cat << EOF > ${DIR}/./connection.json
       }
     },
     "peer1.${DOMAIN}.example.com": {
-      "url": "grpcs://localhost:8051",
-      "eventUrl": "grpcs://localhost:8053",
+      "url": "grpcs://192.168.1.158:8051",
+      "eventUrl": "grpcs://192.168.1.158:8053",
       "grpcOptions": {
         "ssl-target-name-override": "peer1.${DOMAIN}.example.com"
       },
@@ -153,8 +154,8 @@ cat << EOF > ${DIR}/./connection.json
       }
     },
     "peer0.${DOMAI2}.example.com": {
-      "url": "grpcs://localhost:9051",
-      "eventUrl": "grpcs://localhost:9053",
+      "url": "grpcs://192.168.1.158:9051",
+      "eventUrl": "grpcs://192.168.1.158:9053",
       "grpcOptions": {
         "ssl-target-name-override": "peer0.${DOMAI2}.example.com"
       },
@@ -165,14 +166,14 @@ cat << EOF > ${DIR}/./connection.json
   },
   "certificateAuthorities": {
     "ca_peer${DOMAIN}": {
-      "url": "https://localhost:7054",
+      "url": "https://192.168.1.158:7054",
       "caName": "ca-${DOMAIN}",
       "httpOptions": {
         "verify": false
       }
     },
     "ca_peer${DOMAI2}": {
-      "url": "https://localhost:8054",
+      "url": "https://192.168.1.158:8054",
       "caName": "ca-${DOMAI2}",
       "httpOptions": {
         "verify": false
@@ -268,17 +269,22 @@ function replaceVersionNr () {
     NETWORK_ARCHIVE=./network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna
 
     # Deploy the business network, from COMPOSER_NETWORK_NAME directory
-    docker exec ${CONTAINER_NAME} composer network start -c PeerAdmin@immutableehr-${DOMAIN} -n ${COMPOSER_NETWORK_NAME} -V ${NETWORK_ARCHIVE_VERSION} -A ${ADMIN_NAME} -C ./cards/${ADMIN_NAME}/admin-pub.pem #-A ${ORG2_ADMIN_NAME} -C ./cards/${ORG2_ADMIN_NAME}/admin-pub.pem
+    docker exec ${CONTAINER_NAME} composer network start -c PeerAdmin@immutableehr-${DOMAIN} -n ${COMPOSER_NETWORK_NAME} -V ${NETWORK_ARCHIVE_VERSION} -A ${ADMIN_NAME} -C ./cards/${ADMIN_NAME}/admin-pub.pem -A ${ORG2_ADMIN_NAME} -C ./cards/${ORG2_ADMIN_NAME}/admin-pub.pem
     verify $? "failed to start the network" " Network Started"
 
-    docker exec ${CONTAINER_NAME} composer card create -p ./connection.json -u ${ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ${ADMIN_NAME}/admin-pub.pem -k ${ADMIN_NAME}/admin-priv.pem -f ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
+    docker exec ${CONTAINER_NAME} composer card create -p ./connection-${DOMAIN}.json -u ${ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ${ADMIN_NAME}/admin-pub.pem -k ${ADMIN_NAME}/admin-priv.pem -f ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
     # Import the network administrator identity as a usable business network card
     docker exec ${CONTAINER_NAME} composer card import --file ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
+
+    docker exec ${CONTAINER_NAME} composer card create -p ./connection-${DOMI2}.json -u ${ORG2_ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ${ORG2_ADMIN_NAME}/admin-pub.pem -k ${ORG2_ADMIN_NAME}/admin-priv.pem -f ./cards/${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
+    # Import the network administrator identity as a usable business network card
+    docker exec ${CONTAINER_NAME} composer card import --file ./cards/${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
 
     echo "Hyperledger Composer admin card has been imported"
     # Show imported cards
     docker exec ${CONTAINER_NAME} composer card list
     docker exec ${CONTAINER_NAME} composer network ping -c ${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}
+    docker exec ${CONTAINER_NAME} composer network ping -c ${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}
  
     }
 function networkInstall() {
@@ -288,22 +294,29 @@ function networkInstall() {
     askNetworkName
     askNetworkVersion
     askAdminName
+    askNewOrgAdminName
 
     # Generate a business network archive
-    docker exec ${CONTAINER_NAME} composer archive create -t dir -n ${COMPOSER_NETWORK_NAME} -a network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna
+    docker exec ${CONTAINER_NAME} composer archive create -t dir -n ${COMPOSER_NETWORK_NAME} -a ./network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna
 
     echo " Composer file : ${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna " 
     # Install the composer network
-    docker exec ${CONTAINER_NAME} composer network install --card PeerAdmin@immutableehr-${DOMAIN} --archiveFile network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna 2>&1
-    verify $? " Failed to install chaincode" " Installed chaincode in the network"
+    docker exec ${CONTAINER_NAME} composer network install --card PeerAdmin@immutableehr-${DOMAIN} --archiveFile ./network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna 2>&1
+    verify $? " Failed to install chaincode" " Installed chaincode in ${DOMAIN} network"
+
+    docker exec ${CONTAINER_NAME} composer network install --card PeerAdmin@immutableehr-${DOMAI2} --archiveFile ./network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna 2>&1
+    verify $? " Failed to install chaincode" " Installed chaincode in ${DOMAI2} network"
+
     cd ./cards/
   if [ ! -d "${ADMIN_NAME}" ]; then
-    cd ../
     mkdir ${ADMIN_NAME}
-    docker exec ${CONTAINER_NAME} composer identity request -c PeerAdmin@immutableehr-${DOMAIN} -u admin -s adminpw -d ./${ADMIN_NAME}
+    mkdir ${ORG2_ADMIN_NAME}
+    docker exec ${CONTAINER_NAME} composer identity request -c PeerAdmin@immutableehr-${DOMAIN} -u admin -s adminpw -d ./cards/${ADMIN_NAME}
+    docker exec ${CONTAINER_NAME} composer identity request -c PeerAdmin@immutableehr-${DOMAI2} -u admin -s adminpw -d ./cards/${ORG2_ADMIN_NAME}
+    cd ../
     networkStart
     else
-    cd ../
+      cd ../
   fi
  }
  function getContainerName() {
@@ -315,10 +328,17 @@ function networkInstall() {
     CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
     COMPOSER_NETWORK_NAME=immutableehr
     FABRIC_CRYPTO_CONFIG=../immutableEHR_${DOMAIN}/channel-artifacts/crypto-config
+    XFABRIC_CRYPTO_CONFIG=../immutableEhr_Xyzhospitals/channel-artifacts/crypto-config
+    rm -rf ${DOMAI2}
     rm -f ${CERT_FILE_NAME}
+    mkdir ${DOMAI2}
     CERT_PATH=${FABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAIN}.example.com/users/Admin@${DOMAIN}.example.com/msp/signcerts/${CERT_FILE_NAME}
     #verify $? "FAILED...TRY AGAIN "
     cp ${CERT_PATH} .
+
+    XCERT_PATH=${XFABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAI2}.example.com/users/Admin@${DOMAI2}.example.com/msp/signcerts/${XCERT_FILE_NAME}
+    #verify $? "FAILED...TRY AGAIN "
+    cp ${XCERT_PATH} ./${DOMAI2}/
 
     PRIVATE_KEY_PATH=${FABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAIN}.example.com/users/Admin@${DOMAIN}.example.com/msp/keystore
     PRIVATE_KEY=$(ls ${PRIVATE_KEY_PATH}/*_sk)
@@ -326,16 +346,28 @@ function networkInstall() {
     cp ${PRIVATE_KEY} .
     PRIVATE_KEY=$(ls *_sk)
 
+    XPRIVATE_KEY_PATH=${XFABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAI2}.example.com/users/Admin@${DOMAI2}.example.com/msp/keystore
+    XPRIVATE_KEY=$(ls ${XPRIVATE_KEY_PATH}/*_sk)
+    rm -f ./${DOMAI2}/*_sk
+    cp ${XPRIVATE_KEY} ./${DOMAI2}/
+    PRIVATE_KEY=$(ls ./${DOMAI2}/*_sk)
+
     FABRIC_NETWORK_PEERADMIN_CARD_NAME=PeeerAdmin@immutableehr
     if docker exec ${CONTAINER_NAME} composer card list -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME} > /dev/null; then
         docker exec ${CONTAINER_NAME} composer card delete -c ${FABRIC_NETWORK_PEERADMIN_CARD_NAME}
         rm -rf ./cards/${FABRIC_NETWORK_PEERADMIN_CARD_FILE_NAME}
     fi
-    docker exec ${CONTAINER_NAME} composer card create -p ./connection.json -u PeerAdmin -c ./Admin@${DOMAIN}.example.com-cert.pem -k ./*_sk -r PeerAdmin -r ChannelAdmin -f ./cards/PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAIN}.card 2>&1
-    verify $? "FAILED...To CREATE PEER ADMIN " " PEER ADMIN CARD CREATED SUCCESFULLY"
+    docker exec ${CONTAINER_NAME} composer card create -p ./connection-${DOMAIN}.json -u PeerAdmin -c ./Admin@${DOMAIN}.example.com-cert.pem -k ./*_sk -r PeerAdmin -r ChannelAdmin -f ./cards/PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAIN}.card 2>&1
+    verify $? "FAILED...To CREATE PEER ADMIN " "${DOMAIN} PEER ADMIN CARD CREATED SUCCESFULLY"
+
+    docker exec ${CONTAINER_NAME} composer card create -p ./connection-${DOMAI2}.json -u PeerAdmin -c ./${DOMAI2}/Admin@${DOMAI2}.example.com-cert.pem -k ./${DOMAI2}/*_sk -r PeerAdmin -r ChannelAdmin -f ./cards/PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAI2}.card 2>&1
+    verify $? "FAILED...To CREATE PEER ADMIN " "${DOMAIN} PEER ADMIN CARD CREATED SUCCESFULLY"
 
     docker exec ${CONTAINER_NAME} composer card import -f ./cards/PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAIN}.card --card PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAIN} 2>&1
-    verify $? "FAILED...TRY AGAIN " " PEER ADMIN CARD IMPORTED"
+    verify $? "FAILED...TRY AGAIN " "${DOMAIN} PEER ADMIN CARD IMPORTED"
+
+    docker exec ${CONTAINER_NAME} composer card import -f ./cards/PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAI2}.card --card PeerAdmin@${COMPOSER_NETWORK_NAME}-${DOMAI2} 2>&1
+    verify $? "FAILED...TRY AGAIN " "${DOMAI2} PEER ADMIN CARD IMPORTED"
     docker exec ${CONTAINER_NAME} composer card list
     networkInstall $CONTAINER_NAME
 
@@ -347,7 +379,8 @@ function networkInstall() {
     domain=$( echo "$DOMAIN" | awk '{print tolower($0)}')
     if [ ! -f "connection.json" ]; then
         echo "--------------------------- Creating Connection.json ---------------------------- "
-        connectionCredentials
+        connectionCredentials "Patients"
+        connectionCredentials "XyzHospitals"
     fi
     echo " ----------------------------------------- Building Composer Image ------------------------------"
     buildComposer
@@ -621,9 +654,9 @@ function networkInstall() {
 # }
 
 NUMBER_OF_FILES=$(ls network-archives/ | wc -l)
-NETWORK_ARCHIVE_VERSION=$(( ${NUMBER_OF_FILES}+1 ))
 COMPOSER_WORKING_DIR=/root/hyperledger/composer
 CERT_FILE_NAME=Admin@${DOMAIN}.example.com-cert.pem
+XCERT_FILE_NAME=Admin@${DOMAI2}.example.com-cert.pem
 EXTERNAL_NETWORK=byfh
 DOCKER_STACK_NAME=ehr
 
@@ -654,8 +687,8 @@ if [ "$MODE" == "build" ]; then
     EXPMODE="Starting composer-cli container"
   elif [ "$MODE" == "recreate" ]; then
     EXPMODE="Recreating composer-cli container"
-  elif [ "$MODE" == "stop" ]; then
-    EXPMODE="Stopping composer-cli container"
+  elif [ "$MODE" == "install" ]; then
+    EXPMODE="Installling Composer Chaincode"
   elif [ "$MODE" == "addAdminParticipant" ]; then
     EXPMODE="Creating admin participant"
   elif [ "$MODE" == "createParticipantCard" ]; then
@@ -678,9 +711,9 @@ if [ "${MODE}" == "build" ]; then
   elif [ "${MODE}" == "upgrade" ]; then
     networkUpgrade
   elif [ "${MODE}" == "start" ]; then
-    start
-  elif [ "${MODE}" == "stop" ]; then
-    stop
+    networkStart
+  elif [ "${MODE}" == "install" ]; then
+    networkInstall
   elif [ "${MODE}" == "recreate" ]; then
     recreateComposer
   elif [ "${MODE}" == "addAdminParticipant" ]; then

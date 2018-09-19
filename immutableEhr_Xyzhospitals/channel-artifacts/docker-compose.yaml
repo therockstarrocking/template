@@ -15,16 +15,16 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-XyzHospitals
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.XyzHospitals.example.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/893b5681a59907d0432c01d06586ec7e828aa512973d5e87576e69d4e4365f0f_sk
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/64aebca668959692092e0347d964a812588bf28072a5ba570930a7adece35348_sk
     ports:
       - "8054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.XyzHospitals.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/893b5681a59907d0432c01d06586ec7e828aa512973d5e87576e69d4e4365f0f_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.XyzHospitals.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/64aebca668959692092e0347d964a812588bf28072a5ba570930a7adece35348_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/XyzHospitals.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       #- ./ledger/ca-XyzHospitals:/etc/hyperledger/fabric-ca-server
     hostname: ca-XyzHospitals
     networks:
-      ghy:
+      qwe:
         aliases:
           - ca-XyzHospitals
   
@@ -38,7 +38,7 @@ services:
       - 7984:5984
     hostname: couchdb2
     networks:
-      ghy:
+      qwe:
         aliases:
           - couchdb2
 
@@ -54,7 +54,7 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=ghy
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=qwe
       #- CORE_LOGGING_LEVEL=INFO
       - CORE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
@@ -85,7 +85,7 @@ services:
     depends_on:
       - couchdb2
     networks:
-      ghy:
+      qwe:
         aliases:
           - peer0.XyzHospitals.example.com
 
@@ -124,10 +124,10 @@ services:
         - ./:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
         - ../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
     networks:
-      ghy:
+      qwe:
         aliases:
           - cli 
 networks:
-  ghy:
+  qwe:
     external:
-      name: ghy
+      name: qwe

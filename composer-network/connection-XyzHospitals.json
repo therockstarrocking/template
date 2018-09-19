@@ -1,0 +1,123 @@
+{
+  "name": "immutableehr",
+  "x-type": "hlfv1",
+  "x-commitTimeout": 300,
+  "version": "1.0.0",
+  "client": {
+    "organization": "XyzHospitals",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300",
+          "eventHub": "300",
+          "eventReg": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "channels": {
+    "immutableehr": {
+      "orderers": [
+        "orderer.example.com"
+      ],
+      "peers": {
+        "peer0.Patients.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "eventSource": true
+        },
+        "peer1.Patients.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "eventSource": true
+        },
+        "peer0.XyzHospitals.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "eventSource": true
+        }
+      }
+    }
+  },
+  "organizations": {
+    "Patients": {
+      "mspid": "PatientsMSP",
+      "peers": [
+        "peer0.Patients.example.com",
+        "peer1.Patients.example.com"
+      ],
+      "certificateAuthorities": [
+        "ca_peerPatients"
+      ]
+    },
+    "XyzHospitals": {
+      "mspid": "XyzHospitalsMSP",
+      "peers": [
+        "peer0.XyzHospitals.example.com"
+      ],
+      "certificateAuthorities": [
+        "ca_peerXyzHospitals"
+      ]
+    }
+  },
+  "orderers": {
+    "orderer.example.com": {
+      "url": "grpcs://192.168.1.158:7050",
+      "grpcOptions": {
+        "ssl-target-name-override": "orderer.example.com"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICNTCCAdygAwIBAgIRAK9pAcYBrma5nZBXkeqQCIQwCgYIKoZIzj0EAwIwbDEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xFDASBgNVBAoTC2V4YW1wbGUuY29tMRowGAYDVQQDExF0bHNjYS5l\neGFtcGxlLmNvbTAeFw0xODA5MTgxODEwNTBaFw0yODA5MTUxODEwNTBaMGwxCzAJ\nBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4gRnJh\nbmNpc2NvMRQwEgYDVQQKEwtleGFtcGxlLmNvbTEaMBgGA1UEAxMRdGxzY2EuZXhh\nbXBsZS5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQexJIkVLd50USHzCth\nwQOfGCZaqwEU+wwLwAGD0TJoaz3lspMRxXeUdPsR9kuurMNQDXolurQPuApnuUht\nOdUno18wXTAOBgNVHQ8BAf8EBAMCAaYwDwYDVR0lBAgwBgYEVR0lADAPBgNVHRMB\nAf8EBTADAQH/MCkGA1UdDgQiBCAUUGUzGZ0ea0rjsyD0sKAwCCKneS7Gnnluu6PH\n1TTUrDAKBggqhkjOPQQDAgNHADBEAiAeoweUAeZ/K4iNUTU6AkVPULkVvIvcAZ1C\nzZI8+AvczgIgYrSLbEWL6jVlc6sMmy2wru0Xn9O3SSSwkx9bQkVKGTE=\n-----END CERTIFICATE-----\n"
+      }
+    }
+  },
+  "peers": {
+    "peer0.Patients.example.com": {
+      "url": "grpcs://192.168.1.158:7051",
+      "eventUrl": "grpcs://192.168.1.158:7053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.Patients.example.com"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICWDCCAf+gAwIBAgIQA8j11HLA7hZozYwQOBR+TjAKBggqhkjOPQQDAjB+MQsw\nCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy\nYW5jaXNjbzEdMBsGA1UEChMUUGF0aWVudHMuZXhhbXBsZS5jb20xIzAhBgNVBAMT\nGnRsc2NhLlBhdGllbnRzLmV4YW1wbGUuY29tMB4XDTE4MDkxODE4MTA1MFoXDTI4\nMDkxNTE4MTA1MFowfjELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWEx\nFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xHTAbBgNVBAoTFFBhdGllbnRzLmV4YW1w\nbGUuY29tMSMwIQYDVQQDExp0bHNjYS5QYXRpZW50cy5leGFtcGxlLmNvbTBZMBMG\nByqGSM49AgEGCCqGSM49AwEHA0IABHlQ7oO154Mm4Bqq9akJgSffngKSgdlRABx3\nKLhrC9oWo6xpESKjsTLxM6yTT02+GLZyNqAkHva00GHmGqhtXNajXzBdMA4GA1Ud\nDwEB/wQEAwIBpjAPBgNVHSUECDAGBgRVHSUAMA8GA1UdEwEB/wQFMAMBAf8wKQYD\nVR0OBCIEIO55EYr4rzE76z5IJIUPmukkC2ccoHHj5Le6AWSQxehQMAoGCCqGSM49\nBAMCA0cAMEQCIHyUXNXAh5dQ3Tq/f75QnJkquM1hNSDb83xnnuPdxbUnAiBXX5X7\nJURu6Z9cfC/q8ghsb+YtIcgK97TBFhuOdTEzIg==\n-----END CERTIFICATE-----\n"
+      }
+    },
+    "peer1.Patients.example.com": {
+      "url": "grpcs://192.168.1.158:8051",
+      "eventUrl": "grpcs://192.168.1.158:8053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.Patients.example.com"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICWDCCAf+gAwIBAgIQA8j11HLA7hZozYwQOBR+TjAKBggqhkjOPQQDAjB+MQsw\nCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy\nYW5jaXNjbzEdMBsGA1UEChMUUGF0aWVudHMuZXhhbXBsZS5jb20xIzAhBgNVBAMT\nGnRsc2NhLlBhdGllbnRzLmV4YW1wbGUuY29tMB4XDTE4MDkxODE4MTA1MFoXDTI4\nMDkxNTE4MTA1MFowfjELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWEx\nFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xHTAbBgNVBAoTFFBhdGllbnRzLmV4YW1w\nbGUuY29tMSMwIQYDVQQDExp0bHNjYS5QYXRpZW50cy5leGFtcGxlLmNvbTBZMBMG\nByqGSM49AgEGCCqGSM49AwEHA0IABHlQ7oO154Mm4Bqq9akJgSffngKSgdlRABx3\nKLhrC9oWo6xpESKjsTLxM6yTT02+GLZyNqAkHva00GHmGqhtXNajXzBdMA4GA1Ud\nDwEB/wQEAwIBpjAPBgNVHSUECDAGBgRVHSUAMA8GA1UdEwEB/wQFMAMBAf8wKQYD\nVR0OBCIEIO55EYr4rzE76z5IJIUPmukkC2ccoHHj5Le6AWSQxehQMAoGCCqGSM49\nBAMCA0cAMEQCIHyUXNXAh5dQ3Tq/f75QnJkquM1hNSDb83xnnuPdxbUnAiBXX5X7\nJURu6Z9cfC/q8ghsb+YtIcgK97TBFhuOdTEzIg==\n-----END CERTIFICATE-----\n"
+      }
+    },
+    "peer0.XyzHospitals.example.com": {
+      "url": "grpcs://192.168.1.158:9051",
+      "eventUrl": "grpcs://192.168.1.158:9053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.XyzHospitals.example.com"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICazCCAhKgAwIBAgIRALXegbkRys13Bug1rU2jqocwCgYIKoZIzj0EAwIwgYYx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSEwHwYDVQQKExhYeXpIb3NwaXRhbHMuZXhhbXBsZS5jb20xJzAl\nBgNVBAMTHnRsc2NhLlh5ekhvc3BpdGFscy5leGFtcGxlLmNvbTAeFw0xODA5MTgx\nODExMDFaFw0yODA5MTUxODExMDFaMIGGMQswCQYDVQQGEwJVUzETMBEGA1UECBMK\nQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEhMB8GA1UEChMYWHl6\nSG9zcGl0YWxzLmV4YW1wbGUuY29tMScwJQYDVQQDEx50bHNjYS5YeXpIb3NwaXRh\nbHMuZXhhbXBsZS5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATAiqQtCGy1\nUc/J99PygTpBivFCJStOi4ydwKUEL6oaaQBnxekcVmkULxkGeJzaZlolfMcVWq5L\notRc6PGp+pk5o18wXTAOBgNVHQ8BAf8EBAMCAaYwDwYDVR0lBAgwBgYEVR0lADAP\nBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCBVzclso+P7JyBi3fTlZjq2OfpWZj4H\nllY3Ncp+hYShPDAKBggqhkjOPQQDAgNHADBEAiBrLKaUkBLz2Sedfb2y3S720yjF\nne6q0JVjxJJvor64rwIgC/L7Ls+egojx/katkildZqzQ9w/actFufb3M1OtcBeg=\n-----END CERTIFICATE-----\n"
+      }
+    }
+  },
+  "certificateAuthorities": {
+    "ca_peerPatients": {
+      "url": "https://192.168.1.158:7054",
+      "caName": "ca-Patients",
+      "httpOptions": {
+        "verify": false
+      }
+    },
+    "ca_peerXyzHospitals": {
+      "url": "https://192.168.1.158:8054",
+      "caName": "ca-XyzHospitals",
+      "httpOptions": {
+        "verify": false
+      }
+    }
+  }
+}

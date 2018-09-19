@@ -1,0 +1,3 @@
+composer network install --card PeerAdmin@immutableehr-Patients --archiveFile ./network-archives/health@0.0.1.bna
+
+composer network start -c PeerAdmin@immutableehr-Patients -n health -V 0.0.1 -A alice -C ./cards/alice/admin-pub.pem 
