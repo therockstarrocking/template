@@ -1,0 +1,562 @@
+2018-09-21T06:34:05.607Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (health:0.0.1) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T06:34:12.604Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (health:0.0.1) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T06:53:52.247Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T06:53:52.252Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)","stack":"Error: Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>"}$
+2018-09-21T06:54:59.406Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '32b115991903a6cbe94c503c006021ba37f7a8dc5ba82d22207cc0cf2db199a5', must be activated (ACTIVATION_REQUIRED)
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T06:54:59.408Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '32b115991903a6cbe94c503c006021ba37f7a8dc5ba82d22207cc0cf2db199a5', must be activated (ACTIVATION_REQUIRED)","stack":"Error: Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '32b115991903a6cbe94c503c006021ba37f7a8dc5ba82d22207cc0cf2db199a5', must be activated (ACTIVATION_REQUIRED)\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>"}$
+2018-09-21T06:55:47.655Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T06:55:47.660Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)","stack":"Error: Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>"}$
+2018-09-21T07:06:13.382Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:06:13.383Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)","stack":"Error: Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>"}$
+2018-09-21T07:27:48.868Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 14 UNAVAILABLE: EOF
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:28:42.628Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: chaincode error (status: 500, message: cannot get package for chaincode (composer-network:0.0.2))
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:28:44.943Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (composer-network:0.0.2) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:28:58.782Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (composer-network:0.0.2) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:31:09.077Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 14 UNAVAILABLE: Connect Failed
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:31:43.117Z ERROR   :HLFConnection            :install()                 {"message":"Error trying install business network. Error: The business network failed to install on 1 or more peers: Response from attempted peer comms was an error: Error: 14 UNAVAILABLE: Connect Failed","stack":"Error: Error trying install business network. Error: The business network failed to install on 1 or more peers: Response from attempted peer comms was an error: Error: 14 UNAVAILABLE: Connect Failed\n    at HLFConnection.install (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:517:30)\n    at <anonymous>"}$
+2018-09-21T07:32:06.685Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: chaincode error (status: 500, message: Error installing chaincode code immutableehr:0.0.6(chaincode /var/hyperledger/production/chaincodes/immutableehr.0.0.6 exists))
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:34:09.748Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: chaincode error (status: 500, message: cannot get package for chaincode (immuatableehr:0.0.6))
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:34:09.783Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: chaincode error (status: 500, message: cannot get package for chaincode (immuatableehr:0.0.6))
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:34:10.890Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: chaincode error (status: 500, message: cannot get package for chaincode (immuatableehr:0.0.6))
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:39:31.164Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T07:39:31.165Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-cli/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T07:39:31.178Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T07:39:31.180Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-cli/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T07:39:31.182Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T07:44:35.922Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 14 UNAVAILABLE: Connect Failed
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:44:35.924Z ERROR   :HLFConnectionManager     :fabric-client()           [Channel.js]: getChannelConfig - Failed getting channel config. Error: Error: 14 UNAVAILABLE: Connect Failed
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:44:35.924Z ERROR   :HLFConnectionManager     :fabric-client()           [Channel.js]: Error: 14 UNAVAILABLE: Connect Failed
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:46:41.374Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (immutableehr:0.0.6) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:47:20.829Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (immutableehr:0.0.6) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T07:52:20.894Z ERROR   :HLFConnection            :start()                   {"message":"Failed to receive commit notification from 192.168.1.158:7051 for transaction '402981ce1a05ef2de2ed6540efcc88c97ccb90a6af73e89ee9a5e00930f60395' within the timeout period","stack":"Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '402981ce1a05ef2de2ed6540efcc88c97ccb90a6af73e89ee9a5e00930f60395' within the timeout period\n    at Timeout.setTimeout [as _onTimeout] (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlftxeventhandler.js:60:32)\n    at ontimeout (timers.js:482:11)\n    at tryOnTimeout (timers.js:317:5)\n    at Timer.listOnTimeout (timers.js:277:5)"}$
+2018-09-21T08:41:05.724Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T08:41:05.725Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)","stack":"Error: Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '56d73662d799d3293f0edeccbb67f0e1c6f2eb17abe4f0a61ac2ae01bc2829d7', must be activated (ACTIVATION_REQUIRED)\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>"}$
+2018-09-21T08:42:08.300Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '32b115991903a6cbe94c503c006021ba37f7a8dc5ba82d22207cc0cf2db199a5', must be activated (ACTIVATION_REQUIRED)
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T08:42:08.302Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '32b115991903a6cbe94c503c006021ba37f7a8dc5ba82d22207cc0cf2db199a5', must be activated (ACTIVATION_REQUIRED)","stack":"Error: Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier '32b115991903a6cbe94c503c006021ba37f7a8dc5ba82d22207cc0cf2db199a5', must be activated (ACTIVATION_REQUIRED)\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>"}$
+2018-09-21T08:46:05.901Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T08:46:05.901Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-cli/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T08:47:09.521Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:9051 for transaction '3f36db24f85a776b85d868aa9440d40695af81efdcea0f0fcda2b82b523909e5' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:9051 for transaction '3f36db24f85a776b85d868aa9440d40695af81efdcea0f0fcda2b82b523909e5' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T09:07:46.932Z INFO    :LoadModule               :loadModule()              Loading composer-wallet-filesystem from /usr/local/lib/node_modules/composer-playground/node_modules/composer-wallet-filesystem {}$
+2018-09-21T09:07:47.098Z INFO    :PlaygroundAPI            :createServer()            Playground API started on port 8080 {}$
+2018-09-21T09:13:18.323Z INFO    :LoadModule               :loadModule()              Loading composer-wallet-filesystem from /usr/local/lib/node_modules/composer-playground/node_modules/composer-wallet-filesystem {}$
+2018-09-21T09:13:18.371Z INFO    :PlaygroundAPI            :createServer()            Playground API started on port 8080 {}$
+2018-09-21T09:24:28.820Z INFO    :LoadModule               :loadModule()              Loading composer-wallet-filesystem from /usr/local/lib/node_modules/composer-playground/node_modules/composer-wallet-filesystem {}$
+2018-09-21T09:24:28.893Z INFO    :PlaygroundAPI            :createServer()            Playground API started on port 7890 {}$
+2018-09-21T09:26:54.019Z INFO    :LoadModule               :loadModule()              Loading composer-wallet-filesystem from /usr/local/lib/node_modules/composer-playground/node_modules/composer-wallet-filesystem {}$
+2018-09-21T09:26:54.103Z INFO    :PlaygroundAPI            :createServer()            Playground API started on port 9090 {}$
+2018-09-21T09:27:12.350Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'a9OFZuCyT2IQSw_jAAAA' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:27:31.555Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'nm8Rvqy_yq3bZNNqAAAB' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:27:34.777Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T09:27:40.359Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Using this connection manager  {"0":{"connectionProfileManager":{}}}$
+2018-09-21T09:29:33.331Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'a9OFZuCyT2IQSw_jAAAA' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:29:33.337Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'nm8Rvqy_yq3bZNNqAAAB' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:29:39.815Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'Ec-hMMiwDB-J1JkiAAAC' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:29:51.699Z INFO    :PlaygroundAPI            :createServer()            Client with ID '5oJbM9BHs3X8jhpQAAAD' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:29:55.645Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T09:32:44.475Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T09:32:44.476Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T09:32:44.478Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T09:32:44.481Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to ping. Error: REQUEST_TIMEOUT\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T09:32:44.482Z ERROR   :ConnectorServer          :connectionPing()          {"message":"Error trying to ping. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to ping. Error: REQUEST_TIMEOUT\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T09:33:12.240Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'Ec-hMMiwDB-J1JkiAAAC' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:33:12.270Z INFO    :PlaygroundAPI            :createServer()            Client with ID '5oJbM9BHs3X8jhpQAAAD' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:33:19.991Z INFO    :PlaygroundAPI            :createServer()            Client with ID '-pTSBM2g9kbPat3NAAAE' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:33:34.207Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'PjzgJ7NdAlLDZQ_MAAAF' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:33:38.235Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T09:33:42.850Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:33:44.497Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T09:35:00.845Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T09:35:00.847Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T09:35:00.848Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T09:35:00.848Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to ping. Error: REQUEST_TIMEOUT\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T09:35:00.850Z ERROR   :ConnectorServer          :connectionPing()          {"message":"Error trying to ping. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to ping. Error: REQUEST_TIMEOUT\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T09:40:00.482Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T09:40:00.483Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T09:40:00.557Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T09:41:13.979Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '6214e131dc59d3ab33f6f72d09b786908a43fe13da89cdde955be13bbce97f7e' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '6214e131dc59d3ab33f6f72d09b786908a43fe13da89cdde955be13bbce97f7e' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T09:41:13.980Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '6214e131dc59d3ab33f6f72d09b786908a43fe13da89cdde955be13bbce97f7e' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '6214e131dc59d3ab33f6f72d09b786908a43fe13da89cdde955be13bbce97f7e' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T09:44:02.118Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T09:44:02.119Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T09:44:02.119Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T09:44:02.119Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"REQUEST_TIMEOUT","stack":"Error: REQUEST_TIMEOUT\n    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)\n    at ontimeout (timers.js:482:11)\n    at tryOnTimeout (timers.js:317:5)\n    at Timer.listOnTimeout (timers.js:277:5)"}$
+2018-09-21T09:44:17.710Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T09:44:17.712Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T09:44:17.713Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T09:44:17.714Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"REQUEST_TIMEOUT","stack":"Error: REQUEST_TIMEOUT\n    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)\n    at ontimeout (timers.js:482:11)\n    at tryOnTimeout (timers.js:317:5)\n    at Timer.listOnTimeout (timers.js:277:5)"}$
+2018-09-21T09:45:00.605Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '9c1aa29b1a47a99f7372a8712172852eb964fe2555f39abad0f190d76859383f' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '9c1aa29b1a47a99f7372a8712172852eb964fe2555f39abad0f190d76859383f' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T09:45:00.611Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '9c1aa29b1a47a99f7372a8712172852eb964fe2555f39abad0f190d76859383f' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '9c1aa29b1a47a99f7372a8712172852eb964fe2555f39abad0f190d76859383f' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T09:53:25.831Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'PjzgJ7NdAlLDZQ_MAAAF' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:53:25.838Z INFO    :PlaygroundAPI            :createServer()            Client with ID '-pTSBM2g9kbPat3NAAAE' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:53:34.191Z INFO    :PlaygroundAPI            :createServer()            Client with ID '-t6vz5sbeZD9GCUEAAAG' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:53:35.729Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'pcR07Ycy6L50WmhaAAAH' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:53:37.233Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T09:53:37.481Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:37.583Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:37.684Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:37.785Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:37.886Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:37.987Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.094Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.194Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.295Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.396Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.497Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.599Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.700Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.801Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:38.901Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.003Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.104Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.205Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.306Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.407Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.509Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.611Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.712Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.812Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:39.913Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.014Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.116Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.217Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.318Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.419Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.519Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.620Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.720Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.822Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:40.922Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.023Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.124Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.225Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.326Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.427Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.528Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.629Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.731Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.831Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:41.933Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.034Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.135Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.237Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.337Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.437Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.538Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.639Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.741Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.848Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:42.949Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.051Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.152Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.254Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.355Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.456Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.557Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.657Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.760Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.861Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:43.961Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.062Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.162Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.262Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.363Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.464Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.564Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.666Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.766Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.867Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:44.968Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.069Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.170Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.271Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.372Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.473Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.574Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.676Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.777Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.879Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:45.982Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.083Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.183Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.284Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.385Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.486Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.587Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.689Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.790Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.893Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:46.993Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.094Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.195Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.296Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.397Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.497Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.598Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.699Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.806Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:47.908Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.010Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.111Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.212Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.312Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.414Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.515Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.615Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.716Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.818Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:48.918Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.020Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.121Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.222Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.323Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.424Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.526Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.627Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.727Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.828Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:49.928Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.030Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.131Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.232Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.332Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.434Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.535Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.636Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.737Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.838Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:50.938Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.039Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.140Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.240Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.343Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.448Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.583Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.705Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.818Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:51.919Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.020Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.123Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.226Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.328Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.430Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.531Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.632Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.733Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.834Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:52.935Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.037Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.138Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.241Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.346Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.452Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.557Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.665Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.766Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.867Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:53.969Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.070Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.171Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.272Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.373Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.474Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.575Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.676Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.778Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.878Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:54.988Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.089Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.191Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.292Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.392Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.493Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.596Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.697Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.802Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:55.907Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:56.016Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:53:56.122Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:54:19.535Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'pcR07Ycy6L50WmhaAAAH' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:54:19.541Z INFO    :PlaygroundAPI            :createServer()            Client with ID '-t6vz5sbeZD9GCUEAAAG' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:54:26.045Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'qHgiMj6aoWUvZzh9AAAI' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:54:52.519Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'ZlJV08Epk02bG8DpAAAJ' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:54:56.489Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T09:55:01.003Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:55:01.103Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:55:21.936Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'ZlJV08Epk02bG8DpAAAJ' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:55:21.944Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'qHgiMj6aoWUvZzh9AAAI' on host '::ffff:10.255.0.2' disconnected (transport close) {}$
+2018-09-21T09:55:27.558Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'Np0YPWOk8nM4-IlTAAAK' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:56:41.390Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: error chaincode is already launching: immutableehr:0.0.6
+    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T09:56:41.390Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: 2 UNKNOWN: error executing chaincode: error chaincode is already launching: immutableehr:0.0.6 {}$
+2018-09-21T09:56:41.391Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"2 UNKNOWN: error executing chaincode: error chaincode is already launching: immutableehr:0.0.6","stack":"Error: 2 UNKNOWN: error executing chaincode: error chaincode is already launching: immutableehr:0.0.6\n    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)\n    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15","code":2,"metadata":{"_internal_repr":{}},"details":"error executing chaincode: error chaincode is already launching: immutableehr:0.0.6"}$
+2018-09-21T09:58:37.336Z ERROR   :HLFConnectionManager     :fabric-client()           [ChannelEventHub.js]: _connect - timed out after:300000 {}$
+2018-09-21T09:58:37.442Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T09:58:37.451Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T09:58:37.455Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T09:58:37.463Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to ping. Error: REQUEST_TIMEOUT\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T09:58:37.467Z ERROR   :ConnectorServer          :connectionPing()          {"message":"Error trying to ping. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to ping. Error: REQUEST_TIMEOUT\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T09:59:28.503Z INFO    :PlaygroundAPI            :createServer()            Client with ID 'BrMZraTmibEt-KwOAAAL' on host '::ffff:10.255.0.2' connected {}$
+2018-09-21T09:59:32.467Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T09:59:37.091Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:59:37.191Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T09:59:50.646Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T09:59:51.599Z WARN    :HLFConnection            :_checkCCListener()        could not find any connected event hubs out of 3 defined hubs to listen on for chaincode events {}$
+2018-09-21T10:00:00.869Z ERROR   :HLFConnectionManager     :fabric-client()           [ChannelEventHub.js]: _connect - timed out after:300000 {}$
+2018-09-21T10:00:01.616Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:00:01.616Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:00:01.617Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:00:01.617Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to ping. Error: REQUEST_TIMEOUT\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T10:00:01.617Z ERROR   :ConnectorServer          :connectionPing()          {"message":"Error trying to ping. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to ping. Error: REQUEST_TIMEOUT\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T10:04:36.981Z ERROR   :HLFConnectionManager     :fabric-client()           [ChannelEventHub.js]: _connect - timed out after:300000 {}$
+2018-09-21T10:04:51.483Z ERROR   :HLFConnectionManager     :fabric-client()           [ChannelEventHub.js]: _connect - timed out after:300000 {}$
+2018-09-21T10:07:57.350Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:07:57.350Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:07:57.353Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:07:57.354Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:07:57.392Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:07:57.393Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:12:57.396Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '2a7c498051c81cee32e3094f47ee0658f7d65fd9b6aadeb2e0fd3178f1d96367' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '2a7c498051c81cee32e3094f47ee0658f7d65fd9b6aadeb2e0fd3178f1d96367' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T10:12:57.396Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '2a7c498051c81cee32e3094f47ee0658f7d65fd9b6aadeb2e0fd3178f1d96367' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '2a7c498051c81cee32e3094f47ee0658f7d65fd9b6aadeb2e0fd3178f1d96367' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T10:16:58.817Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:16:58.817Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:16:58.817Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:16:58.818Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"REQUEST_TIMEOUT","stack":"Error: REQUEST_TIMEOUT\n    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)\n    at ontimeout (timers.js:482:11)\n    at tryOnTimeout (timers.js:317:5)\n    at Timer.listOnTimeout (timers.js:277:5)"}$
+2018-09-21T10:17:04.189Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:17:04.190Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:17:04.205Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:17:04.210Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"REQUEST_TIMEOUT","stack":"Error: REQUEST_TIMEOUT\n    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)\n    at ontimeout (timers.js:482:11)\n    at tryOnTimeout (timers.js:317:5)\n    at Timer.listOnTimeout (timers.js:277:5)"}$
+2018-09-21T10:19:55.220Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:19:55.220Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:19:55.221Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:19:55.222Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"REQUEST_TIMEOUT","stack":"Error: REQUEST_TIMEOUT\n    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)\n    at ontimeout (timers.js:482:11)\n    at tryOnTimeout (timers.js:317:5)\n    at Timer.listOnTimeout (timers.js:277:5)"}$
+2018-09-21T10:20:10.392Z ERROR   :HLFConnectionManager     :fabric-client()           [ChannelEventHub.js]: _connect - timed out after:300000 {}$
+2018-09-21T10:20:10.410Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:20:10.411Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:20:10.411Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:20:10.411Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:20:10.425Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:20:10.425Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:20:10.425Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:20:10.426Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:20:10.426Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:20:10.426Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: No valid responses from any peers.\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: No valid responses from any peers.\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T10:20:10.427Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: No valid responses from any peers.\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: No valid responses from any peers.\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\nResponse from attempted peer comms was an error: Error: REQUEST_TIMEOUT\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T10:42:41.418Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 14 UNAVAILABLE: TCP Read failed
+    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T10:42:41.444Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 14 UNAVAILABLE: TCP Read failed
+    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T10:42:41.878Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: 14 UNAVAILABLE: TCP Read failed {}$
+2018-09-21T10:42:41.927Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: 14 UNAVAILABLE: TCP Read failed {}$
+2018-09-21T10:42:41.943Z ERROR   :HLFConnectionManager     :fabric-client()           [Orderer.js]: sendBroadcast - on error: "Error: 14 UNAVAILABLE: TCP Read failed\n    at createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)\n    at ClientDuplexStream._emitStatusIfDone (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:270:19)\n    at ClientDuplexStream._receiveStatus (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:248:8)\n    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:804:12" {}$
+2018-09-21T10:42:41.946Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: SERVICE_UNAVAILABLE","stack":"Error: Error trying invoke business network. Error: SERVICE_UNAVAILABLE\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T10:42:41.947Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: SERVICE_UNAVAILABLE","stack":"Error: Error trying invoke business network. Error: SERVICE_UNAVAILABLE\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2018-09-21T10:47:41.336Z ERROR   :HLFConnectionManager     :fabric-client()           [ChannelEventHub.js]: _connect - timed out after:300000 {}$
+2018-09-21T10:47:49.385Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:47:49.385Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:47:49.402Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T10:47:49.403Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T10:47:49.403Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:47:49.436Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T10:52:49.441Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '46a4313b42e9073b682ff0e4f709cbedb2a38316db28875d82dd656732761818' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '46a4313b42e9073b682ff0e4f709cbedb2a38316db28875d82dd656732761818' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T10:52:49.442Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '46a4313b42e9073b682ff0e4f709cbedb2a38316db28875d82dd656732761818' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction '46a4313b42e9073b682ff0e4f709cbedb2a38316db28875d82dd656732761818' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:16:41.527Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 14 UNAVAILABLE: TCP Read failed
+    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T11:16:41.528Z WARN    :HLFQueryHandler          :queryChaincode()          Peer  Peer : {url:grpcs://192.168.1.158:7051} failed to respond. Error: 14 UNAVAILABLE: TCP Read failed {}$
+2018-09-21T11:16:48.811Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T11:16:48.812Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: 2 UNKNOWN: error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) is being launched {}$
+2018-09-21T11:16:48.813Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"2 UNKNOWN: error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) is being launched","stack":"Error: 2 UNKNOWN: error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) is being launched\n    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)\n    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15","code":2,"metadata":{"_internal_repr":{}},"details":"error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) is being launched"}$
+2018-09-21T11:16:53.667Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) launched and waiting for registration
+    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T11:16:53.669Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: 2 UNKNOWN: error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) launched and waiting for registration {}$
+2018-09-21T11:16:53.670Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"2 UNKNOWN: error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) launched and waiting for registration","stack":"Error: 2 UNKNOWN: error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) launched and waiting for registration\n    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)\n    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15","code":2,"metadata":{"_internal_repr":{}},"details":"error executing chaincode: premature execution - chaincode (immutableehr:0.0.6) launched and waiting for registration"}$
+2018-09-21T11:17:07.590Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T11:17:11.557Z INFO    :ConnectionProfileManager :getConnectionManagerByTyp Looking up a connection manager for type {"0":"hlfv1"}$
+2018-09-21T11:21:41.536Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T11:21:41.536Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T11:21:41.536Z WARN    :HLFQueryHandler          :queryChaincode()          query payload returned an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T11:21:41.537Z ERROR   :ConnectorServer          :connectionQueryChainCode( {"message":"REQUEST_TIMEOUT","stack":"Error: REQUEST_TIMEOUT\n    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)\n    at ontimeout (timers.js:482:11)\n    at tryOnTimeout (timers.js:317:5)\n    at Timer.listOnTimeout (timers.js:277:5)"}$
+2018-09-21T11:24:04.316Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '28d30da75b69ef35946efa2e7fd598d86fc86cc3216e174289433d45d92dbab3' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '28d30da75b69ef35946efa2e7fd598d86fc86cc3216e174289433d45d92dbab3' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:24:04.318Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '28d30da75b69ef35946efa2e7fd598d86fc86cc3216e174289433d45d92dbab3' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '28d30da75b69ef35946efa2e7fd598d86fc86cc3216e174289433d45d92dbab3' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:26:53.924Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T11:26:53.925Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T11:26:53.978Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T11:31:54.024Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '68cb2cc16d9413f318db94502ba7a5c2859f5dc1c325cfdc22276ade0dca533a' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '68cb2cc16d9413f318db94502ba7a5c2859f5dc1c325cfdc22276ade0dca533a' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:31:54.024Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '68cb2cc16d9413f318db94502ba7a5c2859f5dc1c325cfdc22276ade0dca533a' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '68cb2cc16d9413f318db94502ba7a5c2859f5dc1c325cfdc22276ade0dca533a' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:38:02.656Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T11:38:02.656Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T11:38:02.701Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T11:43:02.734Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '1abcfec7fd47fc688c020349b4b26362e6f496aa7dfc415034eaac64b420bd45' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '1abcfec7fd47fc688c020349b4b26362e6f496aa7dfc415034eaac64b420bd45' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:43:02.734Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '1abcfec7fd47fc688c020349b4b26362e6f496aa7dfc415034eaac64b420bd45' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '1abcfec7fd47fc688c020349b4b26362e6f496aa7dfc415034eaac64b420bd45' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:44:48.818Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T11:44:48.818Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T11:44:48.851Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T11:49:48.908Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '99744a7e0c37c015531a27def92873f45dc2590af93beccf4358fd8be9b3953b' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '99744a7e0c37c015531a27def92873f45dc2590af93beccf4358fd8be9b3953b' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:49:48.909Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '99744a7e0c37c015531a27def92873f45dc2590af93beccf4358fd8be9b3953b' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '99744a7e0c37c015531a27def92873f45dc2590af93beccf4358fd8be9b3953b' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T11:56:22.358Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T11:56:22.359Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T11:56:22.400Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T12:01:22.443Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '6ed6c2382058fcd871569ecca2c62437284cc58fd3c6eb8dbf5f4cc0a8229737' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '6ed6c2382058fcd871569ecca2c62437284cc58fd3c6eb8dbf5f4cc0a8229737' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T12:01:22.444Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '6ed6c2382058fcd871569ecca2c62437284cc58fd3c6eb8dbf5f4cc0a8229737' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction '6ed6c2382058fcd871569ecca2c62437284cc58fd3c6eb8dbf5f4cc0a8229737' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T12:05:19.229Z ERROR   :HLFConnectionManager     :fabric-client()           [Peer.js]: sendProposal - timed out after:300000 {}$
+2018-09-21T12:05:19.230Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/usr/local/lib/node_modules/composer-playground/node_modules/fabric-client/lib/Peer.js:124:19)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5) {}$
+2018-09-21T12:05:19.268Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: REQUEST_TIMEOUT {}$
+2018-09-21T12:10:02.264Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: error chaincode is already launching: immutableehr:0.0.6
+    at new createStatusError (/usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-playground/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-21T12:10:02.362Z WARN    :HLFConnection            :_validatePeerResponses()  Response from attempted peer comms was an error: Error: 2 UNKNOWN: error executing chaincode: error chaincode is already launching: immutableehr:0.0.6 {}$
+2018-09-21T12:10:19.315Z ERROR   :HLFConnection            :invokeChainCode()         {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction 'dd8e8ef3cb2a20236b4f5a174299a47d647d85d4df0bc72e4cbb32aabc8a7720' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction 'dd8e8ef3cb2a20236b4f5a174299a47d647d85d4df0bc72e4cbb32aabc8a7720' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$
+2018-09-21T12:10:19.315Z ERROR   :ConnectorServer          :connectionInvokeChainCode {"message":"Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction 'dd8e8ef3cb2a20236b4f5a174299a47d647d85d4df0bc72e4cbb32aabc8a7720' within the timeout period","stack":"Error: Error trying invoke business network. Error: Failed to receive commit notification from 192.168.1.158:8051 for transaction 'dd8e8ef3cb2a20236b4f5a174299a47d647d85d4df0bc72e4cbb32aabc8a7720' within the timeout period\n    at HLFConnection.invokeChainCode (/usr/local/lib/node_modules/composer-playground/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:999:30)\n    at <anonymous>"}$

@@ -43,5 +43,7 @@ peer channel join -b immutableehr.block
 
 peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/
 
+peer chaincode invoke -o orderer.example.com:7050 --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}'
+
 
 

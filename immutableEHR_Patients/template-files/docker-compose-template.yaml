@@ -43,7 +43,7 @@ services:
   ca0:
     image: hyperledger/fabric-ca:x86_64-1.1.0
     deploy:
-      replicas: 2
+      replicas: 1
       resources:
         limits:
           cpus: "0.1"
@@ -115,6 +115,8 @@ services:
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=EXTERNAL_NETWORK
       #- CORE_LOGGING_LEVEL=INFO
       - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_STARTUPTIMEOUT=1200s
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
       - CORE_PEER_GOSSIP_ORGLEADER=false
@@ -165,6 +167,8 @@ services:
       # https://docs.docker.com/compose/networking/
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=EXTERNAL_NETWORK
       - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_STARTUPTIMEOUT=1200s
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       #- CORE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true

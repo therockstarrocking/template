@@ -17,16 +17,17 @@ services:
     volumes:
       - ./:/root/hyperledger/composer
       - ./.composer:/root/.composer
+      - composer.cli
       #- composer.cli:/root/hyperledger/composer
     #entrypoint: "bin/sh"
     command: "sleep 100000"
     hostname: composer_cli
     networks:
-      qwe:
+      poi:
         aliases:
           - composer-cli
 networks:
-  qwe:
+  poi:
     external:
-      name: qwe
+      name: poi
 

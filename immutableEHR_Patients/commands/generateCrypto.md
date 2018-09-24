@@ -42,6 +42,9 @@ peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile $ORDERER_C
 peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
 
 
+export CORE_PEER_ADDRESS=peer1.Patients.example.com:7051
+
+
 
 
 

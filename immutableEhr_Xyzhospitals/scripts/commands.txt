@@ -1,6 +1,6 @@
-./neworg.sh -m generate -e asdf -s cvgf -b couchdb
-./neworg.sh -m build -e asdf -s cvgf -b couchdb -n mycc -v 2.0
-./neworg.sh -m join -e asdf -s cvgf -b couchdb -n mycc -v 2.0
+./neworg.sh -m generate -e qwe -s rty -b couchdb
+./neworg.sh -m build -e qwe -s rty -b couchdb -n mycc -v 2.0
+./neworg.sh -m join -e qwe -s rty -b couchdb -n mycc -v 3.0
 
 cp ../channel-artifacts/XyzHospitals.json ../../immutableEHR_Patients/channel-artifacts/
 

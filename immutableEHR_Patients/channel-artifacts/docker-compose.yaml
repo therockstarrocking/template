@@ -10,15 +10,11 @@ services:
     hostname: orderer.example.com
     image: hyperledger/fabric-orderer:x86_64-1.1.0
     deploy:
-      replicas: 3
-      resources:
-        limits:
-          cpus: "0.2"
-          memory: 100M
+      replicas: 1
       restart_policy:
         condition: on-failure
     environment:
-      - ORDERER_GENERAL_LOGLEVEL=INFO
+      - ORDERER_GENERAL_LOGLEVEL=DEBUG
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
@@ -40,14 +36,14 @@ services:
     ports:
       - 7050:7050
     networks:
-      qwe:
+      poi:
         aliases:
           - orderer.example.com
  
   ca0:
     image: hyperledger/fabric-ca:x86_64-1.1.0
     deploy:
-      replicas: 2
+      replicas: 1
       resources:
         limits:
           cpus: "0.1"
@@ -59,16 +55,16 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-Patients
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/6795c3efc245c8a55a2e5e874bac4502ceff4c63abe5fa3e37004a9fd31f3090_sk
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/18c2bb07065c88ba011e1e1cda179466723de5f9703e12ac74f4649731ce72b7_sk
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/6795c3efc245c8a55a2e5e874bac4502ceff4c63abe5fa3e37004a9fd31f3090_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/18c2bb07065c88ba011e1e1cda179466723de5f9703e12ac74f4649731ce72b7_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/Patients.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       #- ./ledger/ca-Patients:/etc/hyperledger/fabric-ca-server
     hostname: ca-Patients
     networks:
-      qwe:
+      poi:
         aliases:
           - ca-Patients
   
@@ -82,7 +78,7 @@ services:
       - 5984:5984
     hostname: couchdb0
     networks:
-      qwe:
+      poi:
         aliases:
           - couchdb0
   
@@ -96,7 +92,7 @@ services:
       - 6984:5984
     hostname: couchdb1
     networks:
-      qwe:
+      poi:
         aliases:
           - couchdb1
 
@@ -116,9 +112,12 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=qwe
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=poi
       #- CORE_LOGGING_LEVEL=INFO
       - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_STARTUPTIMEOUT=1200s
+      - CORE_CHAINCODE_EXECUTETIMEOUT=1600s
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
       - CORE_PEER_GOSSIP_ORGLEADER=false
@@ -147,7 +146,7 @@ services:
     depends_on:
       - couchdb0
     networks:
-      qwe:
+      poi:
         aliases:
           - peer0.Patients.example.com
 
@@ -167,8 +166,11 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=qwe
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=poi
       - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_STARTUPTIMEOUT=1200s
+      - CORE_CHAINCODE_EXECUTETIMEOUT=1600s
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       #- CORE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
@@ -198,7 +200,7 @@ services:
     depends_on:
       - couchdb1
     networks:
-      qwe:
+      poi:
         aliases:
           - peer1.Patients.example.com
 
@@ -237,10 +239,10 @@ services:
         - ./:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
         - ../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
     networks:
-      qwe:
+      poi:
         aliases:
           - cli 
 networks:
-  qwe:
+  poi:
     external:
-      name: qwe
+      name: poi

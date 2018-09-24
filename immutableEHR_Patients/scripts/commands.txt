@@ -1,6 +1,6 @@
- ./fabric-network-temp.sh -m build -e qwe -s rty -b couchdb
- ./fabric-network-temp.sh -m addorg -e qwe -s rty -b couchdb -o XyzHospitals
- ./fabric-network-temp.sh -m upgradechaincode -e qwe -s rty -b couchdb -o XyzHospitals -n mycc -v 2.0
+./fabric-network-temp.sh -m build -e qwe -s rty -b couchdb
+./fabric-network-temp.sh -m addorg -e qwe -s rty -b couchdb -o XyzHospitals
+./fabric-network-temp.sh -m upgradechaincode -e qwe -s rty -b couchdb -n mycc -v 3.0
 
 
 ./composer.sh -m build -e qwe -s rty 

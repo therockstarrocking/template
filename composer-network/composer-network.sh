@@ -49,6 +49,7 @@ function connectionCredentials () {
     CORG=$1
     FABRIC_CRYPTO_CONFIG=../immutableEHR_${DOMAIN}/channel-artifacts/crypto-config
     XFABRIC_CRYPTO_CONFIG=../immutableEhr_Xyzhospitals/channel-artifacts/crypto-config/peerOrganizations/XyzHospitals.example.com/peers/peer0.XyzHospitals.example.com/tls/ca.crt
+    XCA_CRYPTO_CONFIG=../immutableEhr_Xyzhospitals/channel-artifacts/crypto-config/peerOrganizations/XyzHospitals.example.com/
     rm -f ${DIR}/./connection.json
 
     CA2_CERT="$(awk '{printf "%s\\n", $0}' ${XFABRIC_CRYPTO_CONFIG})"
@@ -56,6 +57,8 @@ function connectionCredentials () {
     CA_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAIN}.example.com/peers/peer0.${DOMAIN}.example.com/tls/ca.crt)"
     # verify $? "failed ... try again"
     ORDERER_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt)"
+    PCA_CERT="$(awk '{printf "%s\\n", $0}' ${FABRIC_CRYPTO_CONFIG}/peerOrganizations/${DOMAIN}.example.com/ca/ca.${DOMAIN}.example.com-cert.pem)"
+    XCA_CERT="$(awk '{printf "%s\\n", $0}' ${XCA_CRYPTO_CONFIG}/ca/ca.XyzHospitals.example.com-cert.pem)"
 
 cat << EOF > ${DIR}/./connection-${CORG}.json
 {
@@ -125,7 +128,10 @@ cat << EOF > ${DIR}/./connection-${CORG}.json
     "orderer.example.com": {
       "url": "grpcs://192.168.1.158:7050",
       "grpcOptions": {
-        "ssl-target-name-override": "orderer.example.com"
+        "ssl-target-name-override": "orderer.example.com",
+        "grpc.keepalive_time_ms": 600000,
+        "grpc.max_send_message_length": 15728640,
+        "grpc.max_receive_message_length": 15728640
       },
       "tlsCACerts": {
         "pem": "${ORDERER_CERT}"
@@ -170,6 +176,9 @@ cat << EOF > ${DIR}/./connection-${CORG}.json
       "caName": "ca-${DOMAIN}",
       "httpOptions": {
         "verify": false
+      },
+      "tlsCACerts": {
+        "pem": "${PCA_CERT}"
       }
     },
     "ca_peer${DOMAI2}": {
@@ -177,6 +186,9 @@ cat << EOF > ${DIR}/./connection-${CORG}.json
       "caName": "ca-${DOMAI2}",
       "httpOptions": {
         "verify": false
+      },
+      "tlsCACerts": {
+        "pem": "${XCA_CERT}"
       }
     }
   }

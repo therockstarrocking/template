@@ -15,16 +15,16 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-XyzHospitals
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.XyzHospitals.example.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/64aebca668959692092e0347d964a812588bf28072a5ba570930a7adece35348_sk
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/11058c0796d37a55d6368838ba24b9c50b6aef0f8394c60ca5a843dd5a0ee3d3_sk
     ports:
       - "8054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.XyzHospitals.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/64aebca668959692092e0347d964a812588bf28072a5ba570930a7adece35348_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.XyzHospitals.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/11058c0796d37a55d6368838ba24b9c50b6aef0f8394c60ca5a843dd5a0ee3d3_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/XyzHospitals.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       #- ./ledger/ca-XyzHospitals:/etc/hyperledger/fabric-ca-server
     hostname: ca-XyzHospitals
     networks:
-      qwe:
+      poi:
         aliases:
           - ca-XyzHospitals
   
@@ -38,7 +38,7 @@ services:
       - 7984:5984
     hostname: couchdb2
     networks:
-      qwe:
+      poi:
         aliases:
           - couchdb2
 
@@ -54,9 +54,12 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=qwe
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=poi
       #- CORE_LOGGING_LEVEL=INFO
       - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_CHAINCODE_STARTUPTIMEOUT=1200s
+      - CORE_CHAINCODE_EXECUTETIMEOUT=1600s
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
       - CORE_PEER_GOSSIP_ORGLEADER=false
@@ -85,7 +88,7 @@ services:
     depends_on:
       - couchdb2
     networks:
-      qwe:
+      poi:
         aliases:
           - peer0.XyzHospitals.example.com
 
@@ -124,10 +127,10 @@ services:
         - ./:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
         - ../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
     networks:
-      qwe:
+      poi:
         aliases:
           - cli 
 networks:
-  qwe:
+  poi:
     external:
-      name: qwe
+      name: poi
