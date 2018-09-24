@@ -4,6 +4,7 @@ DOMAIN="$1"
 CHANNEL_NAME="$2"
 CHAINCODENAME="$3"
 VERSION=$4
+ORDERER_TYPE="$5"
 : ${CHANNEL_NAME:="immutableehr"}
 : ${CHAINCODENAME:="mycc"}
 : ${LANGUAGE:="golang"}
@@ -11,7 +12,15 @@ VERSION=$4
 LANGUAGE=`echo "$LANGUAGE" | tr [:upper:] [:lower:]`
 COUNTER=1
 MAX_RETRY=5
-ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+if [ "$ORDERER_TYPE" == "kafka" ];then
+    echo "KAFKA"
+    ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+    ORDERER_URL=orderer0.example.com
+    else
+    echo "NOT KAFKA"
+    ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+    ORDERER_URL=orderer.example.com
+fi
 echo "$DOMAIN"
 CC_SRC_PATH="github.com/chaincode/chaincode_example02/go/"
 echo $VERSION
@@ -61,7 +70,7 @@ upgradeChaincode () {
 	PEER=$1
     setGlobals $PEER
         set -x
-	peer chaincode upgrade -o orderer.example.com:7050 --tls  --cafile $ORDERER_CA -C $CHANNEL_NAME -n $CHAINCODENAME -v ${VERSION} -c '{"Args":["init","a","30","b","70"]}' -P "OR ('PatientsMSP.peer','${DOMAIN}MSP.peer')" >&log.txt
+	peer chaincode upgrade -o $ORDERER_URL:7050 --tls  --cafile $ORDERER_CA -C $CHANNEL_NAME -n $CHAINCODENAME -v ${VERSION} -c '{"Args":["init","a","30","b","70"]}' -P "OR ('PatientsMSP.peer','${DOMAIN}MSP.peer')" >&log.txt
 	res=$?
         set +x
 	cat log.txt

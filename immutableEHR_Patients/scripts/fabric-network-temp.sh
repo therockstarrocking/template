@@ -194,7 +194,12 @@ function generateCerts (){
 
   CRYPTO_CONFIG_FILE="crypto-config.yaml"
   # Copy the template to the file that will be modified to add the domain name
-  cp ../template-files/crypto-config-template.yaml crypto-config.yaml
+  echo $ORDERER_TYPE
+  if [ "$ORDERER_TYPE" == "kafka" ];then
+    cp ../template-files/crypto-config-kafka-template.yaml crypto-config.yaml
+    else
+    cp ../template-files/crypto-config-template.yaml crypto-config.yaml
+  fi
 
   # The next steps will replace the template's contents with the
   # actual values of the domain name.
@@ -229,8 +234,13 @@ function replacePrivateKey () {
     echo "Level DB"
     DOCKERTEMPLATE=docker-compose.yaml
   else
-    echo "CouchDB"
-    DOCKERTEMPLATE=docker-compose-template.yaml
+    if [ "$ORDERER_TYPE" == "kafka" ];then
+      echo "KAFKA"
+      DOCKERTEMPLATE=docker-compose-kafka-template.yaml
+      else
+        echo "couchDb"
+        DOCKERTEMPLATE=docker-compose-couchdb-template.yaml
+    fi
   fi
   COMPOSE_CA_FILE=docker-compose.yaml
   # Copy the template to the file that will be modified to add the private key
@@ -275,7 +285,12 @@ function generateChannelArtifacts() {
 
   CONFIGTX_FILE="configtx.yaml"
   # Copy the template to the file that will be modified to add the domain name
-  cp ../template-files/configtx-template.yaml configtx.yaml
+  echo $ORDERER_TYPE
+  if [ "$ORDERER_TYPE" == "kafka" ];then
+    cp ../template-files/configtx-kafka-template.yaml configtx.yaml
+    else
+    cp ../template-files/configtx-template.yaml configtx.yaml
+  fi
 
   # The next steps will replace the template's contents with the
   # actual values of the domain name.
@@ -332,7 +347,18 @@ function networkBuild () {
   FABRIC_LOGGING_LEVEL=INFO
   FABRIC_CA_ENABLE_DEBUG=
   sleep 1
-  COMPOSE_FILE_TEMPLATE=../template-files/docker-compose-template.yaml
+  if [ "$DB" == "level" ]; then
+    echo "Level DB"
+    COMPOSE_FILE_TEMPLATE=../template-files/docker-compose.yaml
+  else
+    if [ "$ORDERER_TYPE" == "kafka" ];then
+      echo "KAFKA"
+      COMPOSE_FILE_TEMPLATE=../template-files/docker-compose-kafka-template.yaml
+      else
+        echo "KAFKA"
+       COMPOSE_FILE_TEMPLATE=../template-files/docker-compose-couchdb-template.yaml
+    fi
+  fi
   CLI_COMPOSE_FILE=./docker-compose.yaml
   #cp "$CLI_COMPOSE_FILE_TEMPLATE" "$CLI_COMPOSE_FILE"
 
@@ -370,9 +396,9 @@ function networkBuild () {
     docker logs -f ${CLI_CONTAINER}
     exit 1
   fi
-  sleep 35
+  sleep 90
   CLI_CONTAINER=$(docker ps |grep tools|awk '{print $1}')
-  docker exec ${CLI_CONTAINER} ./scripts/networkscripts/channelcreation.sh $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $DOMAIN 1.0
+  docker exec ${CLI_CONTAINER} ./scripts/networkscripts/channelcreation.sh $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $DOMAIN 1.0 $ORDERER_TYPE
   if [ $? -ne 0 ]; then
     echo "ERROR !!!! failed"
     exit 1
@@ -446,7 +472,7 @@ function addorg () {
       exit 1
     fi
     echo $CLI_CONTAINER
-    docker exec ${CLI_CONTAINER} ./scripts/networkscripts/addneworg.sh $NEW_ORG_NAME $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT
+    docker exec ${CLI_CONTAINER} ./scripts/networkscripts/addneworg.sh $NEW_ORG_NAME $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $ORDERER_TYPE
 }
 
 function upgradechaincode () {
@@ -477,7 +503,7 @@ function upgradechaincode () {
       exit 1
     fi
     echo $CLI_CONTAINER
-    docker exec ${CLI_CONTAINER} ./scripts/networkscripts/upgradechaincode.sh $NEW_ORG_NAME $CHANNEL_NAME $CHAINCODE_NAME $CHAINCODE_VERSION
+    docker exec ${CLI_CONTAINER} ./scripts/networkscripts/upgradechaincode.sh $NEW_ORG_NAME $CHANNEL_NAME $CHAINCODE_NAME $CHAINCODE_VERSION $ORDERER_TYPE
 }
 
 
@@ -511,7 +537,8 @@ EXTERNAL_NETWORK=
 # Parse commandline args
 DOMAIN=Patients
 DB=couchdb
-while getopts "h?m:c:t:d:e:s:b:n:v:o:" opt; do
+ORDERER_TYPE=kafka
+while getopts "h?m:c:t:d:e:s:b:n:v:o:k:" opt; do
   case "$opt" in
     h|\?)
       printHelp
@@ -536,6 +563,8 @@ while getopts "h?m:c:t:d:e:s:b:n:v:o:" opt; do
     v)  CHAINCODE_VERSION=$OPTARG
     ;;
     o)  NEW_ORG_NAME=$OPTARG
+    ;;
+    k)  ORDERER_TYPE=$OPTARG
     ;;
   esac
 done

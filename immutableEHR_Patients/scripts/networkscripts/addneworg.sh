@@ -1,11 +1,20 @@
 #!/bin/bash
 CHANNEL_NAME=$2
 DOMAIN=$1
+ORDERER_TYPE="$3"
 echo $DOMAIN
-export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem 
+if [ "$ORDERER_TYPE" == "kafka" ];then
+    echo "KAFKA"
+    export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+    export ORDERER_URL=orderer0.example.com
+    else
+    echo "NOT KAFKA"
+    export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+    export ORDERER_URL=orderer.example.com
+fi
 export CHANNEL_NAME=$CHANNEL_NAME
 
-peer channel fetch config config_block.pb -o orderer.example.com:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA
+peer channel fetch config config_block.pb -o $ORDERER_URL:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA
 which jq
   if [ "$?" -ne 0 ]; then
     echo "Installing jq"
@@ -32,7 +41,7 @@ configtxlator proto_encode --input ${DOMAIN}_update_in_envelope.json --type comm
 
 peer channel signconfigtx -f ${DOMAIN}_update_in_envelope.pb
 
-peer channel update -f ${DOMAIN}_update_in_envelope.pb -c $CHANNEL_NAME -o orderer.example.com:7050 --tls --cafile $ORDERER_CA 2>&1
+peer channel update -f ${DOMAIN}_update_in_envelope.pb -c $CHANNEL_NAME -o $ORDERER_URL:7050 --tls --cafile $ORDERER_CA 2>&1
 if [ $? -ne 0 ];then
   echo "******************** FAILED TO ADD $DOMAIN INTO THE NETWORK *********************"
 else

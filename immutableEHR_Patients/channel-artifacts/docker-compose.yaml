@@ -1,23 +1,177 @@
 version: '3'
 volumes:
-  orderer.example.com:
+  orderer0.example.com:
+  orderer1.example.com:
+  orderer2.example.com:
   peer0.Patients.example.com:
   peer1.Patients.example.com:
 
 services:
 
-  orderer:
-    hostname: orderer.example.com
+  zookeeper0:
+    image: hyperledger/fabric-zookeeper:x86_64-0.4.6
+    hostname: zookeeper0
+    environment:
+      - ZOO_MY_ID=1
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    ports:
+      - 2181
+      - 2888
+      - 3888
+    networks:
+      poi:
+        aliases:
+          - zookeeper0
+  zookeeper1:
+    image: hyperledger/fabric-zookeeper:x86_64-0.4.6
+    hostname: zookeeper1
+    environment:
+      - ZOO_MY_ID=2
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    ports:
+      - 2181
+      - 2888
+      - 3888
+    networks:
+      poi:
+        aliases:
+          - zookeeper1
+  zookeeper2:
+    image: hyperledger/fabric-zookeeper:x86_64-0.4.6
+    hostname: zookeeper2
+    environment:
+      - ZOO_MY_ID=3
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    ports:
+      - 2181
+      - 2888
+      - 3888
+    networks:
+      poi:
+        aliases:
+          - zookeeper2
+
+  kafka0:
+    image: hyperledger/fabric-kafka:x86_64-0.4.6
+    hostname: kafka0
+    environment:
+      - KAFKA_LOG_RETENTION_MS=-1
+      - KAFKA_MESSAGE_MAX_BYTES=1000012
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_BROKER_ID=0
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=10485760
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    networks:
+      poi:
+        aliases:
+          - kafka0
+  kafka1:
+    image: hyperledger/fabric-kafka:x86_64-0.4.6
+    hostname: kafka1
+    environment:
+      - KAFKA_LOG_RETENTION_MS=-1
+      - KAFKA_MESSAGE_MAX_BYTES=1000012
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=10485760
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    networks:
+      poi:
+        aliases:
+          - kafka1
+  kafka2:
+    image: hyperledger/fabric-kafka:x86_64-0.4.6
+    hostname: kafka2
+    environment:
+      - KAFKA_LOG_RETENTION_MS=-1
+      - KAFKA_MESSAGE_MAX_BYTES=1000012
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_BROKER_ID=2
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=10485760
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    networks:
+      poi:
+        aliases:
+          - kafka2
+  kafka3:
+    image: hyperledger/fabric-kafka:x86_64-0.4.6
+    hostname: kafka3
+    environment:
+      - KAFKA_LOG_RETENTION_MS=-1
+      - KAFKA_MESSAGE_MAX_BYTES=1000012
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_BROKER_ID=3
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES=10485760
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    networks:
+      poi:
+        aliases:
+          - kafka3
+
+  orderer0:
+    hostname: orderer0.example.com
     image: hyperledger/fabric-orderer:x86_64-1.1.0
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
     environment:
-      - ORDERER_GENERAL_LOGLEVEL=DEBUG
-      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=poi
+      - ORDERER_HOST=orderer0.example.com
+      - CONFIGTX_ORDERER_ORDERERTYPE=kafka
+      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
+      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_GENESISPROFILE=ImmutableEhrOrdererGenesis
+      - ORDERER_ABSOLUTEMAXBYTES=10 MB
+      - ORDERER_PREFERREDMAXBYTES=512 KB
+      - ORDERER_HOME=/var/hyperledger/orderer
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LEDGERTYPE=ram
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - CONFIGTX_ORDERER_BATCHSIZE_MAXMESSAGECOUNT=10
+      - CONFIGTX_ORDERER_BATCHTIMEOUT=2s
+      - CONFIGTX_ORDERER_ADDRESSES=[127.0.0.1:7050]
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
       - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
       - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
       # enabled TLS
@@ -25,20 +179,134 @@ services:
       - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
       - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
       - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+      - ORDERER_TLS_CLIENTAUTHREQUIRED=false
+      - ORDERER_TLS_CLIENTROOTCAS_FILES=/var/hyperledger/users/Admin@example.com/tls/ca.crt
+      - ORDERER_TLS_CLIENTCERT_FILE=/var/hyperledger/users/Admin@example.com/tls/client.crt
+      - ORDERER_TLS_CLIENTKEY_FILE=/var/hyperledger/users/Admin@example.com/tls/client.key
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderer
     command: orderer
     volumes:
       - ./genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
-      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/:/var/hyperledger/orderer/tls
-      - orderer.example.com:/var/hyperledger/production/orderer
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/tls/:/var/hyperledger/orderer/tls
+      - ./crypto-config/ordererOrganizations/example.com/users:/var/hyperledger/users
+      - orderer0.example.com:/var/hyperledger/production/orderer
       #- ./ledger/orderer.example.com:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
     networks:
       poi:
         aliases:
-          - orderer.example.com
+          - orderer0.example.com
+  orderer1:
+    hostname: orderer1.example.com
+    image: hyperledger/fabric-orderer:x86_64-1.1.0
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=poi
+      - ORDERER_HOST=orderer1.example.com
+      - CONFIGTX_ORDERER_ORDERERTYPE=kafka
+      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
+      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_GENESISPROFILE=ImmutableEhrOrdererGenesis
+      - ORDERER_ABSOLUTEMAXBYTES=10 MB
+      - ORDERER_PREFERREDMAXBYTES=512 KB
+      - ORDERER_HOME=/var/hyperledger/orderer
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LEDGERTYPE=ram
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - CONFIGTX_ORDERER_BATCHSIZE_MAXMESSAGECOUNT=10
+      - CONFIGTX_ORDERER_BATCHTIMEOUT=2s
+      - CONFIGTX_ORDERER_ADDRESSES=[127.0.0.1:7050]
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_TLS_CLIENTAUTHREQUIRED=false
+      - ORDERER_TLS_CLIENTROOTCAS_FILES=/var/hyperledger/users/Admin@example.com/tls/ca.crt
+      - ORDERER_TLS_CLIENTCERT_FILE=/var/hyperledger/users/Admin@example.com/tls/client.crt
+      - ORDERER_TLS_CLIENTKEY_FILE=/var/hyperledger/users/Admin@example.com/tls/client.key
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderer
+    command: orderer
+    volumes:
+      - ./genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/:/var/hyperledger/orderer/tls
+      - ./crypto-config/ordererOrganizations/example.com/users:/var/hyperledger/users
+      - orderer1.example.com:/var/hyperledger/production/orderer
+      #- ./ledger/orderer.example.com:/var/hyperledger/production/orderer
+    ports:
+      - 8050:7050
+    networks:
+      poi:
+        aliases:
+          - orderer1.example.com
+  
+  orderer2:
+    hostname: orderer2.example.com
+    image: hyperledger/fabric-orderer:x86_64-1.1.0
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=poi
+      - ORDERER_HOST=orderer2.example.com
+      - CONFIGTX_ORDERER_ORDERERTYPE=kafka
+      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
+      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_GENESISPROFILE=ImmutableEhrOrdererGenesis
+      - ORDERER_ABSOLUTEMAXBYTES=10 MB
+      - ORDERER_PREFERREDMAXBYTES=512 KB
+      - ORDERER_HOME=/var/hyperledger/orderer
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LEDGERTYPE=ram
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - CONFIGTX_ORDERER_BATCHSIZE_MAXMESSAGECOUNT=10
+      - CONFIGTX_ORDERER_BATCHTIMEOUT=2s
+      - CONFIGTX_ORDERER_ADDRESSES=[127.0.0.1:7050]
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_TLS_CLIENTAUTHREQUIRED=false
+      - ORDERER_TLS_CLIENTROOTCAS_FILES=/var/hyperledger/users/Admin@example.com/tls/ca.crt
+      - ORDERER_TLS_CLIENTCERT_FILE=/var/hyperledger/users/Admin@example.com/tls/client.crt
+      - ORDERER_TLS_CLIENTKEY_FILE=/var/hyperledger/users/Admin@example.com/tls/client.key
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderer
+    command: orderer
+    volumes:
+      - ./genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/:/var/hyperledger/orderer/tls
+      - ./crypto-config/ordererOrganizations/example.com/users:/var/hyperledger/users
+      - orderer2.example.com:/var/hyperledger/production/orderer
+      #- ./ledger/orderer.example.com:/var/hyperledger/production/orderer
+    ports:
+      - 9050:7050
+    networks:
+      poi:
+        aliases:
+          - orderer2.example.com
  
   ca0:
     image: hyperledger/fabric-ca:x86_64-1.1.0
@@ -55,10 +323,10 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-Patients
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/18c2bb07065c88ba011e1e1cda179466723de5f9703e12ac74f4649731ce72b7_sk
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/f0552de27e80e5a053d02de7e35336220f23c0193d45a73b756b39a15900c7b4_sk
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/18c2bb07065c88ba011e1e1cda179466723de5f9703e12ac74f4649731ce72b7_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.Patients.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/f0552de27e80e5a053d02de7e35336220f23c0193d45a73b756b39a15900c7b4_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/Patients.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       #- ./ledger/ca-Patients:/etc/hyperledger/fabric-ca-server
@@ -116,7 +384,6 @@ services:
       #- CORE_LOGGING_LEVEL=INFO
       - CORE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_STARTUPTIMEOUT=1200s
-      - CORE_CHAINCODE_EXECUTETIMEOUT=1600s
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
@@ -132,10 +399,14 @@ services:
       - CORE_PEER_LOCALMSPID=PatientsMSP
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
+      - CORE_PEER_TLS_CLIENTROOTCAS_FILES=/var/hyperledger/users/Admin@Patients.example.com/tls/ca.crt
+      - CORE_PEER_TLS_CLIENTCERT_FILE=/var/hyperledger/users/Admin@Patients.example.com/tls/client.crt
+      - CORE_PEER_TLS_CLIENTKEY_FILE=/var/hyperledger/users/Admin@Patients.example.com/tls/client.key
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/Patients.example.com/peers/peer0.Patients.example.com/msp:/etc/hyperledger/fabric/msp
       - ./crypto-config/peerOrganizations/Patients.example.com/peers/peer0.Patients.example.com/tls:/etc/hyperledger/fabric/tls
+      - ./crypto-config/peerOrganizations/Patients.example.com/users:/var/hyperledger/users
       - peer0.Patients.example.com:/var/hyperledger/production
       #- ./ledger/peer0.${Patients}.exapmle.com:/var/hyperledger/production
     ports:
@@ -169,7 +440,6 @@ services:
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=poi
       - CORE_LOGGING_LEVEL=DEBUG
       - CORE_CHAINCODE_STARTUPTIMEOUT=1200s
-      - CORE_CHAINCODE_EXECUTETIMEOUT=1600s
       - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
       #- CORE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_TLS_ENABLED=true
@@ -186,10 +456,14 @@ services:
       - CORE_PEER_LOCALMSPID=PatientsMSP
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
+      - CORE_PEER_TLS_CLIENTROOTCAS_FILES=/var/hyperledger/users/Admin@Patients.example.com/tls/ca.crt
+      - CORE_PEER_TLS_CLIENTCERT_FILE=/var/hyperledger/users/Admin@Patients.example.com/tls/client.crt
+      - CORE_PEER_TLS_CLIENTKEY_FILE=/var/hyperledger/users/Admin@Patients.example.com/tls/client.key
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/Patients.example.com/peers/peer1.Patients.example.com/msp:/etc/hyperledger/fabric/msp
       - ./crypto-config/peerOrganizations/Patients.example.com/peers/peer1.Patients.example.com/tls:/etc/hyperledger/fabric/tls
+      - ./crypto-config/peerOrganizations/Patients.example.com/users:/var/hyperledger/users
       - peer1.Patients.example.com:/var/hyperledger/production
       #- ./ledger/peer1.${Patients}.exapmle.com:/var/hyperledger/production
     ports:

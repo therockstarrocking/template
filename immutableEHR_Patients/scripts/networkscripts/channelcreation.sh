@@ -19,6 +19,7 @@ DELAY="$2"
 TIMEOUT="$3"
 DOMAIN="$4"
 CC_VERSION="$5"
+ORDERER_TYPE="$6"
 : ${CHANNEL_NAME:="immutableehr"}
 : ${DELAY:="3"}
 : ${TIMEOUT:="10"}
@@ -26,7 +27,16 @@ LANGUAGE="node"
 COUNTER=1
 MAX_RETRY=5
 INS_RETRY=3
-ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+if [ "$ORDERER_TYPE" == "kafka" ];then
+    echo "KAFKA"
+    ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+    ORDERER_URL=orderer0.example.com
+    else
+    echo "NOT KAFKA"
+    ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+    ORDERER_URL=orderer.example.com
+fi
+
 CC_SRC_PATH=/opt/gopath/src/github.com/chaincode/chaincode_example02/node/
 #
 setGlobals () {
@@ -70,7 +80,7 @@ joinChannelWithRetry () {
 createChannelWithRetry () {
     setGlobals $peer
     set -x
-    peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile $ORDERER_CA >log.tx
+    peer channel create -o $ORDERER_URL:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile $ORDERER_CA >log.tx
     res=$?
     set -x
     cat log.tx
@@ -89,7 +99,7 @@ createChannelWithRetry () {
 updateAnchorWithRetry () {
     setGlobals $peer
     set -x
-    peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${DOMAIN}MSPanchors.tx --tls --cafile $ORDERER_CA >log.tx
+    peer channel update -o $ORDERER_URL:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${DOMAIN}MSPanchors.tx --tls --cafile $ORDERER_CA >log.tx
     res=$?
     set -x
     cat log.tx
@@ -128,7 +138,7 @@ installChaincodeWithRetry () {
 instantiatedWithRetry () {
     setGlobals $peer 
     set -x
-    peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -v ${CC_VERSION} -c '{"Args":["init","a", "100", "b","200"]}'
+    peer chaincode instantiate -o $ORDERER_URL:7050 --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -v ${CC_VERSION} -c '{"Args":["init","a", "100", "b","200"]}'
     res=$?
     set +x
     cat log.txt
