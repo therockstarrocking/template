@@ -472,7 +472,8 @@ function addorg () {
       exit 1
     fi
     echo $CLI_CONTAINER
-    docker exec ${CLI_CONTAINER} ./scripts/networkscripts/addneworg.sh $NEW_ORG_NAME $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $ORDERER_TYPE
+    echo " Orderer from fsh: $ORDERER_TYPE"
+    docker exec ${CLI_CONTAINER} ./scripts/networkscripts/addneworg.sh $NEW_ORG_NAME $CHANNEL_NAME $ORDERER_TYPE
 }
 
 function upgradechaincode () {

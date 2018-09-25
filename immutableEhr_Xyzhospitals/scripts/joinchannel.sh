@@ -4,6 +4,7 @@ DOMAIN="$1"
 CHANNEL_NAME="$2"
 CHAINCODENAME="$3"
 VERSION=$4
+ORDERER_NAME=$5
 : ${CHANNEL_NAME:="immutableehr"}
 : ${CHAINCODENAME:="mycc"}
 : ${LANGUAGE:="golang"}
@@ -11,7 +12,7 @@ VERSION=$4
 LANGUAGE=`echo "$LANGUAGE" | tr [:upper:] [:lower:]`
 COUNTER=1
 MAX_RETRY=5
-ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/$ORDERER_NAME/msp/tlscacerts/tlsca.example.com-cert.pem
 echo "$DOMAIN"
 CC_SRC_PATH="github.com/chaincode/chaincode_example02/go/"
 echo $VERSION
@@ -63,7 +64,7 @@ installChaincode () {
 }
 
 set -x
-peer channel fetch 0 ${CHANNEL_NAME}.block -o orderer.example.com:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA
+peer channel fetch 0 ${CHANNEL_NAME}.block -o $ORDERER_NAME:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA
 set +x
 res=$?
 verifyResult $res "Failed to fetch channel block"

@@ -156,7 +156,7 @@ services:
       - ORDERER_HOST=orderer0.example.com
       - CONFIGTX_ORDERER_ORDERERTYPE=kafka
       - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
-      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=2s
       - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
       - ORDERER_KAFKA_VERBOSE=true
       - ORDERER_GENERAL_GENESISPROFILE=ImmutableEhrOrdererGenesis
@@ -194,6 +194,11 @@ services:
       #- ./ledger/orderer.example.com:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
+    depends_on:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
     networks:
       EXTERNAL_NETWORK:
         aliases:
@@ -210,7 +215,7 @@ services:
       - ORDERER_HOST=orderer1.example.com
       - CONFIGTX_ORDERER_ORDERERTYPE=kafka
       - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
-      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=2s
       - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
       - ORDERER_KAFKA_VERBOSE=true
       - ORDERER_GENERAL_GENESISPROFILE=ImmutableEhrOrdererGenesis
@@ -248,6 +253,11 @@ services:
       #- ./ledger/orderer.example.com:/var/hyperledger/production/orderer
     ports:
       - 8050:7050
+    depends_on:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
     networks:
       EXTERNAL_NETWORK:
         aliases:
@@ -265,7 +275,7 @@ services:
       - ORDERER_HOST=orderer2.example.com
       - CONFIGTX_ORDERER_ORDERERTYPE=kafka
       - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
-      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=2s
       - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
       - ORDERER_KAFKA_VERBOSE=true
       - ORDERER_GENERAL_GENESISPROFILE=ImmutableEhrOrdererGenesis
@@ -303,6 +313,11 @@ services:
       #- ./ledger/orderer.example.com:/var/hyperledger/production/orderer
     ports:
       - 9050:7050
+    depends_on:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
     networks:
       EXTERNAL_NETWORK:
         aliases:

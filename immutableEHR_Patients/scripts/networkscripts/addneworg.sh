@@ -3,7 +3,8 @@ CHANNEL_NAME=$2
 DOMAIN=$1
 ORDERER_TYPE="$3"
 echo $DOMAIN
-if [ "$ORDERER_TYPE" == "kafka" ];then
+getOrderer() {
+  if [ "$ORDERER_TYPE" == "kafka" ];then
     echo "KAFKA"
     export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
     export ORDERER_URL=orderer0.example.com
@@ -11,9 +12,10 @@ if [ "$ORDERER_TYPE" == "kafka" ];then
     echo "NOT KAFKA"
     export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
     export ORDERER_URL=orderer.example.com
-fi
-export CHANNEL_NAME=$CHANNEL_NAME
+  fi
+}
 
+getOrderer
 peer channel fetch config config_block.pb -o $ORDERER_URL:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA
 which jq
   if [ "$?" -ne 0 ]; then

@@ -377,7 +377,7 @@ function networkDown () {
 function joinChannel () {
   CLI=$(docker ps |grep ${DOCKER_STACK_NAME}_${DOMAIN}_cli|awk '{print $1}')
   echo "${CLI}"
-  docker exec $CLI ./scripts/joinchannel.sh $DOMAIN $CHANNEL_NAME $CHAINCODENAME $VERSION
+  docker exec $CLI ./scripts/joinchannel.sh $DOMAIN $CHANNEL_NAME $CHAINCODENAME $VERSION $ORDERER_NAME
 }
 
 
@@ -418,8 +418,9 @@ IP=192.168.0.148
 DESTPATH=./hb/immutableEhr_Patients_Automated/composer-setup/
 CHAINCODENAME="mycc"
 VERSION=2.0
+ORDERER_NAME=orderer1.example.com
 
-while getopts "h?m:c:t:d:f:e:s:b:n:v:" opt; do
+while getopts "h?m:c:t:d:f:e:s:b:n:v:o:" opt; do
   case "$opt" in
     h|\?)
       printHelp
@@ -444,6 +445,8 @@ while getopts "h?m:c:t:d:f:e:s:b:n:v:" opt; do
     n)  CHAINCODENAME=$OPTARG
     ;;
     v)  VERSION=$OPTARG
+    ;;
+    o)  ORDERER_NAME=$OPTARG
     ;;
   esac
 done

@@ -1,0 +1,32 @@
+version: '3'
+volumes:
+  composer.cli:
+services:
+  composer_cli:
+    hostname: composer_cli
+    image: DOMAIN/composer-cli
+    tty: true
+    stdin_open: true
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "9090:9090"
+    working_dir: /root/hyperledger/composer
+    volumes:
+      - ./:/root/hyperledger/composer
+      - ./.composer:/root/.composer
+      #- composer.cli:/root/hyperledger/composer
+    #entrypoint: "bin/sh"
+    command: "sleep 100000"
+    hostname: composer_cli
+    networks:
+      EXTERNAL_NETWORK:
+        aliases:
+          - composer-cli
+networks:
+  EXTERNAL_NETWORK:
+    external:
+      name: EXTERNAL_NETWORK
+
