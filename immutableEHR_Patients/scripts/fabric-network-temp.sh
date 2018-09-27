@@ -449,6 +449,20 @@ function readChaincodeName () {
     readChaincodeName
   fi
 }
+function verifyConfigFile(){
+  if [ ! -f $NEW_ORG_NAME.json ]; then 
+    echo "No configuration file found for ${NEW_ORG_NAME}..."
+    echo "Procceding to get the configuration file"
+    askProceed
+    read -p "${NEW_ORG_NAME} ssh address :" SSH_ADDRESS 
+    scp -r ../channel-artifacts/crypto-config/ordererOrganizations/ ${SSH_ADDRESS}:./immutableEhr_${NEW_ORG_NAME}/channel-artifacts/crypto-config/
+    scp ${SSH_ADDRESS}:./immutableEhr_${NEW_ORG_NAME}/channel-artifacts/${NEW_ORG_NAME}.json ../channel-artifacts/
+    #exit 1
+    if [ ! -f $NEW_ORG_NAME.json ]; then 
+      verifyConfigFile
+    fi
+  fi
+}
 function addorg () {
     cd $I_PATH
     echo $DOCKER_STACK_NAME
@@ -461,10 +475,7 @@ function addorg () {
       readNewOrgName
     fi
     cd ../channel-artifacts/
-    if [ ! -f $NEW_ORG_NAME.json ]; then 
-      echo "No configuration file found for ${NEW_ORG_NAME}... try again by placing the file"
-      exit 1
-    fi
+    verifyConfigFile
     cd $I_PATH
     CLI_CONTAINER=$(docker ps |grep ${DOCKER_STACK_NAME}_cli|awk '{print $1}')
     if [ "$CLI_CONTAINER" == "" ]; then
