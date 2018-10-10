@@ -1,0 +1,47 @@
+namespace orgparticipant
+
+
+
+participant hie identified by OrganizationID {
+  
+	o String OrganizationID  //] [bigint] IDENTITY(1,1) NOT NULL,
+	o String OrganizationName     optional       /// (255) NULL,
+	o String OrganizationCode     optional       /// (50) NULL,
+	o String OrganizationType     optional       /// (50) NULL,
+	o String ParentOrganizationID  optional//] [bigint] NULL,
+	o String ContactPerson     optional       /// (100) NULL,
+	o String AddressLine1     optional       /// (255) NULL,
+	o String AddressLine2     optional       /// (255) NULL,
+	o String CityName     optional       /// (255) NULL,
+	o String StateCode     optional       /// (50) NULL,
+	o String CountyCode     optional       /// (50) NULL,
+	o String CountryCode     optional       /// (3) NULL,
+	o String ZipCode     optional       /// (50) NULL,
+	o String ContactPhone     optional       /// (20) NULL,
+	o String EmailID     optional       /// (100) NULL,
+	o String Fax     optional       /// (100) NULL,
+	o String WebsiteURL     optional       /// (100) NULL,
+	o String TIN     optional       /// (100) NULL,
+	o String CCN     optional       /// (100) NULL,
+	o String SSN     optional       /// (100) NULL,
+	o String NPI     optional       /// (100) NULL,
+	o String EIN     optional       /// (100) NULL,
+	o String IsInternal     optional       /// (50) NULL,
+	o String IsActive     optional       /// (50) NULL,
+	o DateTime CreatedDate  optional//] [smalldatetime] NULL,
+	o DateTime ModifiedDate  optional //] [smalldatetime] NULL,
+	o String CreatedBy     optional       /// (100) NULL,
+	o String ModifiedBy     optional       /// (100) NULL,
+	o String ProviderCommercialNumber     optional       /// (100) NULL,
+	o String LocationNumber     optional       /// (100) NULL,
+	o String NCPDPNumber     optional       /// (100) NULL,
+	o String OtherIdentifier     optional       /// (100) NULL,
+	o String ProviderUPINNumber     optional       /// (100) NULL,
+	o String StateLicenseNumber     optional       /// (100) NULL
+}
+
+
+transaction Addparticipant {
+
+  o hie user
+  }

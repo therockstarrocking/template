@@ -13,12 +13,7 @@ getOrderer() {
     export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
     export ORDERER_URL=orderer.example.com
   fi
-  if [ ! -f $DOMAIN.json ];then
-    echo " ${DOMAIN} specific configuration is not found"
-    read -p "${DOMAIN} ssh address :" SSH_ADDRESS 
-    scp -r ../channel-artifacts/crypto-config/ordererOrganizations/ ${SSH_ADDRESS}:./
-    ssh $SSH_ADDRESS scp ./${DOMAIN}.txt composer@192.168.1.158:./immutableEhr/ ;exit
-  fi
+  
 }
 
 getOrderer

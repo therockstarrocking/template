@@ -1,0 +1,119 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace iehr
+import pid.HL7251_PID
+import obr.HL7251_OBR
+import orc.HL7251_ORC
+import obx.HL7251_OBX
+import pd.HL7251_PD
+
+
+///model for patient and identified based on mnr number of patient,its unique key
+
+
+
+asset HL7251_MSH identified by MSHKEY{
+
+  o String MSHKEY // NOT NULL,
+	o DateTime CreatedDate  optional //NULL,
+	o DateTime LastUpdateDate optional // NULL,
+	o String UpdatedByUsername optional//  NULL,
+	o String SendingApplicationNamespaceID optional// NULL, 
+	o String SendingApplicationUniversalID optional // NULL,
+	o String SendingApplicationUniversalIDType optional// NULL,
+  o String SendingFacilityNamespaceID optional// NULL,
+	o String SendingFacilityUniversalID optional// NULL,
+	o String SendingFacilityUniversalIDType optional// NULL,
+	o String ReceivingApplicationNamespaceID optional//  NULL,
+	o String ReceivingApplicationUniversalID  optional// NULL,
+	o String ReceivingApplicationUniversalIDType optional// NULL,
+	o String ReceivingFacilityNamespaceID optional // NULL,
+	o String ReceivingFacilityUniversalID optional  // NULL,
+	o String ReceivingFacilityUniversalIDType optional  // NULL,
+	o String MessageTime optional  //(30) NULL,
+	o String MessageYear optional  //(4) NULL,
+	o String MessageMonth optional  //(2) NULL,
+	o String MessageDay optional  //(2) NULL,
+	o String MessageHours optional  //(2) NULL,
+	o String MessageMinutes optional  //(2) NULL,
+	o String MessageSeconds optional  //(2) NULL,
+	o String MessageMills optional  //(3) NULL,
+	o String MessageGmtOffset optional  //(5) NULL,
+	o String Precision optional  //(1) NULL,
+	o String Security optional  //(40) NULL,
+	o String MessageType optional  //(3) NULL,
+	o String TriggerEvent optional  //(3) NULL,
+	o String MessageStructure optional  //(7) NULL,
+	o String MessageControlID optional  //(20) NULL,
+	o String ProcessingID optional  //(11) NULL,
+	o String ProcessingMode optional  //(11) NULL,
+	o String VersionID optional  //(5) NULL,
+	o String VersionIdentifier optional  //(20) NULL,
+	o String VersionText optional  //(199) NULL,
+	o String VersionNameOfCodingSystem optional  //(20) NULL,
+	o String VersionAlternateIdentifier optional  //(20) NULL,
+	o String VersionAlternateText optional  //(199) NULL,
+	o String VersionNameOfAlternateCodingSystem optional  //(20) NULL,
+	o String InternationalVersionIIdentifier optional  //(20) NULL,
+	o String InternationalVersionIText optional  //(199) NULL,
+	o String InternationalVersionINameOfCodingSystem optional  //(20) NULL,
+	o String InternationalVersionIAlternateIdentifier optional  //(20) NULL,
+	o String InternationalVersionIAlternateText optional  //(199) NULL,
+	o String InternationalVersionINameOfAlternateCodingSystem optional  //(20) NULL,
+	o String SequenceNumber optional  //(15) NULL,
+	o String ContinuationPointer optional  //(180) NULL,
+	o String AcceptAcknowledgementType optional  //(2) NULL,
+	o String ApplicationAcknowledgementType optional  //(2) NULL,
+	o String CountryCode optional  //(16) NULL,
+	o String PrincipalLanguageOfMessageIdentifier optional  //(20) NULL,
+	o String PrincipalLanguageOfMessageText optional  //(199) NULL,
+	o String PrincipalLanguageOfMessageNameOfCodingSystem optional  //(20) NULL,
+	o String PrincipalLanguageOfMessageAlternateIdentifier optional  //(20) NULL,
+	o String PrincipalLanguageOfMessageAlternateText optional  //(199) NULL,
+	o String PrincipalLanguageOfMessageNameOfAlternateCodingSystem optional  //(20) NULL,
+	o String AlternateCharacterSetHandlingScheme optional  //(20) NULL,
+}
+
+concept hl7format{
+o HL7251_MSH mshform optional  
+o HL7251_PID pidform optional
+o HL7251_OBR obrform optional
+o HL7251_ORC orcform optional
+o HL7251_OBX obxform optional
+
+}
+
+transaction AddMSH {
+  o HL7251_MSH Hl7MshFormat
+}
+
+event mshcreated {
+    o String id 
+}
+
+event destorgwithmsh{
+ o String mshkey 
+ o String destkey
+}
+
+event emitconcept{
+  o hl7format hl7format
+}
+
+

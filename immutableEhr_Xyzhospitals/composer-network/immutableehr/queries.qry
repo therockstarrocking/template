@@ -1,0 +1,79 @@
+/** sample queries*/
+query pidmsh{
+description: "Select all pid based on their msh"
+statement: 
+SELECT pid.HL7251_PID
+WHERE (MSHKEY ==_$MSHKEY) 
+}
+
+query obrmsh {
+  description:"Select all obr based on their msh"
+  statement:SELECT obr.HL7251_OBR WHERE (MSHKEY==_$MSHKEY) 
+}
+
+
+query obxmsh{
+description: "Select all obx based on their msh"
+statement: 
+SELECT obx.HL7251_OBX
+WHERE (MSHKEY ==_$MSHKEY) 
+}
+
+
+query pv1msh{
+description: "Select all pv1 based on their msh"
+statement: 
+SELECT pv.HL725PV1
+WHERE (MSHKEY ==_$MSHKEY) 
+}
+
+
+query pdmsh{
+description: "Select all pid based on their msh"
+statement: 
+SELECT pd.HL7251_PD
+WHERE (MSHKEY ==_$MSHKEY) 
+}
+
+query pv2msh{
+description: "Select all pv2 based on their msh"
+statement: 
+SELECT pv.HL725PV2
+WHERE (MSHKEY ==_$MSHKEY) 
+}
+
+
+query orcmsh {
+  description:"Select all orc based on their msh"
+  statement:SELECT orc.HL7251_ORC WHERE (MSHKEY==_$MSHKEY) 
+}
+
+
+
+query selectmessagesgrttime {
+  description:"select all the asset with same message key"
+  statement:SELECT iehr.HL7251_MSH WHERE (SendingApplicationNamespaceID=="SYNGO" AND SendingFacilityNamespaceID=="LEX" AND ReceivingApplicationNamespaceID=="PROFEE_BILLING" AND ReceivingFacilityNamespaceID=="PRD" AND MessageType=="ORU" AND TriggerEvent=="R01" AND MessageTime >=_$starttime AND MSHKEY==_$MSHKEY) 
+}
+
+
+query selectmessagetimeinterval{
+  description:"select all the asset with same message key"
+  statement:SELECT iehr.HL7251_MSH WHERE (SendingApplicationNamespaceID=="SYNGO" AND SendingFacilityNamespaceID=="LEX" AND ReceivingApplicationNamespaceID=="PROFEE_BILLING" AND ReceivingFacilityNamespaceID=="PRD" AND MessageType=="ORU" AND TriggerEvent=="R01" AND MessageTime >=_$starttime AND MessageTime<=_$endtime AND MSHKEY==_$MSHKEY) 
+}
+
+query selectmessagelesstime{
+  description:"select all the asset with same message key"
+  statement:SELECT iehr.HL7251_MSH WHERE (SendingApplicationNamespaceID=="SYNGO" AND SendingFacilityNamespaceID=="LEX" AND ReceivingApplicationNamespaceID=="PROFEE_BILLING" AND ReceivingFacilityNamespaceID=="PRD" AND MessageType=="ORU" AND TriggerEvent=="R01" AND MessageTime <=_$endtime AND MSHKEY==_$MSHKEY) 
+}
+
+query seletallmshwithorgid{
+  description:"select all the asset with  message key  belongs to  particular organzation"
+  statement:SELECT Destinationorg.Destorg WHERE (desOrganizationID ==_$OrganizationID) 
+}
+
+
+
+query messageofreceivingapplication{
+  description:"select all the asset with same message key"
+  statement:SELECT iehr.HL7251_MSH WHERE (SendingApplicationNamespaceID=="SYNGO" AND SendingFacilityNamespaceID=="LEX" AND ReceivingApplicationNamespaceID=="PROFEE_BILLING" AND ReceivingFacilityNamespaceID=="PRD" AND MessageType=="ORU" AND TriggerEvent=="R01" ) 
+}

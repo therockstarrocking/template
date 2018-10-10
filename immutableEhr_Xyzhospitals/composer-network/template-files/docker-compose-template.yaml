@@ -12,7 +12,8 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-      - "10090:9090"
+      - 10090:9090
+      - 4000:3000
     working_dir: /root/hyperledger/composer
     volumes:
       - ./:/root/hyperledger/composer

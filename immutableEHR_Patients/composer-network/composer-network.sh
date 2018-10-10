@@ -292,9 +292,35 @@ function replaceVersionNr () {
      Domain1=$1
      Domain2=$2
  }
- function networkStart() {
-   CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+ function createAdminCards(){
+    CONTAINER_NAME=$(docker ps |grep ${DOCKER_STACK_NAME}_composer_cli|awk '{print $1}')
    #COMPOSER_NETWORK_NAME=immutableehr
+   echo $CONTAINER_NAME
+    if [ -z "$COMPOSER_NETWORK_NAME" ]; then
+        askNetworkName
+    fi
+    if [ -z "$ADMIN_NAME" ]; then
+        askAdminName
+    fi
+
+    docker exec ${CONTAINER_NAME} composer card create -p ./connection-${DOMAIN}.json -u ${ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ./cards/${ADMIN_NAME}/admin-pub.pem -k ./cards/${ADMIN_NAME}/admin-priv.pem -f ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
+    # Import the network administrator identity as a usable business network card
+    docker exec ${CONTAINER_NAME} composer card import --file ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
+
+    # docker exec ${CONTAINER_NAME} composer card create -p ./connection-${DOMI2}.json -u ${ORG2_ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ${ORG2_ADMIN_NAME}/admin-pub.pem -k ${ORG2_ADMIN_NAME}/admin-priv.pem -f ./cards/${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
+    # # Import the network administrator identity as a usable business network card
+    # docker exec ${CONTAINER_NAME} composer card import --file ./cards/${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
+
+    echo "Hyperledger Composer admin card has been imported"
+    # Show imported cards
+    docker exec ${CONTAINER_NAME} composer card list
+    docker exec ${CONTAINER_NAME} composer network ping -c ${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}
+    #docker exec ${CONTAINER_NAME} composer network ping -c ${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}
+ }
+ function networkStart() {
+   CONTAINER_NAME=$(docker ps |grep ${DOCKER_STACK_NAME}_composer_cli|awk '{print $1}')
+   #COMPOSER_NETWORK_NAME=immutableehr
+   echo $CONTAINER_NAME
     if [ -z "$COMPOSER_NETWORK_NAME" ]; then
         askNetworkName
     fi
@@ -309,27 +335,19 @@ function replaceVersionNr () {
     NETWORK_ARCHIVE=./network-archives/${COMPOSER_NETWORK_NAME}@${NETWORK_ARCHIVE_VERSION}.bna
 
     # Deploy the business network, from COMPOSER_NETWORK_NAME directory
-    docker exec ${CONTAINER_NAME} composer network start -c PeerAdmin@immutableehr-${DOMAIN} -n ${COMPOSER_NETWORK_NAME} -V ${NETWORK_ARCHIVE_VERSION} -A ${ADMIN_NAME} -C ./cards/${ADMIN_NAME}/admin-pub.pem -A ${ORG2_ADMIN_NAME} -C ./cards/${ORG2_ADMIN_NAME}/admin-pub.pem
-    verify $? "failed to start the network" " Network Started"
-
-    docker exec ${CONTAINER_NAME} composer card create -p ./connection-${DOMAIN}.json -u ${ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ${ADMIN_NAME}/admin-pub.pem -k ${ADMIN_NAME}/admin-priv.pem -f ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
-    # Import the network administrator identity as a usable business network card
-    docker exec ${CONTAINER_NAME} composer card import --file ./cards/${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
-
-    docker exec ${CONTAINER_NAME} composer card create -p ./connection-${DOMI2}.json -u ${ORG2_ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ${ORG2_ADMIN_NAME}/admin-pub.pem -k ${ORG2_ADMIN_NAME}/admin-priv.pem -f ./cards/${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
-    # Import the network administrator identity as a usable business network card
-    docker exec ${CONTAINER_NAME} composer card import --file ./cards/${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}.card
-
-    echo "Hyperledger Composer admin card has been imported"
-    # Show imported cards
-    docker exec ${CONTAINER_NAME} composer card list
-    docker exec ${CONTAINER_NAME} composer network ping -c ${ADMIN_NAME}@${COMPOSER_NETWORK_NAME}
-    docker exec ${CONTAINER_NAME} composer network ping -c ${ORG2_ADMIN_NAME}@${COMPOSER_NETWORK_NAME}
- 
-    }
+    docker exec $CONTAINER_NAME composer network start -c PeerAdmin@immutableehr-${DOMAIN} -n ${COMPOSER_NETWORK_NAME} -V ${NETWORK_ARCHIVE_VERSION} -A ${ADMIN_NAME} -C ./cards/${ADMIN_NAME}/admin-pub.pem -A ${ORG2_ADMIN_NAME} -C ./cards/${ORG2_ADMIN_NAME}/admin-pub.pem
+    #verify $? "failed to start the network" " Network Started"
+    echo $?
+    STRTLOG=$(echo $?|grep commit);
+    echo $STRTLOG
+    if [ $STRTLOG === ""]; then
+      exit 1
+    fi
+    createAdminCards
+  }
 function networkInstall() {
   #COMPOSER_NETWORK_NAME=immutableehr
-    CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+    CONTAINER_NAME=$(docker ps |grep ${DOCKER_STACK_NAME}_composer_cli|awk '{print $1}')
     #COMPOSER_NETWORK_NAME=immutableehr
     askNetworkName
     askNetworkVersion
@@ -365,7 +383,7 @@ function networkInstall() {
  }
 
  function createPeerAdmin(){
-    CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+    CONTAINER_NAME=$(docker ps |grep ${DOCKER_STACK_NAME}_composer_cli|awk '{print $1}')
     COMPOSER_NETWORK_NAME=immutableehr
     FABRIC_CRYPTO_CONFIG=../channel-artifacts/crypto-config
     #XFABRIC_CRYPTO_CONFIG=./${DOMAIN2}
@@ -417,7 +435,7 @@ function networkInstall() {
    rm -rf ./.composer/client-data/
    COMPOSER_NETWORK_NAME=immutableehr
     domain=$( echo "$DOMAIN" | awk '{print tolower($0)}')
-    if [ ! -f "connection.json" ]; then
+    if [ ! -f "connection-${DOMAIN}.json" ]; then
         echo "--------------------------- Creating Connection.json ---------------------------- "
         connectionCredentials "${DOMAIN}"
         #connectionCredentials "XyzHospitals"
@@ -442,7 +460,7 @@ function networkInstall() {
     echo " ------------------------------ Deploying composer cli -----------------------------------"
     docker stack deploy ${DOCKER_STACK_NAME} -c $COMPOSE_FILE 2>&1
     sleep 60
-    CONTAINER_NAME=$(docker ps |grep composer_cli|awk '{print $1}')
+    CONTAINER_NAME=$(docker ps |grep ${DOCKER_STACK_NAME}_composer_cli|awk '{print $1}')
     echo $CONTAINER_NAME
     # if [ -z ${CONTAINER_NAME} ]; then
         echo "container created at id ===>  ${CONTAINER_NAME}"
@@ -757,7 +775,7 @@ if [ "${MODE}" == "build" ]; then
   elif [ "${MODE}" == "recreate" ]; then
     recreateComposer
   elif [ "${MODE}" == "addAdminParticipant" ]; then
-    addAdminParticipant
+    createAdminCards
   elif [ "${MODE}" == "createParticipantCard" ]; then
     createParticipantCard
   elif [ "${MODE}" == "upgradeComposer" ]; then

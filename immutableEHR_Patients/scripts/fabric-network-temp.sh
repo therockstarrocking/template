@@ -405,7 +405,14 @@ function networkBuild () {
   fi
 }
 
-
+function start(){
+   CLI_CONTAINER=$(docker ps |grep tools|awk '{print $1}')
+  docker exec ${CLI_CONTAINER} ./scripts/networkscripts/channelcreation.sh $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $DOMAIN 1.0 $ORDERER_TYPE
+  if [ $? -ne 0 ]; then
+    echo "ERROR !!!! failed"
+    exit 1
+  fi
+}
 # Tear down running network
 function networkDown () {
     swarmRemove

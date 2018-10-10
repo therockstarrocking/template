@@ -2,6 +2,8 @@ composer network install --card PeerAdmin@immutableehr-Patients --archiveFile ./
 
 composer network start -c PeerAdmin@immutableehr-XyzHospitals -n health -V 0.0.1 -A bob -C ./cards/bob/admin-pem.pem -A alice -C ./cards/alice/admin-pub.pem
 
+composer network start -c PeerAdmin@immutableehr-Patients -n composer-network -V 0.0.1 -A bob -C ./cards/bob/admin-pem.pem -A alice -C ./cards/alice/admin-pub.pem
+
 composer identity request -c PeerAdmin@immutableehr-XyzHospitals -u admin -s adminpw -d ./cards/bob
 
 composer card create -p ./connection-${DOMAIN}.json -u ${ADMIN_NAME} -n ${COMPOSER_NETWORK_NAME} -c ${ADMIN_NAME}/admin-pub.pem -k ${ADMIN_NAME}/admin-priv.pem -f ./cards/alice@immutableehr.card

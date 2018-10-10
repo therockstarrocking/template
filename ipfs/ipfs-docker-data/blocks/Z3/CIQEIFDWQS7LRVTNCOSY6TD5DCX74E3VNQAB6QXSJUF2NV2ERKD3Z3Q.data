@@ -1,0 +1,25 @@
+
+§Ÿ{
+  "name": "composer-network",
+  "version": "0.0.1",
+  "description": "Hyperledger Composer Network Definition",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "author": "Waleed El Sayed",
+  "email": "waleed@4eyes.ch",
+  "license": "Apache-2.0",
+  "deependencies": {
+    "composer-admin": "latest",
+    "composer-client": "latest",
+    "composer-common": "latest",
+    "composer-connector-embedded": "latest",
+    "chai": "latest",
+    "eslint": "latest",
+    "istanbul": "latest",
+    "mkdirp": "latest",
+    "mocha": "latest"
+  }
+
+}
+Ÿ

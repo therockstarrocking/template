@@ -12,7 +12,8 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-      - "9090:9090"
+      - 9090:9090
+      - 3001:3000
     working_dir: /root/hyperledger/composer
     volumes:
       - ./:/root/hyperledger/composer
@@ -20,7 +21,6 @@ services:
       #- composer.cli:/root/hyperledger/composer
     #entrypoint: "bin/sh"
     command: "sleep 100000"
-    hostname: composer_cli
     networks:
       EXTERNAL_NETWORK:
         aliases:

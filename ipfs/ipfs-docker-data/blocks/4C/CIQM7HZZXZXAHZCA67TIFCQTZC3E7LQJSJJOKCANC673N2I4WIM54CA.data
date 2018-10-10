@@ -1,0 +1,39 @@
+
+ìä/**
+ * Queries file
+ */
+
+query selectOpenShoppingList {
+  description: "Select the open shopping list"
+  statement:
+      SELECT org.eyes.znueni.ShoppingList
+  		  WHERE (state == 'OPEN') LIMIT 1
+}
+
+query selectShoppingListById {
+  description: "Select shopping list by id"
+  statement:
+      SELECT org.eyes.znueni.ShoppingList
+  		  WHERE (id == _$id)
+}
+
+query addProductHistory {
+  description: "Get Added Products History"
+  statement:
+      SELECT org.hyperledger.composer.system.AddAsset
+  		WHERE (targetRegistry == 'resource:org.hyperledger.composer.system.AssetRegistry#org.eyes.znueni.Product')
+}
+
+query updateProductHistory {
+  description: "Get updated Products History"
+  statement:
+      SELECT org.hyperledger.composer.system.UpdateAsset
+  		WHERE (targetRegistry == 'resource:org.hyperledger.composer.system.AssetRegistry#org.eyes.znueni.Product')
+}
+
+query deleteProductHistory {
+  description: "Get deleted Products History"
+  statement:
+      SELECT org.hyperledger.composer.system.RemoveAsset
+  		WHERE (targetRegistry == 'resource:org.hyperledger.composer.system.AssetRegistry#org.eyes.znueni.Product')
+}ä

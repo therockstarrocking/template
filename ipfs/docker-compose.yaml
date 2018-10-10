@@ -1,0 +1,25 @@
+version: '3'
+services: 
+  ipfs1:
+    image: jbenet/go-ipfs:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8082:8080"
+      - "4002:4001"
+      - "5002:5001"
+    volumes:
+      - ./ipfs-docker-staging:/export
+      - ./ipfs-docker-data:/data/ipfs
+    command: ""
+    hostname: ipfs1
+    networks:
+      lkj:
+        aliases:
+          - ipfs1
+networks:
+  lkj:
+    external:
+      name: lkj
