@@ -1,0 +1,12 @@
+./fabric-network-temp.sh -m build -e lkj -s hgf -b couchdb
+./fabric-network-temp.sh -m addorg -e lkj -s hgf -b couchdb -o XyzHospitals
+./fabric-network-temp.sh -m upgradechaincode -e lkj -s hgf -b couchdb -n mycc -v 3.0
+
+
+./composer.sh -m build -e lkj -s hgf 
+
+composer-network
+0.0.2
+alice 
+bob
+ 

@@ -1,0 +1,27 @@
+{
+    "$class": "obr.AddOBR",
+    "Hl7obrFormat": {
+        "$class": "obr.HL7251_OBR",
+        "MSH_OBR":"456",
+        "MSHKEY": "20180726114830-SYNGO-LEX-201604010",
+        "PlacerOrderNumberEntityIdentifier": "F",
+        "FillerOrderNumberEntityIdentifier": "31994029",
+        "UniversalServiceIDIdentifier": "3171250",
+        "UniversalServiceIDText": "CT CHEST WO CONTRAST",
+        "UniversalServiceIDAlternateIdentifier": "71250",
+        "UniversalServiceIDAlternateCodingSystem": "CPT",
+        "ObservationStartDTDTTime": "201603312316",
+        "OBROrderingProvider": {
+            "$class": "obr.OBROrderingProvider",
+            "OrderingProviderIDNumber": "80632",
+            "OrderingProviderFamilyName": "LARRY FRIEDMAN"
+        },
+        "FillerField1": "EMR",
+        "OBRReasonforStudy": {
+            "$class": "obr.OBRReasonforStudy",
+            "ReasonForStudyIdentifier": "pleural effusion"
+        },
+        "PrincipalResultInterpreterIDNumber": "03693",
+        "PrincipalResultInterpreterName": "GAGARINI T T ESPINO"
+    }
+}

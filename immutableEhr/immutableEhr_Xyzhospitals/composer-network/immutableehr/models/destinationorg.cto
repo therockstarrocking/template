@@ -1,0 +1,17 @@
+namespace Destinationorg
+
+
+
+asset Destorg identified by DestKey {
+  
+  o String DestKey 
+  o String MSHKEY
+  o String  desOrganizationID  //] [bigint] IDENTITY(1,1) NOT NULL,
+
+}
+
+
+transaction Adddestorg {
+ o String  desOrganizationID
+ o String MSHKEY
+}

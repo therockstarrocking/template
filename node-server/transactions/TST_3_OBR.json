@@ -1,0 +1,27 @@
+{
+    "$class": "obr.AddOBR",
+    "Hl7obrFormat": {
+        "$class": "obr.HL7251_OBR",
+        "MSHKEY": "20180726115056-SYNGO-LEX-2016049283746098754",
+        "MSH_OBR":"fghjkml,",
+        "PlacerOrderNumberEntityIdentifier": "F",
+        "FillerOrderNumberEntityIdentifier": "31994032",
+        "UniversalServiceIDIdentifier": "3172131",
+        "UniversalServiceIDText": "CT LUMBAR SPINE WO CONTRAST",
+        "UniversalServiceIDAlternateIdentifier": "72131",
+        "UniversalServiceIDAlternateCodingSystem": "CPT",
+        "ObservationStartDTDTTime": "201603312258",
+        "OBROrderingProvider": {
+            "$class": "obr.OBROrderingProvider",
+            "OrderingProviderIDNumber": "80632",
+            "OrderingProviderFamilyName": "LARRY FRIEDMAN"
+        },
+        "FillerField1": "EMR",
+        "OBRReasonforStudy": {
+            "$class": "obr.OBRReasonforStudy",
+            "ReasonForStudyIdentifier": "pain / fall"
+        },
+        "PrincipalResultInterpreterIDNumber": "05481",
+        "PrincipalResultInterpreterName": "JARED STEINKLEIN"
+    }
+}

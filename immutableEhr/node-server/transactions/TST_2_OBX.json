@@ -1,0 +1,14 @@
+{
+    "$class": "obx.AddOBX",
+    "Hl7obxFormat": {
+        "$class": "obx.HL7251_OBX",
+        "MSHKEY": "20180726114830-SYNGO-LEX-201604010",
+        "MSH_OBX": "45678912",
+        "ObservationIdentifier": "F",
+        "OBXObservationValue": "undefined EXAM:  CT CHEST WO CONTRAST  PROCEDURE DATE:  03/31/2016  INTERPRETATION:  CT OF THE CHEST without contrast dated 3/31/2016 11:16 PM INDICATION: Pleural effusion. Patient complains of left chest pain for 3  days. TECHNIQUE: CT of the chest was performed without intravenous contrast.   Intravenous contrast was not used , as requested. Axial and coronal  images were produced and reviewed. PRIOR STUDIES: None. FINDINGS:  The heart is normal in size.  Trace pericardial effusion or mild  pericardial thickening is seen.   Evaluation of the vasculature is limited without intravenous contrast,  but there is no evidence of thoracic aortic aneurysm.   Evaluation for adenopathy is limited without intravenous contrast. Within  that limitation, no mediastinal or hilar lymphadenopathy is seen. Small to moderate left pleural effusion. There is left lower lobe passive  atelectasis/consolidation. There may be a left infrahilar mass between  the left lower lobe bronchus and the descending thoracic aorta, but this  cannot be determined with certainty due to lack of IV contrast. Small  consolidation in the inferior segment of the lingula also seen. A few  scattered  calcified granulomas are seen in both lungs. Noncalcified 4 mm  right lower lobe pulmonary nodule. Linear and subsegmental atelectasis in  the right lower lobe. Small groundglass and patchy dependent  consolidation in the left upper lobe next to the major fissure. Limited evaluation of the upper abdomen demonstrates numerous  subcentimeter hypodense lesions throughout the liver. Thickened left  adrenal gland. Evaluation of the osseous structures demonstrates degenerative changes.  Old fracture of the right ninth lateral rib. IMPRESSION: Small to moderate left pleural effusion. Left lower lobe  passive atelectasis/consolidation which could represent a combination of  atelectasis and pneumonia. A left lower lobe mass between the descending  thoracic aorta and the left lower lobe bronchus cannot be excluded. A  chest CT with IV contrast is recommended. Areas of mild atelectasis bilaterally. Calcified pulmonary granulomas consistent with old granulomatous disease.   \"Thank you for the opportunity to participate in the care of this  patient.\"     GAGARINI T ESPINO M.D., ATTENDING RADIOLOGIST This document has been electronically signed. Apr  1 2016 12:20A ",
+        "OBXResponsibleObserver": {
+            "$class": "obx.OBXResponsibleObserver",
+            "ResponsibleObserverIDNumber": "03693"
+        }
+    }
+}

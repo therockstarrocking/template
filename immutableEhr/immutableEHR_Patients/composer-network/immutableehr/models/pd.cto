@@ -1,0 +1,183 @@
+namespace pd
+
+
+
+asset HL7251_PD identified by  MSH_PD{
+o String MSH_PD
+o String PDKEY  optional ///[bigint] IDENTITY(1,1) NOT NULL,
+o String MSHKEY   // [bigint] NULL,
+o DateTime CreatedDate  optional// ] [datetime] NULL,
+o DateTime LastUpdateDate  optional//] [datetime] NULL,
+o String UpdatedByUsername  optional   // (100) NULL,
+o String LivingArrangement  optional   // (2) NULL,
+o String StudentIndicator  optional   // (2) NULL,
+o String Handicap  optional   // (2) NULL,
+o String LivingWill  optional   // (2) NULL,
+o String OrganDonor  optional   // (2) NULL,
+o String SeparateBill  optional   // (1) NULL,
+o String PublicityCodeIdentifier  optional   // (20) NULL,
+o String PublicityCodeText  optional   // (199) NULL,
+o String PublicityCodeNameOfCodingSystem  optional   // (20) NULL,
+o String PublicityCodeAlternateIdentifier  optional   // (20) NULL,
+o String PublicityCodeAlternateText  optional   // (199) NULL,
+o String PublicityCodeNameOfAlternateCodingSystem  optional   // (20) NULL,
+o String PublicityCodeProtectionIndicator  optional   // (1) NULL,
+o String ProtectionIndicatorEffectiveTime  optional   // (30) NULL,
+o String ProtectionIndicatorEffectiveYear  optional   // (4) NULL,
+o String ProtectionIndicatorEffectiveMonth  optional   // (2) NULL,
+o String ProtectionIndicatorEffectiveDay  optional   // (2) NULL,
+o String ImmunizationRegistryStatus  optional   // (1) NULL,
+o String ImmunizationRegistryStatusEffectiveTIme  optional   // (30) NULL,
+o String ImmunizationRegistryStatusEffectiveYear  optional   // (4) NULL,
+o String ImmunizationRegistryStatusEffectiveMonth  optional   // (2) NULL,
+o String ImmunizationRegistryStatusEffectiveDay  optional   // (2) NULL,
+o String PublicityCodeEffectiveTime  optional   // (30) NULL,
+o String PublicityCodeEffectiveYear  optional   // (4) NULL,
+o String PublicityCodeEffectiveMonth  optional   // (2) NULL,
+o String PublicityCodeEffectiveDay  optional   // (2) NULL,
+o String MilitaryBranch  optional   // (5) NULL,
+o String MilitaryRankGrade  optional   // (2) NULL,
+o String MilitaryStatus  optional   // (1) NULL,
+o String PatientPrimaryCareProviderNameAndIDNoFamilyName  optional   // (90) NULL
+o PD1AdvanceDirectiveCode PD1AdvanceDirectiveCode optional
+o PD1DuplicatePatient PD1DuplicatePatient optional
+o PD1LivingDependency PD1LivingDependency optional
+o PD1PatientPrimaryCareProvider PD1PatientPrimaryCareProvider optional
+o PD1PatientPrimaryFacility PD1PatientPrimaryFacility optional
+o PD1PlaceOfWorship PD1PlaceOfWorship optional
+o PD1ProtectionIndicator PD1ProtectionIndicator optional
+}
+
+
+
+concept PD1AdvanceDirectiveCode {
+o String AdvanceDirectiveIdentifier  optional   // (20) NULL,
+o String AdvanceDirectiveText  optional   // (199) NULL,
+o String AdvanceDirectiveNameOfCodingSystem  optional   // (20) NULL,
+o String AdvanceDirectiveAlternateIdentifier  optional   // (20) NULL,
+o String AdvanceDirectiveAlternateText  optional   // (199) NULL,
+o String AdvanceDirectiveNameOfAlternateCodingSystem  optional   // (20) NULL,
+
+}
+
+
+concept PD1DuplicatePatient {
+o String DuplicatePatientIDNumber  optional   // (15) NULL,
+o String DuplicatePatientCheckDigit  optional   // (1) NULL,
+o String DuplicatePatientCheckDigitScheme  optional   // (3) NULL,
+o String DuplicatePatientAANamespaceID  optional   // (20) NULL,
+o String DuplicatePatientAAUniversalID  optional   // (199) NULL,
+o String DuplicatePatientAAUniversalIDType  optional   // (6) NULL,
+o String DuplicatePatientIdentifierTypeCode  optional   // (5) NULL,
+o String DuplicatePatientAFNamespaceID  optional   // (20) NULL,
+o String DuplicatePatientAFUniversalID  optional   // (199) NULL,
+o String DuplicatePatientAFUniversalIDType  optional   // (6) NULL,
+o String DuplicatePatientEffectiveTime  optional   // (30) NULL,
+o String DuplicatePatientEffectiveYear  optional   // (4) NULL,
+o String DuplicatePatientEffectiveMonth  optional   // (2) NULL,
+o String DuplicatePatientEffectiveDay  optional   // (2) NULL,
+o String DuplicatePatientExpirationTime  optional   // (30) NULL,
+o String DuplicatePatientExpirationYear  optional   // (4) NULL,
+o String DuplicatePatientExpirationMonth  optional   // (2) NULL,
+o String DuplicatePatientExpirationDay  optional   // (2) NULL,
+o String DuplicatePatientAssigningJurisdictionIdentifier  optional   // (20) NULL,
+o String DuplicatePatientAssigningJurisdictionText  optional   // (199) NULL,
+o String DuplicatePatientAssigningJurisdictionNameOfCodingSystem  optional   // (20) NULL,
+o String DuplicatePatientAssigningJurisdictionAlternateIdentifier  optional   // (20) NULL,
+o String DuplicatePatientAssigningJurisdictionAlternateText  optional   // (199) NULL,
+o String DuplicatePatientAssigningJurisdictionNameOfAlternateCodingSystem  optional   // (20) NULL,
+o String DuplicatePatientAssigningJurisdictionCodingSystemVersionID  optional   // (10) NULL,
+o String DuplicatePatientAssigningJurisdictionAlternateCodingSystemVersionID  optional   // (10) o String ULL,
+o String DuplicatePatientAssigningJurisdictionOriginalText  optional   // (199) NULL,
+o String DuplicatePatientAssigningAgencyorDepartmentIdentifier  optional   // (20) NULL,
+o String DuplicatePatientAssigningAgencyorDepartmentText  optional   // (199) NULL,
+
+}
+
+
+concept PD1LivingDependency{
+ o String LivingDependency  optional   // (2) NULL,
+}
+
+
+concept PD1PatientPrimaryCareProvider {
+o String PrimaryCareProviderIDNumber  optional   // (15) NULL,
+o String PrimaryCareProviderFamilyNameSurname  optional   // (50) NULL,
+o String PrimaryCareProviderFamilyNameSurnamePrefix  optional   // (20) NULL,
+o String PrimaryCareProviderFamilyNameSurnamePrefixFromPartner  optional   // (20) NULL,
+o String PrimaryCareProviderFamilyNameSurnameFromPartner  optional   // (50) NULL,
+o String PrimaryCareProviderGivenName  optional   // (30) NULL,
+o String PrimaryCareProviderMiddleInitialOrName  optional   // (30) NULL,
+o String PrimaryCareProviderSuffix  optional   // (20) NULL,
+o String PrimaryCareProviderPrefix  optional   // (20) NULL,
+o String PrimaryCareProviderDegree  optional   // (5) NULL,
+o String PrimaryCareProviderSourceTable  optional   // (4) NULL,
+o String PrimaryCareProviderAANamespaceID  optional   // (20) NULL,
+o String PrimaryCareProviderAAUniversalID  optional   // (199) NULL,
+o String PrimaryCareProviderAAUniversalIDType  optional   // (6) NULL,
+o String PrimaryCareProviderNameTypeCode  optional   // (1) NULL,
+o String PrimaryCareProviderIdentifierCheckDigit  optional   // (1) NULL,
+o String PrimaryCareProviderCheckDigitScheme  optional   // (3) NULL,
+o String PrimaryCareProviderIdentifierTypeCode  optional   // (5) NULL,
+o String PrimaryCareProviderAFNamespaceID  optional   // (20) NULL,
+o String PrimaryCareProviderAFUniversalID  optional   // (199) NULL,
+o String PrimaryCareProviderAFUniversalIDType  optional   // (6) NULL,
+o String PrimaryCareProviderNameRepresentationCode  optional   // (1) NULL,
+o String PrimaryCareProviderNameContextIdentifier  optional   // (20) NULL,
+o String PrimaryCareProviderNameContextText  optional   // (199) NULL,
+o String PrimaryCareProviderNameContextNameOfCodingSystem  optional   // (20) NULL,
+o String PrimaryCareProviderNameContextAlternateIdentifier  optional   // (20) NULL,
+o String PrimaryCareProviderNameContextAlternateText  optional   // (199) NULL,
+o String PrimaryCareProviderNameContextNameOfAlternateCodingSystem  optional   // (20) NULL,
+o String PrimaryCareProviderValidityStartRangeTime  optional   // (30) NULL,
+o String PrimaryCareProviderValidityStartRangeYear  optional   // (4) NULL,
+}
+
+
+concept PD1PatientPrimaryFacility {
+o String PrimaryFacilityOrganizationName  optional   // (50) NULL,
+o String PrimaryFacilityOrganizationNameTypeCode  optional   // (20) NULL,
+o Integer PrimaryFacilityIDNumber optional //] [int] NULL,
+o Integer PrimaryFacilityCheckDigit   optional  // ] [int] NULL,
+o String PrimaryFacilityCheckDigitScheme  optional   // (3) NULL,
+o String PrimaryFacilityAANamespaceID  optional   // (20) NULL,
+o String PrimaryFacilityAAUniversalID  optional   // (199) NULL,
+o String PrimaryFacilityAAUniversalIDType  optional   // (6) NULL,
+o String PrimaryFacilityIdentifierTypeCode  optional   // (5) NULL,
+o String PrimaryFacilityAFNamespaceID  optional   // (20) NULL,
+o String PrimaryFacilityAFUniversalID  optional   // (199) NULL,
+o String PrimaryFacilityAFUniversalIDType  optional   // (6) NULL,
+o String PrimaryFacilityNameRepresentationCode  optional   // (1) NULL,
+o String PrimaryFacilityOrganizationIdentifier  optional   // (20) NULL,
+}
+
+
+concept PD1PlaceOfWorship {
+
+o String WorshipOrganizationName  optional   // (50) NULL,
+o String WorshipOrganizationNameTypeCode  optional   // (20) NULL,
+o Integer WorshipIDNumber  optional//] [int] NULL,
+o Integer WorshipCheckDigit optional//] [int] NULL,
+o String WorshipCheckDigitScheme  optional   // (3) NULL,
+o String WorshipAANamespaceID  optional   // (20) NULL,
+o String WorshipAAUniversalID  optional   // (199) NULL,
+o String WorshipAAUniversalIDType  optional   // (6) NULL,
+o String IdentifierTypeCode  optional   // (5) NULL,
+o String WorshipAFNamespaceID  optional   // (20) NULL,
+o String WorshipAFUniversalID  optional   // (199) NULL,
+o String WorshipAFUniversalIDType  optional   // (6) NULL,
+o String WorshipNameRepresentationCode  optional   // (1) NULL,
+o String WorshipOrganizationIdentifier  optional   // (20) NULL
+}
+
+
+
+concept PD1ProtectionIndicator {
+o String PublicityCodeProtectionIndicator  optional   // (1) NULL,
+}
+
+
+transaction  AddPD{
+  o HL7251_PD Hl7PdFormat
+}
+

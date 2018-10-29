@@ -1,0 +1,27 @@
+{
+    "$class": "obr.AddOBR",
+    "Hl7obrFormat": {
+        "$class": "obr.HL7251_OBR",
+        "MSHKEY": "20180726114130-SYNGO-LEX-2987236645r642598765487",
+        "MSH_OBR": "8186",
+        "PlacerOrderNumberEntityIdentifier": "F",
+        "FillerOrderNumberEntityIdentifier": "31993610",
+        "UniversalServiceIDIdentifier": "3180700",
+        "UniversalServiceIDText": "CT ANGIO ABDO - PELV WO - W CON",
+        "UniversalServiceIDAlternateIdentifier": "74174",
+        "UniversalServiceIDAlternateCodingSystem": "CPT",
+        "ObservationStartDTDTTime": "201603312125",
+        "OBROrderingProvider": {
+            "$class": "obr.OBROrderingProvider",
+            "OrderingProviderIDNumber": "04993",
+            "OrderingProviderFamilyName": "TRACY CATLIN"
+        },
+        "FillerField1": "SUR",
+        "OBRReasonforStudy": {
+            "$class": "obr.OBRReasonforStudy",
+            "ReasonForStudyIdentifier": "Left abd wall hematoma, eval for active bleed"
+        },
+        "PrincipalResultInterpreterIDNumber": "03693",
+        "PrincipalResultInterpreterName": "GAGARINI T T ESPINO"
+    }
+}

@@ -1,2 +1,36 @@
-hi
+1 -> ./fabric-network-temp.sh -m build -e lk -s jh -b couchdb -k kafka
+1 -> ./fabric-network-temp.sh -m addorg -e lk -s jh -b couchdb -k kafka -o XyzHospitals
+2 -> ./neworg.sh -m build -e lk -s jh -b couchdb
+2 -> ./neworg.sh -m join -e lk -s jh -n mycc -v 1.0
+3 -> ./composer-network.sh -m build -e lk -s jh 
 
+    immutableehr
+    0.1.28
+    alice
+    bob
+
+4 -> ./composer-network.sh -m build -e lk -s jh
+
+    immutableehr
+    0.1.28
+    bob
+    alice
+
+3 -> create bob directory in cards folder
+3 -> copy admin-pub.key from bob folder in xyzHospitals cards folder
+
+3 -> ./composer-network.sh -m start -e lk -s jh 
+    immutableehr
+    0.1.28
+    alice
+    bob
+
+3 -> ./composer-network.sh -m addAdminParticipant -e lk -s jh 
+    immutableehr
+    alice
+4 -> ./composer-network.sh -m addAdminParticipant -e lk -s jh 
+    immutableehr
+    bob
+
+
+    Execute explorer  in 5

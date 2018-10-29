@@ -1,0 +1,77 @@
+
+{
+    "network-config": {
+     "org1": {
+      "name": "Patients",
+      "mspid": "PatientsMSP",
+      "peer1": {
+       "requests": "grpcs://192.168.1.158:7051",
+       "events": "grpcs://192.168.1.158:7053",
+       "server-hostname": "peer0.Patients.example.com",
+       "tls_cacerts": "/home/composer/immutableEhr/immutableEHR_Patients/channel-artifacts/crypto-config/peerOrganizations/Patients.example.com/peers/peer0.Patients.example.com/tls/ca.crt" 
+      },
+      "peer2":{
+        "requests": "grpcs://192.168.1.158:8051",
+       "events": "grpcs://192.168.1.158:8053",
+       "server-hostname": "peer1.Patients.example.com",
+       "tls_cacerts":"/home/composer/immutableEhr/immutableEHR_Patients/channel-artifacts/crypto-config/peerOrganizations/Patients.example.com/peers/peer1.Patients.example.com/tls/ca.crt"
+      }, 
+      "admin": {
+       "key": "/home/composer/immutableEhr/immutableEHR_Patients/channel-artifacts/crypto-config/peerOrganizations/Patients.example.com/users/Admin@Patients.example.com/msp/keystore",
+       "cert": "/home/composer/immutableEhr/immutableEHR_Patients/channel-artifacts/crypto-config/peerOrganizations/Patients.example.com/users/Admin@Patients.example.com/msp/signcerts"
+      }
+     },
+     "org2": {
+      "name": "XyzHospitals",
+      "mspid": "XyzHospitalsMSP",
+      "peer1": {
+       "requests": "grpcs://192.168.1.158:9051",
+       "events": "grpcs://192.168.1.158:9053",
+       "server-hostname": "peer0.XyzHospitals.example.com",
+       "tls_cacerts":"/home/composer/immutableEhr/immutableEhr_Xyzhospitals/channel-artifacts/crypto-config/peerOrganizations/XyzHospitals.example.com/peers/peer0.XyzHospitals.example.com/tls/ca.crt"
+      }, 
+      "admin": {
+       "key": "/home/composer/immutableEhr/immutableEhr_Xyzhospitals/channel-artifacts/crypto-config/peerOrganizations/XyzHospitals.example.com/users/Admin@XyzHospitals.example.com/msp/keystore",
+       "cert": "/home/composer/immutableEhr/immutableEhr_Xyzhospitals/channel-artifacts/crypto-config/peerOrganizations/XyzHospitals.example.com/users/Admin@XyzHospitals.example.com/msp/signcerts"
+      }
+     }
+    },
+  
+    "pg": {
+      "host": "127.0.0.1",
+      "port": "5432",    
+      "database": "fabricexplorer",    
+      "username": "hppoc",    
+      "passwd": "password" 
+    },
+   
+    "channel": "immutableehr",
+    "orderers": [
+      {
+     "mspid": "OrdererMSP",
+     "server-hostname": "orderer0.example.com",
+     "requests": "grpcs://192.168.1.158:7050",
+     "tls_cacerts":"/home/composer/immutableEhr/immutableEHR_Patients/channel-artifacts/crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/tls/ca.crt"
+    },
+    {
+      "mspid": "OrdererMSP",
+      "server-hostname": "orderer1.example.com",
+      "requests": "grpcs://192.168.1.158:8050",
+      "tls_cacerts":"/home/composer/immutableEhr/immutableEHR_Patients/channel-artifacts/crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/ca.crt"
+     },
+     {
+      "mspid": "OrdererMSP",
+      "server-hostname": "orderer2.example.com",
+      "requests": "grpcs://192.168.1.158:9050",
+      "tls_cacerts":"/home/composer/immutableEhr/immutableEHR_Patients/channel-artifacts/crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/ca.crt"
+     }
+  ],
+   
+    "keyValueStore": "/tmp/fabric-client-kvs",
+    "configtxgenToolPath": "/home/composer/immutableEhr/bin",
+    "SYNC_START_DATE_FORMAT": "2018/06/02",
+    "syncStartDate": "2018/01/01",
+    "eventWaitTime": 30000,
+    "license": "Apache-2.0",
+    "version": 1.0
+   }

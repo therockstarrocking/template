@@ -1,3 +1,0 @@
-# samplenet
-
-asdf

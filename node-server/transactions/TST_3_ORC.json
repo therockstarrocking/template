@@ -1,0 +1,9 @@
+{
+    "$class": "orc.AddORC",
+    "Hl7orcformat": {
+        "$class": "orc.HL7251_ORC",
+        "MSHKEY": "20180726115056-SYNGO-LEX-2016049283746098754",
+"MSH_ORC":"4556",
+        "FillerOrderNumberEntityIdentifier": "31994032"
+    }
+}

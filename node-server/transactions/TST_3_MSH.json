@@ -1,0 +1,17 @@
+{
+    "$class": "iehr.AddMSH",
+    "Hl7MshFormat": {
+        "$class": "iehr.HL7251_MSH",
+        "MSHKEY": "20180726115056-SYNGO-LEX-2016049283746098754",
+        "SendingApplicationNamespaceID": "SYNGO",
+        "SendingFacilityNamespaceID": "LEX",
+        "ReceivingApplicationNamespaceID": "PROFEE_BILLING",
+        "ReceivingFacilityNamespaceID": "PRD",
+        "MessageTime": "201808280021",
+        "MessageType": "ORU",
+        "TriggerEvent": "R01",
+        "MessageControlID": "2016040100212700827646",
+        "ProcessingID": "P",
+        "VersionID": "2.4"
+    }
+}

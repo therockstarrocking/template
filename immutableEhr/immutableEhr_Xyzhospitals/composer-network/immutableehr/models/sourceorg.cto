@@ -1,0 +1,14 @@
+namespace sourceorg
+
+asset Sourceorg identified by SourceKey {
+  
+  o String SourceKey 
+  o String MSHKEY 
+  o String  sourOrganizationID  
+}
+
+
+transaction Addsourceorg {
+  o String MSHKEY
+  o String sourOrganizationID
+}

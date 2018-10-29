@@ -1,0 +1,14 @@
+{
+    "$class": "pv.AddPV1",
+    "Hl7Pv1Format": {
+        "$class": "pv.HL725PV1",
+        "MSHKEY": "20180726114830-SYNGO-LEX-201604010",
+        "MSH_PV1":"fghj",
+        "PatientClass": "E",
+        "PV1AttendingDoctor": {
+            "$class": "pv.PV1AttendingDoctor",
+            "AttendingDoctorIDNumber": "000000",
+            "AttendingDoctorFamilySurname": "DOCTOR UNASSIGNED"
+        }
+    }
+}

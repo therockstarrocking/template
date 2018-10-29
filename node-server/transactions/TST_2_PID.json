@@ -1,0 +1,19 @@
+{
+    "$class": "pid.AddPID",
+    "Hl7PidFormat": {
+        "$class": "pid.HL7251_PID",
+        "MSHKEY": "20180726114830-SYNGO-LEX-1928376760985434578654",
+        "MSH_PID":"dfghj",
+        "SetID": "1",
+        "PIDPatientId": {
+            "PatientListIDNumber": "5062594"
+        },
+        "PIDPatientName": {
+            "PatientFamilySurname": "BEJOLAN",
+            "PatientGivenName": "LINDA"
+        },
+        "PIDDateTimeOfBirth": "195405180000",
+        "PIDGender": "F",
+        "PatientAccountNumber": "102787347"
+    }
+}

@@ -1,0 +1,32 @@
+2018-09-25T13:38:42.666Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: chaincode error (status: 500, message: cannot get package for chaincode (composer-network:0.2.8))
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T13:38:42.674Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: chaincode error (status: 500, message: cannot get package for chaincode (composer-network:0.2.8))
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T13:38:42.796Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: chaincode error (status: 500, message: cannot get package for chaincode (composer-network:0.2.8))
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T13:48:02.313Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (composer-network:0.0.2) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T13:52:19.025Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (composer-network:0.0.2) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T13:52:19.191Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (composer-network:0.0.2) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T13:52:19.283Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (composer-network:0.0.2) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T14:03:39.558Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (composer-network:0.0.2) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T14:03:49.354Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: premature execution - chaincode (composer-network:0.0.2) is being launched
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T14:09:36.653Z ERROR   :HLFConnection            :start()                   {"message":"Failed to receive commit notification from 192.168.1.158:7051 for transaction 'a305a92900be1648553d60384c213e68c07f24ed769ad211329d0ef9c7d782e9' within the timeout period","stack":"Error: Failed to receive commit notification from 192.168.1.158:7051 for transaction 'a305a92900be1648553d60384c213e68c07f24ed769ad211329d0ef9c7d782e9' within the timeout period\n    at Timeout.setTimeout [as _onTimeout] (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlftxeventhandler.js:60:32)\n    at ontimeout (timers.js:482:11)\n    at tryOnTimeout (timers.js:317:5)\n    at Timer.listOnTimeout (timers.js:277:5)"}$
+2018-09-25T14:11:18.182Z ERROR   :HLFConnectionManager     :fabric-client()           [client-utils.js]: sendPeersProposal - Promise is rejected: Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier 'ebed6ea25449078ce9043c8b3ec77fedc1c9c30294301a2ee89357edf875b721', must be activated (ACTIVATION_REQUIRED)
+    at new createStatusError (/usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:64:15)
+    at /usr/local/lib/node_modules/composer-cli/node_modules/grpc/src/client.js:583:15 {}$
+2018-09-25T14:11:18.185Z ERROR   :HLFConnection            :ping()                    {"message":"Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier 'ebed6ea25449078ce9043c8b3ec77fedc1c9c30294301a2ee89357edf875b721', must be activated (ACTIVATION_REQUIRED)","stack":"Error: Error trying to ping. Error: 2 UNKNOWN: error executing chaincode: transaction returned with failure: Error: The current identity, with the name 'admin' and the identifier 'ebed6ea25449078ce9043c8b3ec77fedc1c9c30294301a2ee89357edf875b721', must be activated (ACTIVATION_REQUIRED)\n    at _checkRuntimeVersions.then.catch (/usr/local/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34)\n    at <anonymous>"}$

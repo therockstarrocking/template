@@ -1,0 +1,19 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# ---------------------------------------------------------------------------
+# "PeerOrgs" - Definition of organizations managing peer nodes
+# ---------------------------------------------------------------------------
+PeerOrgs:
+  # ---------------------------------------------------------------------------
+  # DOMAIN
+  # ---------------------------------------------------------------------------
+  - Name: DOMAIN
+    Domain: DOMAIN.example.com
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+    Users:
+      Count: 1
